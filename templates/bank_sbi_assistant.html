@@ -1,0 +1,1207 @@
+{% extends "base.html" %}
+
+{% block title %}SBI Clerk Mock Tests{% endblock %}
+
+{% block page_class %}page-sbi-clerk{% endblock %}
+
+{% block content %}
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background:
+        linear-gradient(135deg, #eef8ff, #f1fff7, #fffdf0);
+}
+
+.sbi-clerk-page {
+    max-width: 1250px;
+    margin: auto;
+    padding: 25px 18px 50px;
+}
+
+/* ================================
+   HERO
+================================ */
+
+.sbi-hero {
+    background:
+        linear-gradient(135deg, #0066a1, #008f5a, #00a86b);
+    color: white;
+    border-radius: 26px;
+    padding: 38px 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 14px 35px rgba(0,80,120,.18);
+}
+
+.sbi-badge {
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.35);
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.sbi-hero h1 {
+    margin: 0 0 10px;
+    font-size: 35px;
+}
+
+.sbi-hero p {
+    margin: 7px 0;
+    line-height: 1.6;
+}
+
+/* ================================
+   STATS
+================================ */
+
+.sbi-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.sbi-stat {
+    background: white;
+    border-radius: 20px;
+    padding: 21px 15px;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(0,0,0,.08);
+}
+
+.sbi-stat-icon {
+    font-size: 30px;
+}
+
+.sbi-stat h3 {
+    margin: 7px 0 4px;
+    color: #0066a1;
+}
+
+.sbi-stat p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+/* ================================
+   SECTION
+================================ */
+
+.sbi-section {
+    margin-bottom: 30px;
+}
+
+.sbi-heading {
+    background:
+        linear-gradient(90deg, #0066a1, #008f5a);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+}
+
+.sbi-heading h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* ================================
+   EXAM STAGE
+================================ */
+
+.sbi-stage {
+    background: white;
+    border-radius: 21px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 23px rgba(0,0,0,.08);
+}
+
+.sbi-stage h3 {
+    margin: 0 0 16px;
+    color: #0066a1;
+}
+
+.sbi-stage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.sbi-stage-item {
+    background: #f0f8ff;
+    border-radius: 13px;
+    padding: 15px;
+}
+
+.sbi-stage-item strong {
+    display: block;
+    color: #0066a1;
+    margin-bottom: 6px;
+}
+
+.sbi-stage-item span {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* ================================
+   CARDS
+================================ */
+
+.sbi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+}
+
+.sbi-card {
+    background: white;
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 8px 22px rgba(0,0,0,.08);
+    border-top: 5px solid #008f5a;
+    transition: .2s;
+}
+
+.sbi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 13px 28px rgba(0,0,0,.13);
+}
+
+.sbi-card h3 {
+    margin: 0 0 9px;
+    color: #0066a1;
+}
+
+.sbi-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.sbi-card a {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    background: #008f5a;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.sbi-card a:hover {
+    background: #006f46;
+}
+
+/* ================================
+   SBI SPECIAL SECTION
+================================ */
+
+.sbi-special {
+    background:
+        linear-gradient(135deg, #e9f6ff, #e9fff3);
+    border-radius: 23px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.sbi-special h2 {
+    margin-top: 0;
+    color: #0066a1;
+}
+
+.sbi-special-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+}
+
+.sbi-special-item {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    color: #37474f;
+    font-weight: bold;
+}
+
+.sbi-special-item span {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #777;
+    font-weight: normal;
+}
+
+/* ================================
+   MOCK TESTS
+================================ */
+
+.sbi-tests {
+    background:
+        linear-gradient(135deg, #ffffff, #effaff);
+    border-radius: 23px;
+    padding: 25px;
+    box-shadow: 0 9px 26px rgba(0,0,0,.08);
+}
+
+.sbi-test {
+    background: white;
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 14px;
+    border: 1px solid #d8eaf2;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.sbi-test-info h3 {
+    margin: 0 0 7px;
+    color: #0066a1;
+}
+
+.sbi-test-info p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.sbi-test-btn {
+    background: #008f5a;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.sbi-test-btn:hover {
+    background: #006f46;
+}
+
+.sbi-test-btn.attempted {
+    background: #607d8b;
+}
+
+/* ================================
+   NO TEST
+================================ */
+
+.sbi-no-tests {
+    text-align: center;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    color: #795548;
+    padding: 26px;
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+/* ================================
+   PREPARATION
+================================ */
+
+.sbi-preparation {
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.sbi-preparation h2 {
+    color: #0066a1;
+    margin-top: 0;
+}
+
+.sbi-prep-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+}
+
+.sbi-prep-item {
+    padding: 16px;
+    border-radius: 14px;
+    background: #f0f8ff;
+    font-weight: bold;
+    color: #37474f;
+}
+
+.sbi-prep-item a {
+    color: #0066a1;
+    text-decoration: none;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+.sbi-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #607d8b;
+    font-size: 13px;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 900px) {
+
+    .sbi-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sbi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sbi-stage-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .sbi-clerk-page {
+        padding: 15px 10px 35px;
+    }
+
+    .sbi-hero {
+        padding: 27px 20px;
+    }
+
+    .sbi-hero h1 {
+        font-size: 27px;
+    }
+
+    .sbi-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sbi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-stage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-special-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-prep-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-test {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sbi-test-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+</style>
+
+
+<div class="sbi-clerk-page">
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <div class="sbi-hero">
+
+        <div class="sbi-badge">
+            BANKING • SBI CLERICAL EXAM
+        </div>
+
+        <h1>
+            🏦 SBI Clerk
+        </h1>
+
+        <p>
+            <strong>Junior Associate (Customer Support & Sales)</strong>
+        </p>
+
+        <p>
+            Prepare for SBI Clerk with Prelims, Mains,
+            sectional practice, full mock tests,
+            banking awareness and performance tracking.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         QUICK STATS
+    ========================================== -->
+
+    <div class="sbi-stats">
+
+        <div class="sbi-stat">
+
+            <div class="sbi-stat-icon">
+                🧠
+            </div>
+
+            <h3>
+                Reasoning
+            </h3>
+
+            <p>
+                Logical ability & puzzles
+            </p>
+
+        </div>
+
+
+        <div class="sbi-stat">
+
+            <div class="sbi-stat-icon">
+                🔢
+            </div>
+
+            <h3>
+                Quant
+            </h3>
+
+            <p>
+                Numerical ability & DI
+            </p>
+
+        </div>
+
+
+        <div class="sbi-stat">
+
+            <div class="sbi-stat-icon">
+                📖
+            </div>
+
+            <h3>
+                English
+            </h3>
+
+            <p>
+                Language & comprehension
+            </p>
+
+        </div>
+
+
+        <div class="sbi-stat">
+
+            <div class="sbi-stat-icon">
+                🏦
+            </div>
+
+            <h3>
+                Banking
+            </h3>
+
+            <p>
+                GA & financial awareness
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         EXAMINATION STAGES
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                📋 SBI Clerk Examination Structure
+            </h2>
+
+        </div>
+
+
+        <!-- PRELIMS -->
+
+        <div class="sbi-stage">
+
+            <h3>
+                🟢 Preliminary Examination
+            </h3>
+
+            <div class="sbi-stage-grid">
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        English Language
+                    </strong>
+
+                    <span>
+                        Grammar, vocabulary,
+                        cloze test and comprehension.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        Numerical Ability
+                    </strong>
+
+                    <span>
+                        Simplification, arithmetic,
+                        number series and DI.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        Reasoning Ability
+                    </strong>
+
+                    <span>
+                        Puzzles, seating arrangement,
+                        syllogism and logical reasoning.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MAINS -->
+
+        <div class="sbi-stage">
+
+            <h3>
+                🔵 Main Examination
+            </h3>
+
+            <div class="sbi-stage-grid">
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        General / Financial Awareness
+                    </strong>
+
+                    <span>
+                        Current affairs, banking,
+                        economy and financial awareness.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        General English
+                    </strong>
+
+                    <span>
+                        Reading comprehension,
+                        grammar and vocabulary.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        Quantitative Aptitude
+                    </strong>
+
+                    <span>
+                        Arithmetic, DI and
+                        advanced numerical ability.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-stage-item">
+
+                    <strong>
+                        Reasoning & Computer
+                    </strong>
+
+                    <span>
+                        Reasoning ability combined
+                        with computer aptitude.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         PRELIMS PREPARATION
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                🎯 SBI Clerk Prelims Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-grid">
+
+            <div class="sbi-card">
+
+                <h3>
+                    🧠 Reasoning Ability
+                </h3>
+
+                <p>
+                    Puzzles, seating arrangement,
+                    syllogism, inequality, coding-decoding,
+                    blood relations and direction sense.
+                </p>
+
+                <a href="#">
+                    Practice Reasoning
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    🔢 Numerical Ability
+                </h3>
+
+                <p>
+                    Simplification, approximation,
+                    number series, percentage,
+                    ratio, average and arithmetic.
+                </p>
+
+                <a href="#">
+                    Practice Quant
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    📖 English Language
+                </h3>
+
+                <p>
+                    Reading comprehension, error spotting,
+                    fillers, cloze test and vocabulary.
+                </p>
+
+                <a href="#">
+                    Practice English
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MAINS PREPARATION
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                📚 SBI Clerk Mains Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-grid">
+
+            <div class="sbi-card">
+
+                <h3>
+                    🏦 Banking Awareness
+                </h3>
+
+                <p>
+                    RBI, banking terminology,
+                    monetary policy, digital banking
+                    and financial institutions.
+                </p>
+
+                <a href="#">
+                    Banking Practice
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    🌐 General Awareness
+                </h3>
+
+                <p>
+                    Current affairs, economy,
+                    government schemes and important
+                    national and international events.
+                </p>
+
+                <a href="#">
+                    GK Practice
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    📊 Data Interpretation
+                </h3>
+
+                <p>
+                    Tables, charts, graphs,
+                    caselets and miscellaneous DI.
+                </p>
+
+                <a href="#">
+                    Practice DI
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    🧠 Advanced Reasoning
+                </h3>
+
+                <p>
+                    Complex puzzles, arrangements,
+                    logical reasoning and analytical questions.
+                </p>
+
+                <a href="#">
+                    Advanced Reasoning
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    💻 Computer Aptitude
+                </h3>
+
+                <p>
+                    Computer fundamentals, internet,
+                    operating systems, networking
+                    and digital applications.
+                </p>
+
+                <a href="#">
+                    Computer Practice
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    📖 General English
+                </h3>
+
+                <p>
+                    Grammar, vocabulary, comprehension,
+                    cloze tests and sentence correction.
+                </p>
+
+                <a href="#">
+                    English Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SBI SPECIAL PREPARATION
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                ⭐ SBI Clerk Special Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-special">
+
+            <h2>
+                Build Your SBI Banking Knowledge
+            </h2>
+
+
+            <div class="sbi-special-grid">
+
+                <div class="sbi-special-item">
+
+                    🏦 SBI & Banking System
+
+                    <span>
+                        Banking structure, SBI-related awareness,
+                        RBI and important banking concepts.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-special-item">
+
+                    💳 Digital Banking
+
+                    <span>
+                        UPI, cards, internet banking,
+                        mobile banking and payment systems.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-special-item">
+
+                    💰 Financial Awareness
+
+                    <span>
+                        Financial institutions, markets,
+                        monetary policy and economic concepts.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-special-item">
+
+                    📰 Current Affairs
+
+                    <span>
+                        Banking, economy, government schemes
+                        and important current events.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MOCK TESTS
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                📝 SBI Clerk Mock Tests
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-tests">
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="sbi-test">
+
+                        <div class="sbi-test-info">
+
+                            <h3>
+                                {{ test.name }}
+                            </h3>
+
+                            <p>
+                                {{ test.questions.count }} Questions
+                            </p>
+
+                        </div>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="sbi-test-btn attempted"
+                            >
+                                Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="sbi-test-btn"
+                            >
+                                Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="sbi-no-tests">
+
+                    ⚠️ No Mock Test Uploaded
+
+                    <br><br>
+
+                    SBI Clerk mock tests will appear here
+                    after they are uploaded.
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+   <!-- =========================================
+         SPECIAL PRACTICE
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                🚀 Special Practice
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-grid">
+
+            <div class="sbi-card">
+
+                <h3>
+                    ⏱️ Speed Tests
+                </h3>
+
+                <p>
+                    Short timed tests to improve
+                    question-solving speed.
+                </p>
+
+                <a href="#">
+                    Start Speed Test
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    🎯 Accuracy Tests
+                </h3>
+
+                <p>
+                    Focused practice to reduce
+                    calculation and reasoning mistakes.
+                </p>
+
+                <a href="#">
+                    Improve Accuracy
+                </a>
+
+            </div>
+
+
+            <div class="sbi-card">
+
+                <h3>
+                    📜 Previous Year Papers
+                </h3>
+
+                <p>
+                    Practice questions based on
+                    previous SBI Clerk examinations.
+                </p>
+
+                <a href="#">
+                    View Papers
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         YOUR PREPARATION
+    ========================================== -->
+
+    <div class="sbi-section">
+
+        <div class="sbi-heading">
+
+            <h2>
+                📈 Your SBI Clerk Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-preparation">
+
+            <h2>
+                Track Your Progress
+            </h2>
+
+
+            <div class="sbi-prep-grid">
+
+                <div class="sbi-prep-item">
+
+                    📊
+                    <a href="{% url 'performance_analysis' %}">
+                        Performance Analysis
+                    </a>
+
+                </div>
+
+
+                <div class="sbi-prep-item">
+
+                    🏆
+                    <a href="#">
+                        Test Ranking
+                    </a>
+
+                </div>
+
+
+                <div class="sbi-prep-item">
+
+                    📋
+                    <a href="{% url 'previous_tests' %}">
+                        Previous Attempts
+                    </a>
+
+                </div>
+
+
+                <div class="sbi-prep-item">
+
+                    🎯
+                    <a href="#">
+                        Exam Target
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <div class="sbi-footer">
+
+        EduMind – Turn Face 2 Success
+
+        <br>
+
+        SBI Clerk / Junior Associate Preparation
+
+    </div>
+
+</div>
+
+{% endblock %}

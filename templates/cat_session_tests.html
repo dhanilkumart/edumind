@@ -1,0 +1,821 @@
+{% extends "base.html" %}
+
+{% block title %}CAT Session Tests{% endblock %}
+
+{% block page_class %}page-subject-mock-tests{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.mock-page {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px 15px 60px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.mock-header {
+    text-align: center;
+
+    padding: 42px 20px;
+
+    margin-bottom: 30px;
+
+    border-radius: 28px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #667eea 0%,
+            #764ba2 50%,
+            #11998e 100%
+        );
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.16);
+}
+
+.mock-header h1 {
+    margin: 0 0 10px;
+
+    font-size: 36px;
+
+    font-weight: 800;
+}
+
+.mock-header p {
+    margin: 0;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.test-section {
+    margin-bottom: 45px;
+}
+
+.section-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.section-heading-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.section-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #f0f3ff;
+
+    font-size: 24px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: 25px;
+
+    color: #222;
+}
+
+.section-heading p {
+    margin: 3px 0 0;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+.test-count {
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    background: #f1f3f5;
+
+    color: #555;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.mock-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(270px, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.mock-card {
+    padding: 23px;
+
+    min-height: 235px;
+
+    border-radius: 22px;
+
+    color: white;
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,0.13);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.mock-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 38px rgba(0,0,0,0.20);
+}
+
+
+/* =====================================================
+   COLOURS
+===================================================== */
+
+.mock-card:nth-child(6n+1) {
+    background:
+        linear-gradient(
+            135deg,
+            #667eea,
+            #764ba2
+        );
+}
+
+.mock-card:nth-child(6n+2) {
+    background:
+        linear-gradient(
+            135deg,
+            #11998e,
+            #38ef7d
+        );
+}
+
+.mock-card:nth-child(6n+3) {
+    background:
+        linear-gradient(
+            135deg,
+            #ff9966,
+            #ff5e62
+        );
+}
+
+.mock-card:nth-child(6n+4) {
+    background:
+        linear-gradient(
+            135deg,
+            #396afc,
+            #2948ff
+        );
+}
+
+.mock-card:nth-child(6n+5) {
+    background:
+        linear-gradient(
+            135deg,
+            #f7971e,
+            #ffd200
+        );
+}
+
+.mock-card:nth-child(6n+6) {
+    background:
+        linear-gradient(
+            135deg,
+            #8e2de2,
+            #4a00e0
+        );
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.mock-icon {
+    font-size: 34px;
+
+    margin-bottom: 7px;
+}
+
+.mock-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 20px;
+}
+
+.subject {
+    font-size: 13px;
+
+    opacity: 0.9;
+
+    margin-bottom: 17px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: inline-block;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.20);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.test-info {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 18px;
+}
+
+.info {
+    padding: 8px 10px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.18);
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.test-btn {
+    display: block;
+
+    width: 100%;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #333;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.test-disabled {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.35);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.back-area {
+    text-align: center;
+
+    margin-top: 40px;
+}
+
+.back-btn {
+    display: inline-block;
+
+    padding: 12px 25px;
+
+    border-radius: 14px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #11998e,
+            #38ef7d
+        );
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:700px) {
+
+    .mock-page {
+        padding: 15px 10px 45px;
+    }
+
+    .mock-header {
+        padding: 30px 15px;
+    }
+
+    .mock-header h1 {
+        font-size: 28px;
+    }
+
+    .mock-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .mock-card {
+        padding: 20px;
+    }
+}
+
+</style>
+
+
+<div class="mock-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <div class="mock-header">
+
+        <h1>
+            📚 CAT Session Tests
+        </h1>
+
+        <p>
+            Practice individual CAT sections
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         QA
+    ================================================= -->
+
+    {% if qa_tests %}
+
+    <div class="test-section">
+
+        <div class="section-heading">
+
+            <div class="section-heading-left">
+
+                <div class="section-icon">
+                    🔢
+                </div>
+
+                <div>
+
+                    <h2>
+                        Quantitative Aptitude
+                    </h2>
+
+                    <p>
+                        QA Session Tests
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="test-count">
+                {{ qa_tests|length }} Tests
+            </div>
+
+        </div>
+
+
+        <div class="mock-grid">
+
+            {% for mock_test in qa_tests %}
+
+            <div class="mock-card">
+
+                {% if mock_test.id in attempted_test_ids %}
+
+                    <div class="status">
+                        ✓ Attempted
+                    </div>
+
+                {% else %}
+
+                    <div class="status">
+                        ✨ New Test
+                    </div>
+
+                {% endif %}
+
+
+                <div class="mock-icon">
+                    🔢
+                </div>
+
+                <h3>
+                    {{ mock_test.name }}
+                </h3>
+
+                <div class="subject">
+                    Quantitative Aptitude
+                </div>
+
+                <div class="test-info">
+
+                    <div class="info">
+                        ❓ {{ mock_test.questions.count }} Questions
+                    </div>
+
+                    <div class="info">
+                        ⏱️ {{ mock_test.questions.count }} Minutes
+                    </div>
+
+                </div>
+
+
+                {% if mock_test.questions.count > 0 %}
+
+                    <a
+                        href="{% url 'test' mock_test.id %}"
+                        class="test-btn"
+                    >
+
+                        {% if mock_test.id in attempted_test_ids %}
+                            🔄 REATTEMPT TEST
+                        {% else %}
+                            ▶️ START TEST
+                        {% endif %}
+
+                    </a>
+
+                {% else %}
+
+                    <div class="test-disabled">
+                        🔒 AVAILABLE SOON...
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         REASONING
+    ================================================= -->
+
+    {% if reasoning_tests %}
+
+    <div class="test-section">
+
+        <div class="section-heading">
+
+            <div class="section-heading-left">
+
+                <div class="section-icon">
+                    🧠
+                </div>
+
+                <div>
+
+                    <h2>
+                        Logical Reasoning
+                    </h2>
+
+                    <p>
+                        Reasoning Session Tests
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="test-count">
+                {{ reasoning_tests|length }} Tests
+            </div>
+
+        </div>
+
+
+        <div class="mock-grid">
+
+            {% for mock_test in reasoning_tests %}
+
+            <div class="mock-card">
+
+                {% if mock_test.id in attempted_test_ids %}
+
+                    <div class="status">
+                        ✓ Attempted
+                    </div>
+
+                {% else %}
+
+                    <div class="status">
+                        ✨ New Test
+                    </div>
+
+                {% endif %}
+
+
+                <div class="mock-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    {{ mock_test.name }}
+                </h3>
+
+                <div class="subject">
+                    Logical Reasoning
+                </div>
+
+                <div class="test-info">
+
+                    <div class="info">
+                        ❓ {{ mock_test.questions.count }} Questions
+                    </div>
+
+                    <div class="info">
+                        ⏱️ {{ mock_test.questions.count }} Minutes
+                    </div>
+
+                </div>
+
+
+                {% if mock_test.questions.count > 0 %}
+
+                    <a
+                        href="{% url 'test' mock_test.id %}"
+                        class="test-btn"
+                    >
+
+                        {% if mock_test.id in attempted_test_ids %}
+                            🔄 REATTEMPT TEST
+                        {% else %}
+                            ▶️ START TEST
+                        {% endif %}
+
+                    </a>
+
+                {% else %}
+
+                    <div class="test-disabled">
+                        🔒 AVAILABLE SOON...
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         ENGLISH
+    ================================================= -->
+
+    {% if english_tests %}
+
+    <div class="test-section">
+
+        <div class="section-heading">
+
+            <div class="section-heading-left">
+
+                <div class="section-icon">
+                    📖
+                </div>
+
+                <div>
+
+                    <h2>
+                        English
+                    </h2>
+
+                    <p>
+                        English Session Tests
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="test-count">
+                {{ english_tests|length }} Tests
+            </div>
+
+        </div>
+
+
+        <div class="mock-grid">
+
+            {% for mock_test in english_tests %}
+
+            <div class="mock-card">
+
+                {% if mock_test.id in attempted_test_ids %}
+
+                    <div class="status">
+                        ✓ Attempted
+                    </div>
+
+                {% else %}
+
+                    <div class="status">
+                        ✨ New Test
+                    </div>
+
+                {% endif %}
+
+
+                <div class="mock-icon">
+                    📖
+                </div>
+
+                <h3>
+                    {{ mock_test.name }}
+                </h3>
+
+                <div class="subject">
+                    English
+                </div>
+
+                <div class="test-info">
+
+                    <div class="info">
+                        ❓ {{ mock_test.questions.count }} Questions
+                    </div>
+
+                    <div class="info">
+                        ⏱️ {{ mock_test.questions.count }} Minutes
+                    </div>
+
+                </div>
+
+
+                {% if mock_test.questions.count > 0 %}
+
+                    <a
+                        href="{% url 'test' mock_test.id %}"
+                        class="test-btn"
+                    >
+
+                        {% if mock_test.id in attempted_test_ids %}
+                            🔄 REATTEMPT TEST
+                        {% else %}
+                            ▶️ START TEST
+                        {% endif %}
+
+                    </a>
+
+                {% else %}
+
+                    <div class="test-disabled">
+                        🔒 AVAILABLE SOON...
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         BACK
+    ================================================= -->
+
+    <div class="back-area">
+
+        <a
+            href="{% url 'subject_mock_tests' subject.id %}"
+            class="back-btn"
+        >
+            ← Back to CAT Tests
+        </a>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

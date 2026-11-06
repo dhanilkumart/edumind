@@ -1,0 +1,253 @@
+﻿{% extends "base.html" %}
+
+{% block title %}RRB JE CBT 1 Mock Tests | EduMind{% endblock %}
+
+{% block content %}
+
+<style>
+.rrb-page {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+.rrb-header {
+    background: linear-gradient(135deg, #e4f8e9, #c7f0d2);
+    padding: 30px 20px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.rrb-header h1 {
+    color: #14532d;
+    font-size: 28px;
+}
+
+.rrb-header p {
+    color: #365b43;
+}
+
+.rrb-back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #166534;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.rrb-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.rrb-summary-card {
+    background: white;
+    border: 1px solid #dce9df;
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.rrb-summary-card h3 {
+    color: #166534;
+    font-size: 25px;
+    margin: 0 0 8px;
+}
+
+.rrb-test-card {
+    background: white;
+    border: 1px solid #dce5df;
+    border-radius: 15px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.04);
+}
+
+.rrb-test-card h2 {
+    color: #14532d;
+    font-size: 20px;
+}
+
+.rrb-test-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.rrb-test-info span {
+    background: #f0fdf4;
+    color: #166534;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.rrb-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.rrb-attempted {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.rrb-new {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.rrb-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.rrb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.rrb-btn {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    font-size: 14px;
+}
+
+.rrb-btn-primary {
+    background: #15803d;
+    color: white;
+}
+
+.rrb-btn-primary:hover {
+    background: #166534;
+    color: white;
+}
+
+.rrb-btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+    cursor: not-allowed;
+}
+
+@media(max-width:600px) {
+    .rrb-page { padding: 12px; }
+    .rrb-header h1 { font-size: 23px; }
+    .rrb-test-card { padding: 16px; }
+}
+</style>
+
+<div class="rrb-page">
+
+    <a href="{% url 'dashboard' %}" class="rrb-back">
+        ← Back to Dashboard
+    </a>
+
+    <div class="rrb-header">
+        <h1>RRB Junior Engineer (JE)</h1>
+        <h2>CBT 1 Mock Test Series</h2>
+        <p>Prepare for RRB JE CBT 1 with EduMind</p>
+        <p>Practice • Improve • Achieve 65+</p>
+    </div>
+
+    <div class="rrb-summary">
+
+        <div class="rrb-summary-card">
+            <h3>{{ total_tests }}</h3>
+            <p>Total Mock Tests</p>
+        </div>
+
+        <div class="rrb-summary-card">
+            <h3>{{ cbt1_tests|length }}</h3>
+            <p>Listed Tests</p>
+        </div>
+
+        <div class="rrb-summary-card">
+            <h3>{{ attempted_test_ids|length }}</h3>
+            <p>Tests Attempted</p>
+        </div>
+
+    </div>
+
+    {% for test in cbt1_tests %}
+
+        <div class="rrb-test-card">
+
+            <h2>{{ test.name }}</h2>
+
+            {% if test.is_available %}
+
+                {% if test.id in attempted_test_ids %}
+                    <span class="rrb-status rrb-attempted">
+                        Previously Attempted
+                    </span>
+                {% else %}
+                    <span class="rrb-status rrb-new">
+                        Available
+                    </span>
+                {% endif %}
+
+            {% else %}
+
+                <span class="rrb-status rrb-pending">
+                    Questions Awaited
+                </span>
+
+            {% endif %}
+
+            <div class="rrb-test-info">
+                <span>Questions: {{ test.question_count }}</span>
+                <span>Exam: RRB JE CBT 1</span>
+            </div>
+
+            <div class="rrb-actions">
+
+                {% if test.is_available %}
+
+                    <a href="{% url 'test' test.id %}"
+                       class="rrb-btn rrb-btn-primary">
+
+                        {% if test.id in attempted_test_ids %}
+                            Reattempt Test
+                        {% else %}
+                            Start Test
+                        {% endif %}
+
+                    </a>
+
+                {% else %}
+
+                    <span class="rrb-btn rrb-btn-secondary">
+                        Available Soon
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <div class="rrb-test-card">
+            <h2>No RRB JE tests found</h2>
+            <p>Please check the Railway subject and mock-test records.</p>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

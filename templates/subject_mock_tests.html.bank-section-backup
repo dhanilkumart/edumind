@@ -1,0 +1,835 @@
+{% extends "base.html" %}
+
+{% block title %}{{ subject.name }} Mock Tests{% endblock %}
+{% block page_class %}page-subject-mock-tests{% endblock %}
+
+{% block content %}
+
+<style>
+.mock-page{max-width:1250px;margin:auto;padding:25px 15px 60px}
+.mock-header{text-align:center;padding:42px 20px;margin-bottom:30px;border-radius:28px;color:white;background:linear-gradient(135deg,#667eea,#764ba2,#11998e);box-shadow:0 15px 35px rgba(0,0,0,.16)}
+.mock-header h1{margin:0 0 10px;font-size:36px;font-weight:800}
+.mock-header p{margin:0;font-size:16px}
+.exam-hub{margin-bottom:45px}
+.exam-hub-header{display:flex;align-items:center;gap:18px;padding:25px;margin-bottom:22px;border-radius:22px;color:white;box-shadow:0 12px 30px rgba(0,0,0,.14)}
+.exam-hub-icon{width:62px;height:62px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:18px;background:rgba(255,255,255,.18);font-size:34px}
+.exam-hub-header h2{margin:0 0 5px;font-size:26px}
+.exam-hub-header p{margin:0;font-size:14px;opacity:.9}
+.banking-header{background:linear-gradient(135deg,#064e3b,#047857,#10b981)}
+.ssc-header{background:linear-gradient(135deg,#1e3a8a,#2563eb,#06b6d4)}
+.railway-header{background:linear-gradient(135deg,#7f1d1d,#dc2626,#f97316)}
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+.exam-card{position:relative;display:flex;align-items:center;gap:17px;min-height:145px;padding:22px;border-radius:22px;color:white;text-decoration:none;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.13);transition:transform .25s,box-shadow .25s}
+.exam-card:hover{transform:translateY(-7px);box-shadow:0 18px 38px rgba(0,0,0,.22)}
+.exam-card:after{content:"";position:absolute;width:110px;height:110px;right:-30px;bottom:-35px;border-radius:50%;background:rgba(255,255,255,.12)}
+.bank-1{background:linear-gradient(135deg,#1e3a8a,#2563eb)}
+.bank-2{background:linear-gradient(135deg,#065f46,#10b981)}
+.bank-3{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
+.bank-4{background:linear-gradient(135deg,#0369a1,#0ea5e9)}
+.bank-5{background:linear-gradient(135deg,#581c87,#9333ea)}
+.bank-6{background:linear-gradient(135deg,#166534,#16a34a)}
+.bank-7{background:linear-gradient(135deg,#78350f,#d97706)}
+.bank-8{background:linear-gradient(135deg,#312e81,#6366f1)}
+.ssc-1{background:linear-gradient(135deg,#1e3a8a,#2563eb)}
+.ssc-2{background:linear-gradient(135deg,#065f46,#059669)}
+.ssc-3{background:linear-gradient(135deg,#7c2d12,#ea580c)}
+.ssc-4{background:linear-gradient(135deg,#581c87,#9333ea)}
+.ssc-5{background:linear-gradient(135deg,#155e75,#0891b2)}
+.ssc-6{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.ssc-7{background:linear-gradient(135deg,#854d0e,#ca8a04)}
+.rail-1{background:linear-gradient(135deg,#172554,#1d4ed8)}
+.rail-2{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
+.rail-3{background:linear-gradient(135deg,#9a3412,#ea580c)}
+.rail-4{background:linear-gradient(135deg,#064e3b,#059669)}
+.exam-icon{position:relative;z-index:2;width:60px;height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:18px;background:rgba(255,255,255,.18);font-size:31px}
+.exam-content{position:relative;z-index:2}
+.exam-content h3{margin:0 0 6px;font-size:20px;line-height:1.25}
+.exam-content p{margin:0 0 12px;font-size:12px;line-height:1.4;opacity:.9}
+.exam-content span{display:inline-block;padding:7px 11px;border-radius:10px;background:rgba(255,255,255,.18);font-size:11px;font-weight:800}
+.test-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-bottom:35px}
+.summary-card{background:white;border-radius:18px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,.08);border:1px solid #eee}
+.summary-link{display:block;text-decoration:none;color:inherit;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.summary-link:hover{transform:translateY(-5px);box-shadow:0 14px 32px rgba(0,0,0,.14)}
+.summary-number{font-size:28px;font-weight:800;color:#667eea}
+.summary-label{margin-top:4px;font-size:13px;color:#666;font-weight:600}
+.summary-action{margin-top:12px;padding:9px 12px;border-radius:12px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:12px;font-weight:800}
+.test-section{margin-bottom:45px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}
+.section-heading-left{display:flex;align-items:center;gap:12px}
+.section-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:15px;background:#f0f3ff;font-size:24px;flex-shrink:0}
+.section-heading h2{margin:0;font-size:25px;color:#222}
+.section-heading p{margin:3px 0 0;color:#777;font-size:13px}
+.test-count{padding:7px 13px;border-radius:20px;background:#f1f3f5;color:#555;font-size:12px;font-weight:700;white-space:nowrap}
+.mock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+.mock-card{padding:23px;min-height:235px;border-radius:22px;color:white;box-shadow:0 10px 28px rgba(0,0,0,.13);transition:transform .25s,box-shadow .25s;background:linear-gradient(135deg,#667eea,#764ba2)}
+.mock-card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(0,0,0,.2)}
+.mock-card:nth-child(6n+2){background:linear-gradient(135deg,#11998e,#38ef7d)}
+.mock-card:nth-child(6n+3){background:linear-gradient(135deg,#ff9966,#ff5e62)}
+.mock-card:nth-child(6n+4){background:linear-gradient(135deg,#396afc,#2948ff)}
+.mock-card:nth-child(6n+5){background:linear-gradient(135deg,#f7971e,#ffd200)}
+.mock-card:nth-child(6n+6){background:linear-gradient(135deg,#8e2de2,#4a00e0)}
+.status{display:inline-block;padding:6px 11px;border-radius:20px;background:rgba(255,255,255,.2);font-size:11px;font-weight:700;margin-bottom:12px}
+.mock-icon{font-size:34px;margin-bottom:7px}
+.mock-card h3{margin:0 0 8px;font-size:20px;line-height:1.3}
+.subject{font-size:13px;opacity:.9;margin-bottom:17px}
+.test-info{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.info{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.18);font-size:12px}
+.test-btn{display:block;width:100%;box-sizing:border-box;padding:12px;text-align:center;border-radius:12px;background:white;color:#333;text-decoration:none;font-size:13px;font-weight:800}
+.test-btn:hover{background:#f5f5f5}
+.test-disabled{opacity:.7;cursor:not-allowed}
+.empty-box{text-align:center;padding:40px 20px;border-radius:20px;background:#f6f8fb;color:#555}
+@media(max-width:700px){
+ .mock-page{padding:15px 10px 45px}
+ .mock-header{padding:30px 15px;border-radius:22px}
+ .mock-header h1{font-size:28px}
+ .exam-hub-header{padding:20px}
+ .exam-hub-header h2{font-size:22px}
+ .exam-grid,.mock-grid,.test-summary{grid-template-columns:1fr;gap:15px}
+ .exam-card{min-height:125px;padding:18px}
+ .exam-icon{width:52px;height:52px;font-size:27px}
+ .exam-content h3{font-size:18px}
+ .section-heading h2{font-size:21px}
+ .mock-card{min-height:225px;padding:20px}
+}
+</style>
+
+
+<div class="mock-page">
+
+
+<!-- =====================================================
+     PAGE HEADER
+===================================================== -->
+
+<div class="mock-header">
+
+    <h1>
+        📚 {{ subject.name }} Mock Tests
+    </h1>
+
+    <p>
+        Practice • Analyse • Improve • Achieve
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     CAT
+===================================================== -->
+
+{% if subject.name|upper == "CAT" %}
+
+
+ <div class="test-summary">
+
+    <a
+        href="{% url 'cat_full_mock_tests' %}"
+        class="summary-card summary-link"
+    >
+
+        <div class="summary-number">
+            {{ full_tests|length }}
+        </div>
+
+        <div class="summary-label">
+            Full Mock Tests
+        </div>
+
+        <div class="summary-action">
+            🏆 View Full Mock Tests →
+        </div>
+
+    </a>
+
+
+    <a
+        href="{% url 'cat_session_tests' %}"
+        class="summary-card summary-link"
+    >
+
+        <div class="summary-number">
+            {{ session_test_count }}
+        </div>
+
+        <div class="summary-label">
+            Session Tests
+        </div>
+
+        <div class="summary-action">
+            📚 View Session Tests →
+        </div>
+
+    </a>
+
+ </div>
+
+
+{% if full_tests %}
+
+ <div class="test-section">
+
+    <div class="section-heading">
+
+        <div class="section-heading-left">
+
+            <div class="section-icon">
+                🏆
+            </div>
+
+            <div>
+
+                <h2>
+                    CAT Full Mock Tests
+                </h2>
+
+                <p>
+                    Complete CAT-style practice tests
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="test-count">
+            {{ full_tests|length }} Tests
+        </div>
+
+    </div>
+
+
+    <div class="mock-grid">
+
+        {% for mock_test in full_tests %}
+
+        <div class="mock-card">
+
+            {% if mock_test.id in attempted_test_ids %}
+                <div class="status">✓ Attempted</div>
+            {% else %}
+                <div class="status">✨ New Test</div>
+            {% endif %}
+
+            <div class="mock-icon">
+                🏆
+            </div>
+
+            <h3>
+                {{ mock_test.name }}
+            </h3>
+
+            <div class="subject">
+                📚 CAT Full Mock
+            </div>
+
+            <div class="test-info">
+
+                <div class="info">
+                    ❓ {{ mock_test.questions.count }} Questions
+                </div>
+
+                <div class="info">
+                    ⏱️ {{ mock_test.questions.count }} Minutes
+                </div>
+
+            </div>
+
+            {% if mock_test.questions.count > 0 %}
+
+            <a
+                href="{% url 'test' mock_test.id %}"
+                class="test-btn"
+            >
+
+                {% if mock_test.id in attempted_test_ids %}
+                    🔄 REATTEMPT TEST
+                {% else %}
+                    ▶️ START TEST
+                {% endif %}
+
+            </a>
+
+            {% else %}
+
+            <div class="test-btn test-disabled">
+                🔒 AVAILABLE SOON
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+{% if qa_tests %}
+
+<div class="test-section">
+
+    <div class="section-heading">
+
+        <div class="section-heading-left">
+
+            <div class="section-icon">
+                🔢
+            </div>
+
+            <div>
+
+                <h2>
+                    Quantitative Aptitude
+                </h2>
+
+                <p>
+                    QA Session Tests
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="test-count">
+            {{ qa_tests|length }} Tests
+        </div>
+
+    </div>
+
+
+    <div class="mock-grid">
+
+        {% for mock_test in qa_tests %}
+
+        <div class="mock-card">
+
+            {% if mock_test.id in attempted_test_ids %}
+                <div class="status">✓ Attempted</div>
+            {% else %}
+                <div class="status">✨ New Test</div>
+            {% endif %}
+
+            <div class="mock-icon">
+                🔢
+            </div>
+
+            <h3>
+                {{ mock_test.name }}
+            </h3>
+
+            <div class="subject">
+                Quantitative Aptitude
+            </div>
+
+            <div class="test-info">
+
+                <div class="info">
+                    ❓ {{ mock_test.questions.count }} Questions
+                </div>
+
+                <div class="info">
+                    ⏱️ {{ mock_test.questions.count }} Minutes
+                </div>
+
+            </div>
+
+            {% if mock_test.questions.count > 0 %}
+
+            <a
+                href="{% url 'test' mock_test.id %}"
+                class="test-btn"
+            >
+                {% if mock_test.id in attempted_test_ids %}
+                    🔄 REATTEMPT TEST
+                {% else %}
+                    ▶️ START TEST
+                {% endif %}
+            </a>
+
+            {% else %}
+
+            <div class="test-btn test-disabled">
+                🔒 AVAILABLE SOON
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+{% if reasoning_tests %}
+
+<div class="test-section">
+
+    <div class="section-heading">
+
+        <div class="section-heading-left">
+
+            <div class="section-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <h2>
+                    Logical Reasoning
+                </h2>
+
+                <p>
+                    Reasoning Session Tests
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="test-count">
+            {{ reasoning_tests|length }} Tests
+        </div>
+
+    </div>
+
+
+    <div class="mock-grid">
+
+        {% for mock_test in reasoning_tests %}
+
+        <div class="mock-card">
+
+            {% if mock_test.id in attempted_test_ids %}
+                <div class="status">✓ Attempted</div>
+            {% else %}
+                <div class="status">✨ New Test</div>
+            {% endif %}
+
+            <div class="mock-icon">
+                🧠
+            </div>
+
+            <h3>
+                {{ mock_test.name }}
+            </h3>
+
+            <div class="subject">
+                Logical Reasoning
+            </div>
+
+            <div class="test-info">
+
+                <div class="info">
+                    ❓ {{ mock_test.questions.count }} Questions
+                </div>
+
+                <div class="info">
+                    ⏱️ {{ mock_test.questions.count }} Minutes
+                </div>
+
+            </div>
+
+            {% if mock_test.questions.count > 0 %}
+
+            <a
+                href="{% url 'test' mock_test.id %}"
+                class="test-btn"
+            >
+                {% if mock_test.id in attempted_test_ids %}
+                    🔄 REATTEMPT TEST
+                {% else %}
+                    ▶️ START TEST
+                {% endif %}
+            </a>
+
+            {% else %}
+
+            <div class="test-btn test-disabled">
+                🔒 AVAILABLE SOON
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="mock-page">
+
+<div class="mock-header">
+    <h1>📚 {{ subject.name }} Mock Tests</h1>
+    <p>Practice • Analyse • Improve • Achieve</p>
+</div>
+
+
+    {% if subject.name|upper == "CAT" %}
+
+        <div class="test-summary">
+            <a href="{% url 'cat_full_mock_tests' %}" class="summary-card summary-link">
+                <div class="summary-number">{{ full_tests|length }}</div>
+                <div class="summary-label">Full Mock Tests</div>
+            <div class="summary-action">🏆 View Full Mock Tests →</div>
+            </a>
+
+            <a href="{% url 'cat_session_tests' %}" class="summary-card summary-link">
+            <div class="summary-number">{{ session_test_count }}</div>
+            <div class="summary-label">Session Tests</div>
+            <div class="summary-action">📚 View Session Tests →</div>
+            </a>
+        </div>
+
+
+    {% if full_tests %}
+        <div class="test-section">
+            <div class="section-heading">
+                <div class="section-heading-left">
+                    <div class="section-icon">🏆</div>
+                    <div>
+                        <h2>CAT Full Mock Tests</h2>
+                        <p>Complete CAT-style practice tests</p>
+                    </div>
+                </div>
+            <div class="test-count">{{ full_tests|length }} Tests</div>
+        </div>
+
+    <div class="mock-grid">
+        {% for mock_test in full_tests %}
+        <div class="mock-card">
+            {% if mock_test.id in attempted_test_ids %}
+                <div class="status">✓ Attempted</div>
+            {% else %}
+                <div class="status">✨ New Test</div>
+            {% endif %}
+            <div class="mock-icon">🏆</div>
+            <h3>{{ mock_test.name }}</h3>
+            <div class="subject">📚 CAT Full Mock</div>
+            <div class="test-info">
+                <div class="info">❓ {{ mock_test.questions.count }} Questions</div>
+                <div class="info">⏱️ {{ mock_test.questions.count }} Minutes</div>
+            </div>
+            {% if mock_test.questions.count > 0 %}
+                <a href="{% url 'test' mock_test.id %}" class="test-btn">
+                    {% if mock_test.id in attempted_test_ids %}🔄 REATTEMPT TEST{% else %}▶️ START TEST{% endif %}
+                </a>
+            {% else %}
+                <div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% if qa_tests %}
+<div class="test-section">
+    <div class="section-heading">
+        <div class="section-heading-left">
+            <div class="section-icon">🔢</div>
+            <div><h2>Quantitative Aptitude</h2><p>QA Session Tests</p></div>
+        </div>
+        <div class="test-count">{{ qa_tests|length }} Tests</div>
+    </div>
+
+    <div class="mock-grid">
+        {% for mock_test in qa_tests %}
+        <div class="mock-card">
+            {% if mock_test.id in attempted_test_ids %}<div class="status">✓ Attempted</div>{% else %}<div class="status">✨ New Test</div>{% endif %}
+            <div class="mock-icon">🔢</div>
+            <h3>{{ mock_test.name }}</h3>
+            <div class="subject">Quantitative Aptitude</div>
+            <div class="test-info">
+                <div class="info">❓ {{ mock_test.questions.count }} Questions</div>
+                <div class="info">⏱️ {{ mock_test.questions.count }} Minutes</div>
+            </div>
+            {% if mock_test.questions.count > 0 %}
+                <a href="{% url 'test' mock_test.id %}" class="test-btn">{% if mock_test.id in attempted_test_ids %}🔄 REATTEMPT TEST{% else %}▶️ START TEST{% endif %}</a>
+            {% else %}
+                <div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% if reasoning_tests %}
+<div class="test-section">
+    <div class="section-heading">
+        <div class="section-heading-left">
+            <div class="section-icon">🧠</div>
+            <div><h2>Logical Reasoning</h2><p>Reasoning Session Tests</p></div>
+        </div>
+        <div class="test-count">{{ reasoning_tests|length }} Tests</div>
+    </div>
+
+    <div class="mock-grid">
+        {% for mock_test in reasoning_tests %}
+        <div class="mock-card">
+            {% if mock_test.id in attempted_test_ids %}<div class="status">✓ Attempted</div>{% else %}<div class="status">✨ New Test</div>{% endif %}
+            <div class="mock-icon">🧠</div>
+            <h3>{{ mock_test.name }}</h3>
+            <div class="subject">Logical Reasoning</div>
+            <div class="test-info">
+                <div class="info">❓ {{ mock_test.questions.count }} Questions</div>
+                <div class="info">⏱️ {{ mock_test.questions.count }} Minutes</div>
+            </div>
+            {% if mock_test.questions.count > 0 %}
+                <a href="{% url 'test' mock_test.id %}" class="test-btn">{% if mock_test.id in attempted_test_ids %}🔄 REATTEMPT TEST{% else %}▶️ START TEST{% endif %}</a>
+            {% else %}
+                <div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% if english_tests %}
+<div class="test-section">
+    <div class="section-heading">
+        <div class="section-heading-left">
+            <div class="section-icon">📖</div>
+            <div><h2>English / VARC</h2><p>English Session Tests</p></div>
+        </div>
+        <div class="test-count">{{ english_tests|length }} Tests</div>
+    </div>
+
+    <div class="mock-grid">
+        {% for mock_test in english_tests %}
+        <div class="mock-card">
+            {% if mock_test.id in attempted_test_ids %}<div class="status">✓ Attempted</div>{% else %}<div class="status">✨ New Test</div>{% endif %}
+            <div class="mock-icon">📖</div>
+            <h3>{{ mock_test.name }}</h3>
+            <div class="subject">English / VARC</div>
+            <div class="test-info">
+                <div class="info">❓ {{ mock_test.questions.count }} Questions</div>
+                <div class="info">⏱️ {{ mock_test.questions.count }} Minutes</div>
+            </div>
+            {% if mock_test.questions.count > 0 %}
+                <a href="{% url 'test' mock_test.id %}" class="test-btn">{% if mock_test.id in attempted_test_ids %}🔄 REATTEMPT TEST{% else %}▶️ START TEST{% endif %}</a>
+            {% else %}
+                <div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if other_tests %}
+<div class="test-section">
+    <div class="section-heading">
+        <div class="section-heading-left">
+            <div class="section-icon">📚</div>
+            <div><h2>Other CAT Tests</h2><p>Additional CAT practice tests</p></div>
+        </div>
+        <div class="test-count">{{ other_tests|length }} Tests</div>
+    </div>
+
+    <div class="mock-grid">
+        {% for mock_test in other_tests %}
+        <div class="mock-card">
+            {% if mock_test.id in attempted_test_ids %}<div class="status">✓ Attempted</div>{% else %}<div class="status">✨ New Test</div>{% endif %}
+            <div class="mock-icon">📘</div>
+            <h3>{{ mock_test.name }}</h3>
+            <div class="subject">CAT Practice</div>
+            <div class="test-info"><div class="info">❓ {{ mock_test.questions.count }} Questions</div></div>
+            {% if mock_test.questions.count > 0 %}
+                <a href="{% url 'test' mock_test.id %}" class="test-btn">▶️ START / REATTEMPT TEST</a>
+            {% else %}
+                <div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+
+{% elif subject.name|upper == "BANK" or subject.name|upper == "BANKING" %}
+
+<div class="exam-hub">
+    <div class="exam-hub-header banking-header">
+        <div class="exam-hub-icon">🏦</div>
+        <div><h2>Banking Exams</h2><p>Choose a banking exam to continue</p></div>
+    </div>
+
+    <div class="exam-grid">
+        <a href="{% url 'ibps_po' %}" class="exam-card bank-1"><div class="exam-icon">🏦</div><div class="exam-content"><h3>IBPS PO</h3><p>Probationary Officer</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ibps_clerk' %}" class="exam-card bank-2"><div class="exam-icon">📘</div><div class="exam-content"><h3>IBPS Clerk</h3><p>Clerical cadre</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'sbi_po' %}" class="exam-card bank-3"><div class="exam-icon">🏛️</div><div class="exam-content"><h3>SBI PO</h3><p>Probationary Officer</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'sbi_clerk' %}" class="exam-card bank-4"><div class="exam-icon">💳</div><div class="exam-content"><h3>SBI Clerk</h3><p>Junior Associate</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rrb_po' %}" class="exam-card bank-5"><div class="exam-icon">🌐</div><div class="exam-content"><h3>IBPS RRB PO</h3><p>Officer Scale I</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rrb_office_assistant' %}" class="exam-card bank-6"><div class="exam-icon">🏘️</div><div class="exam-content"><h3>IBPS RRB Office Assistant</h3><p>Regional Rural Banks</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rbi_grade_b' %}" class="exam-card bank-7"><div class="exam-icon">📊</div><div class="exam-content"><h3>RBI Grade B</h3><p>RBI officer exam</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rbi_assistant' %}" class="exam-card bank-8"><div class="exam-icon">🏛️</div><div class="exam-content"><h3>RBI Assistant</h3><p>Assistant examination</p><span>OPEN EXAM →</span></div></a>
+    </div>
+</div>
+
+{% if other_tests %}
+<div class="test-section">
+    <div class="section-heading"><div class="section-heading-left"><div class="section-icon">📘</div><div><h2>Uploaded Banking Mock Tests</h2><p>Practice your uploaded questions</p></div></div></div>
+    <div class="mock-grid">
+        {% for mock_test in other_tests %}
+        <div class="mock-card">
+            <h3>{{ mock_test.name }}</h3>
+            <div class="test-info"><div class="info">❓ {{ mock_test.questions.count }} Questions</div></div>
+            {% if mock_test.questions.count > 0 %}<a href="{% url 'test' mock_test.id %}" class="test-btn">▶️ START TEST</a>{% else %}<div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+
+{% elif subject.name|upper == "SSC" %}
+
+<div class="exam-hub">
+    <div class="exam-hub-header ssc-header">
+        <div class="exam-hub-icon">📚</div>
+        <div><h2>SSC Exams</h2><p>Choose your Staff Selection Commission exam</p></div>
+    </div>
+
+    <div class="exam-grid">
+        <a href="{% url 'ssc_cgl' %}" class="exam-card ssc-1"><div class="exam-icon">🎯</div><div class="exam-content"><h3>SSC CGL</h3><p>Combined Graduate Level</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ssc_chsl' %}" class="exam-card ssc-2"><div class="exam-icon">📝</div><div class="exam-content"><h3>SSC CHSL</h3><p>Higher Secondary Level</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ssc_je' %}" class="exam-card ssc-3"><div class="exam-icon">⚙️</div><div class="exam-content"><h3>SSC JE</h3><p>Junior Engineer</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ssc_mts' %}" class="exam-card ssc-4"><div class="exam-icon">📋</div><div class="exam-content"><h3>SSC MTS</h3><p>Multi-Tasking Staff</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ssc_gd' %}" class="exam-card ssc-5"><div class="exam-icon">🛡️</div><div class="exam-content"><h3>SSC GD Constable</h3><p>General Duty Constable</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ssc_cpo' %}" class="exam-card ssc-6"><div class="exam-icon">👮</div><div class="exam-content"><h3>SSC CPO</h3><p>Central Police Organisation</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'ssc_stenographer' %}" class="exam-card ssc-7"><div class="exam-icon">🎙️</div><div class="exam-content"><h3>SSC Stenographer</h3><p>Grade C and Grade D</p><span>OPEN EXAM →</span></div></a>
+    </div>
+</div>
+
+{% if other_tests %}
+<div class="test-section">
+    <div class="section-heading"><div class="section-heading-left"><div class="section-icon">📘</div><div><h2>Uploaded SSC Mock Tests</h2><p>Practice your uploaded questions</p></div></div></div>
+    <div class="mock-grid">
+        {% for mock_test in other_tests %}
+        <div class="mock-card">
+            <h3>{{ mock_test.name }}</h3>
+            <div class="test-info"><div class="info">❓ {{ mock_test.questions.count }} Questions</div></div>
+            {% if mock_test.questions.count > 0 %}<a href="{% url 'test' mock_test.id %}" class="test-btn">▶️ START TEST</a>{% else %}<div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% elif subject.name|upper == "RAILWAY" or subject.name|upper == "RRB" %}
+
+<div class="exam-hub">
+    <div class="exam-hub-header railway-header">
+        <div class="exam-hub-icon">🚆</div>
+        <div><h2>Railway Recruitment Board Exams</h2><p>Choose your Railway exam</p></div>
+    </div>
+
+    <div class="exam-grid">
+        <a href="{% url 'rrb_je' %}" class="exam-card rail-1"><div class="exam-icon">⚙️</div><div class="exam-content"><h3>RRB JE</h3><p>Junior Engineer</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rrb_alp' %}" class="exam-card rail-2"><div class="exam-icon">🚆</div><div class="exam-content"><h3>RRB ALP</h3><p>Assistant Loco Pilot</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rrb_ntpc' %}" class="exam-card rail-3"><div class="exam-icon">🚉</div><div class="exam-content"><h3>RRB NTPC</h3><p>Non-Technical Popular Categories</p><span>OPEN EXAM →</span></div></a>
+        <a href="{% url 'rrb_group_d' %}" class="exam-card rail-4"><div class="exam-icon">🛤️</div><div class="exam-content"><h3>RRB Group D</h3><p>Level 1 posts</p><span>OPEN EXAM →</span></div></a>
+    </div>
+</div>
+
+{% if other_tests %}
+<div class="test-section">
+    <div class="section-heading"><div class="section-heading-left"><div class="section-icon">📘</div><div><h2>Uploaded Railway Mock Tests</h2><p>Practice your uploaded questions</p></div></div></div>
+    <div class="mock-grid">
+        {% for mock_test in other_tests %}
+        <div class="mock-card">
+            <h3>{{ mock_test.name }}</h3>
+            <div class="test-info"><div class="info">❓ {{ mock_test.questions.count }} Questions</div></div>
+            {% if mock_test.questions.count > 0 %}<a href="{% url 'test' mock_test.id %}" class="test-btn">▶️ START TEST</a>{% else %}<div class="test-btn test-disabled">🔒 AVAILABLE SOON</div>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+    {% else %}
+        {% if other_tests %}
+            <div class="test-section">
+            <div class="section-heading">
+                <div class="section-heading-left">
+                    <div class="section-icon">📘</div>
+                        <div>
+                        <h2>{{ subject.name }} Mock Tests</h2>
+                        <p>Select a test to start practising</p>
+                        </div>
+                    </div>
+                        <div class="test-count">{{ other_tests|length }} Tests</div>
+                </div>
+
+            <div class="mock-grid">
+        {% for mock_test in other_tests %}
+        <div class="mock-card">
+
+            {% if mock_test.id in attempted_test_ids %}
+                <div class="status">✓ Attempted</div>
+            {% else %}
+                <div class="status">✨ New Test</div>
+            {% endif %}
+
+            <div class="mock-icon">📘</div>
+
+            <h3>{{ mock_test.name }}</h3>
+
+            <div class="subject">{{ subject.name }}</div>
+
+            <div class="test-info">
+                <div class="info">
+                    📝 {{ mock_test.questions.count }} Questions
+                </div>
+            </div>
+
+            {% if mock_test.questions.count > 0 %}
+                <a href="{% url 'test' mock_test.id %}" class="test-btn">
+                    ▶ START TEST
+                </a>
+            {% else %}
+                <div class="test-btn test-disabled">
+                    🔒 AVAILABLE SOON
+                </div>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+<div class="empty-box">
+    <h2>📚 No mock tests available yet</h2>
+    <p>New {{ subject.name }} practice tests will be added here.</p>
+</div>
+{% endif %}
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,866 @@
+{% extends "base.html" %}
+
+{% block title %}SSC CPO Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-cpo{% endblock %}
+
+{% block content %}
+
+<style>
+
+.cpo-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.cpo-header {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #1d4ed8,
+            #7c3aed
+        );
+
+    color: white;
+
+    padding: 35px 25px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+}
+
+.cpo-header h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 900;
+}
+
+.cpo-header h2 {
+    margin: 8px 0;
+
+    font-size: 20px;
+}
+
+.cpo-header p {
+    margin: 7px 0;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.cpo-section {
+    margin-top: 30px;
+}
+
+.cpo-section-title {
+    margin-bottom: 18px;
+
+    color: #172554;
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.cpo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px, 1fr)
+        );
+
+    gap: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.cpo-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    border:
+        1px solid #dbeafe;
+
+    box-shadow:
+        0 7px 24px rgba(0,0,0,.09);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+.cpo-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.15);
+}
+
+.cpo-icon {
+    font-size: 42px;
+
+    margin-bottom: 8px;
+}
+
+.cpo-card h3 {
+    margin: 8px 0;
+
+    color: #1e3a8a;
+
+    font-size: 19px;
+}
+
+.cpo-card p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.cpo-btn {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding: 11px 20px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   PAPER-I / PAPER-II
+========================= */
+
+.cpo-paper-card {
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f5f3ff
+        );
+
+    border:
+        2px solid #6366f1;
+}
+
+
+/* =========================
+   PHYSICAL TEST
+========================= */
+
+.cpo-physical {
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fef3c7
+        );
+
+    border:
+        2px solid #f59e0b;
+}
+
+
+/* =========================
+   NO TEST
+========================= */
+
+.cpo-no-test {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background: #fff7ed;
+
+    border:
+        1px solid #fed7aa;
+
+    color: #9a3412;
+
+    font-weight: 800;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .cpo-page {
+        padding: 12px;
+    }
+
+    .cpo-header {
+        padding: 28px 18px;
+    }
+
+    .cpo-header h1 {
+        font-size: 30px;
+    }
+
+    .cpo-header h2 {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+
+<div class="cpo-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="cpo-header">
+
+        <h1>👮 SSC CPO</h1>
+
+        <h2>
+            Sub-Inspector in Delhi Police
+            and CAPFs
+        </h2>
+
+        <p>
+            Complete SSC CPO preparation,
+            mock tests and physical preparation
+        </p>
+
+        <p>
+            🚀 Prepare Smarter with EduMind
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PAPER-I
+    ========================================== -->
+
+    <div class="cpo-section">
+
+        <div class="cpo-section-title">
+            📝 Paper-I
+        </div>
+
+
+        <div class="cpo-grid">
+
+
+            <!-- GENERAL INTELLIGENCE -->
+
+            <div class="cpo-card cpo-paper-card">
+
+                <div class="cpo-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    General Intelligence
+                    & Reasoning
+                </h3>
+
+                <p>
+                    Logical reasoning,
+                    analytical ability and
+                    problem solving.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- GENERAL KNOWLEDGE -->
+
+            <div class="cpo-card cpo-paper-card">
+
+                <div class="cpo-icon">
+                    🌍
+                </div>
+
+                <h3>
+                    General Knowledge
+                    & Awareness
+                </h3>
+
+                <p>
+                    General awareness,
+                    current affairs and
+                    important GK topics.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- QUANTITATIVE APTITUDE -->
+
+            <div class="cpo-card cpo-paper-card">
+
+                <div class="cpo-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Quantitative Aptitude
+                </h3>
+
+                <p>
+                    Arithmetic,
+                    mathematics and
+                    quantitative problems.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- ENGLISH -->
+
+            <div class="cpo-card cpo-paper-card">
+
+                <div class="cpo-icon">
+                    📖
+                </div>
+
+                <h3>
+                    English Comprehension
+                </h3>
+
+                <p>
+                    Grammar, vocabulary,
+                    comprehension and
+                    language ability.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PAPER-I MOCK TESTS
+    ========================================== -->
+
+    <div class="cpo-section">
+
+        <div class="cpo-section-title">
+            🏆 Paper-I Full Mock Tests
+        </div>
+
+
+        <div class="cpo-grid">
+
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="cpo-card cpo-paper-card">
+
+                        <div class="cpo-icon">
+                            📝
+                        </div>
+
+                        <h3>
+                            {{ test.name }}
+                        </h3>
+
+                        <p>
+                            {{ test.questions.all|length }}
+                            Questions
+                        </p>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="cpo-btn"
+                            >
+                                🔄 Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="cpo-btn"
+                            >
+                                ▶ Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="cpo-no-test">
+                    ⚠️ No Mock Test Uploaded
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PHYSICAL TEST
+    ========================================== -->
+
+    <div class="cpo-section">
+
+        <div class="cpo-section-title">
+            🏃 Physical Standard & Endurance Preparation
+        </div>
+
+
+        <div class="cpo-grid">
+
+
+            <div class="cpo-card cpo-physical">
+
+                <div class="cpo-icon">
+                    🏃
+                </div>
+
+                <h3>
+                    Physical Endurance
+                </h3>
+
+                <p>
+                    Running and physical
+                    endurance preparation.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Prepare
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card cpo-physical">
+
+                <div class="cpo-icon">
+                    📏
+                </div>
+
+                <h3>
+                    Physical Standards
+                </h3>
+
+                <p>
+                    Learn about applicable
+                    physical standards.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card cpo-physical">
+
+                <div class="cpo-icon">
+                    💪
+                </div>
+
+                <h3>
+                    Fitness Preparation
+                </h3>
+
+                <p>
+                    Build strength, stamina
+                    and physical fitness.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    View Guide
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PAPER-II
+    ========================================== -->
+
+    <div class="cpo-section">
+
+        <div class="cpo-section-title">
+            📖 Paper-II
+        </div>
+
+
+        <div class="cpo-grid">
+
+
+            <div class="cpo-card cpo-paper-card">
+
+                <div class="cpo-icon">
+                    📚
+                </div>
+
+                <h3>
+                    English Language
+                    & Comprehension
+                </h3>
+
+                <p>
+                    Advanced English,
+                    comprehension and
+                    language preparation.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card cpo-paper-card">
+
+                <div class="cpo-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Paper-II Mock Tests
+                </h3>
+
+                <p>
+                    Complete Paper-II
+                    examination practice.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Start Test
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PREVIOUS PAPERS
+    ========================================== -->
+
+    <div class="cpo-section">
+
+        <div class="cpo-section-title">
+            📚 Additional Preparation
+        </div>
+
+
+        <div class="cpo-grid">
+
+
+            <div class="cpo-card">
+
+                <div class="cpo-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Previous Papers
+                </h3>
+
+                <p>
+                    Practice previous SSC CPO
+                    examination questions.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    View Papers
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card">
+
+                <div class="cpo-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Quick Practice
+                </h3>
+
+                <p>
+                    Short tests for
+                    fast revision.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card">
+
+                <div class="cpo-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Important SSC CPO
+                    examination questions.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PERFORMANCE
+    ========================================== -->
+
+    <div class="cpo-section">
+
+        <div class="cpo-section-title">
+            📊 Your SSC CPO Preparation
+        </div>
+
+
+        <div class="cpo-grid">
+
+
+            <div class="cpo-card">
+
+                <div class="cpo-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Analyse your scores,
+                    accuracy and progress.
+                </p>
+
+                <a
+                    href="{% url 'performance_analysis' %}"
+                    class="cpo-btn"
+                >
+                    View Performance
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card">
+
+                <div class="cpo-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Compare your performance
+                    with other candidates.
+                </p>
+
+                <a
+                    href="#"
+                    class="cpo-btn"
+                >
+                    View Ranking
+                </a>
+
+            </div>
+
+
+
+            <div class="cpo-card">
+
+                <div class="cpo-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Previous Attempts
+                </h3>
+
+                <p>
+                    Review your previously
+                    attempted tests.
+                </p>
+
+                <a
+                    href="{% url 'previous_tests' %}"
+                    class="cpo-btn"
+                >
+                    View Attempts
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

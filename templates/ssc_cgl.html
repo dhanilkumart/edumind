@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}SSC CGL Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-cgl{% endblock %}
+
+{% block content %}
+
+<style>
+.ssc-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+.ssc-header {
+    background: linear-gradient(135deg, #064e3b, #059669, #2563eb);
+    color: white;
+    border-radius: 22px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+.ssc-header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.ssc-header p {
+    margin: 10px 0 0;
+    font-size: 15px;
+}
+
+.test-heading {
+    margin-top: 30px;
+    color: #064e3b;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.test-description {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.exam-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 22px;
+}
+
+.exam-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 7px 25px rgba(0,0,0,.10);
+    border: 1px solid #d1fae5;
+    transition: .25s;
+}
+
+.exam-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
+}
+
+.exam-icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.exam-card h2 {
+    margin: 8px 0;
+    color: #064e3b;
+    font-size: 21px;
+}
+
+.exam-card p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.exam-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 11px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    background: linear-gradient(90deg, #059669, #2563eb);
+    color: white;
+    font-weight: 700;
+}
+
+.exam-btn:hover {
+    opacity: .9;
+}
+
+.no-test {
+    margin-top: 25px;
+    padding: 25px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 16px;
+    text-align: center;
+    color: #9a3412;
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .ssc-page {
+        padding: 12px;
+    }
+
+    .ssc-header {
+        padding: 24px 15px;
+    }
+
+    .ssc-header h1 {
+        font-size: 28px;
+    }
+}
+</style>
+
+<div class="ssc-page">
+
+    <div class="ssc-header">
+        <h1>🎯 SSC CGL</h1>
+        <p>Staff Selection Commission – Combined Graduate Level</p>
+        <p>Prepare smarter with EduMind Mock Tests</p>
+    </div>
+
+    <h2 class="test-heading">🏆 SSC CGL Mock Tests</h2>
+
+    <p class="test-description">
+        Choose a mock test, answer the questions and check your performance.
+    </p>
+
+    {% if mock_tests %}
+
+        <div class="exam-grid">
+
+            {% for mock_test in mock_tests %}
+
+                <div class="exam-card">
+
+                    <div class="exam-icon">📝</div>
+
+                    <h2>{{ mock_test.name }}</h2>
+
+                    <p>
+                        {{ mock_test.questions.count }} Questions
+                    </p>
+
+                    {% if mock_test.questions.count > 0 %}
+
+                        <a
+                            href="{% url 'test' mock_test.id %}"
+                            class="exam-btn"
+                        >
+                            Start Mock Test
+                        </a>
+
+                    {% else %}
+
+                        <span class="exam-btn">
+                            Questions Not Available
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="no-test">
+            No SSC CGL mock tests are available yet.
+            Please upload tests from the admin panel.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

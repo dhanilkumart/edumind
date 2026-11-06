@@ -1,0 +1,467 @@
+{% extends "base.html" %}
+{% block title %}{{ exam.title }} | EduMind{% endblock %}
+
+{% block content %}
+<style>
+.bank-tests-page, .bank-tests-page * {
+    box-sizing: border-box;
+}
+
+.bank-tests-page {
+    --accent: #087653;
+    --accent-dark: #07583e;
+    --tint: #e6f7ee;
+    min-height: 100vh;
+    padding: 25px 15px 45px;
+    background: linear-gradient(140deg, #f0faf4, #f3f6ff, #fbf7ff);
+    color: #18382c;
+    font-family: Arial, sans-serif;
+}
+
+/* Accent colours change automatically for each exam */
+.bank-tests-page[data-exam="sbi-po"],
+.bank-tests-page[data-exam="sbi-clerk"] {
+    --accent: #2563eb;
+    --accent-dark: #1e40af;
+    --tint: #eaf1ff;
+}
+
+.bank-tests-page[data-exam="ibps-po"],
+.bank-tests-page[data-exam="ibps-clerk"] {
+    --accent: #7c3aed;
+    --accent-dark: #5b21b6;
+    --tint: #f2eaff;
+}
+
+.bank-tests-page[data-exam="rrb-po"],
+.bank-tests-page[data-exam="rrb-office-assistant"] {
+    --accent: #ea580c;
+    --accent-dark: #c2410c;
+    --tint: #fff0e5;
+}
+
+.bank-tests-page[data-exam="rbi-grade-b"],
+.bank-tests-page[data-exam="rbi-assistant"] {
+    --accent: #0f766e;
+    --accent-dark: #115e59;
+    --tint: #e0f7f3;
+}
+
+.bank-tests-wrap {
+    max-width: 1120px;
+    margin: auto;
+}
+
+/* Hero */
+.bank-test-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 34px;
+    border-radius: 24px;
+    background: linear-gradient(120deg, #092f25, var(--accent));
+    color: white;
+    box-shadow: 0 15px 35px rgba(15, 60, 43, .16);
+}
+
+.bank-test-hero::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border: 35px solid rgba(255,255,255,.07);
+    border-radius: 50%;
+    right: -50px;
+    top: -95px;
+    pointer-events: none;
+}
+
+.bank-hero-label {
+    display: inline-block;
+    padding: 8px 13px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 25px;
+    background: rgba(255,255,255,.10);
+    color: #e6fff0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.bank-test-hero h1 {
+    position: relative;
+    z-index: 1;
+    margin: 19px 0 10px;
+    font-size: clamp(29px, 5vw, 43px);
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.bank-test-hero p {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+    margin: 0;
+    color: #e0f5e9;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.bank-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 20px;
+}
+
+.bank-hero-tags span {
+    padding: 8px 11px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.12);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Heading */
+.bank-test-section {
+    margin: 30px 0 18px;
+}
+
+.bank-test-section h2 {
+    margin: 0 0 7px;
+    color: #163f2e;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.bank-test-section p {
+    margin: 0;
+    color: #6d8176;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Test slots */
+.bank-test-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.bank-test-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 205px;
+    padding: 21px;
+    border: 1px solid #e1ece5;
+    border-top: 4px solid var(--accent);
+    border-radius: 17px;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 5px 17px rgba(20, 60, 42, .055);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.bank-test-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 13px 28px rgba(20, 60, 42, .11);
+}
+
+.bank-test-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.bank-test-number {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--tint);
+    color: var(--accent-dark);
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.bank-test-heading {
+    min-width: 0;
+}
+
+.bank-test-heading h3 {
+    margin: 0 0 5px;
+    color: #193c2e;
+    font-size: 16px;
+    font-weight: 850;
+}
+
+.bank-test-heading small {
+    color: #7c8c82;
+    font-size: 11px;
+}
+
+.bank-test-description {
+    flex: 1;
+    margin: 0 0 17px;
+    color: #718177;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.bank-start-button,
+.bank-soon-label {
+    display: block;
+    width: 100%;
+    padding: 12px 13px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.bank-start-button {
+    border: 0;
+    background: var(--accent);
+    color: white !important;
+    text-decoration: none !important;
+    transition: filter .2s ease;
+}
+
+.bank-start-button:hover {
+    filter: brightness(.91);
+}
+
+.bank-start-button:focus-visible,
+.bank-back-link:focus-visible {
+    outline: 3px solid #f0bf4d;
+    outline-offset: 3px;
+}
+
+.bank-soon-label {
+    border: 1px dashed #d8e3dc;
+    background: #f5f8f6;
+    color: #85938a;
+}
+
+.bank-attempted {
+    display: inline-block;
+    margin-top: 10px;
+    color: #13804c;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+/* Bottom panel */
+.bank-practice-tip {
+    margin-top: 27px;
+    padding: 22px 24px;
+    border: 1px solid #d8eade;
+    border-radius: 16px;
+    background: linear-gradient(110deg, #e8f8ed, #f5fbf6);
+}
+
+.bank-practice-tip h3 {
+    margin: 0 0 8px;
+    color: #17623f;
+    font-size: 17px;
+}
+
+.bank-practice-tip p {
+    margin: 0;
+    color: #63796b;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.bank-test-footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.bank-back-link {
+    display: inline-block;
+    padding: 12px 19px;
+    border: 1px solid #d4e5d9;
+    border-radius: 10px;
+    background: white;
+    color: #176342 !important;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.bank-back-link:hover {
+    background: #e8f7ed;
+}
+
+@media (max-width: 850px) {
+    .bank-test-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .bank-tests-page {
+        padding: 14px 10px 30px;
+    }
+
+    .bank-test-hero {
+        padding: 26px 20px;
+        border-radius: 19px;
+    }
+
+    .bank-test-hero h1 {
+        font-size: 31px;
+    }
+
+    .bank-test-hero p {
+        font-size: 13px;
+    }
+
+    .bank-test-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .bank-test-card {
+        min-height: 0;
+        padding: 18px;
+    }
+
+    .bank-test-section h2 {
+        font-size: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bank-test-card,
+    .bank-start-button {
+        transition: none;
+    }
+}
+</style>
+
+<div
+    class="bank-tests-page"
+    data-exam="{{ exam.key|default:''|lower }}"
+>
+<div class="bank-tests-wrap">
+
+    <section class="bank-test-hero">
+        <div class="bank-hero-label">✦ EDUMIND · BANKING EXAM HUB</div>
+
+        <h1>{{ exam.title }} Mock Tests</h1>
+
+        <p>
+            Prepare with focus, practise available tests, and learn from
+            your results. Select a test below to begin your preparation.
+        </p>
+
+        <div class="bank-hero-tags">
+            <span>🎯 Focused Practice</span>
+            <span>⏱️ Exam Preparation</span>
+            <span>📈 Improve Accuracy</span>
+        </div>
+    </section>
+
+    <section class="bank-test-section">
+        <h2>Choose Your Mock Test</h2>
+        <p>
+            Explore the available practice tests for {{ exam.title }}.
+            Tests that are not yet available are marked accordingly.
+        </p>
+    </section>
+
+    <section class="bank-test-grid">
+        {% for slot in slots %}
+            <article class="bank-test-card">
+
+                <div class="bank-test-card-top">
+                    <div class="bank-test-number">
+                        {{ slot.number|stringformat:"02d" }}
+                    </div>
+
+                    <div class="bank-test-heading">
+                        <h3>
+                            {{ exam.title }} – Test {{ slot.number }}
+                        </h3>
+                        <small>EDUMIND PRACTICE SERIES</small>
+                    </div>
+                </div>
+
+                {% if slot.test %}
+                    <p class="bank-test-description">
+                        {{ slot.test.name }}
+                        {% if slot.test.questions.count %}
+                            <br>{{ slot.test.questions.count }} questions
+                        {% endif %}
+                    </p>
+
+                    <a
+                        class="bank-start-button"
+                        href="{% url 'test' slot.test.id %}"
+                    >
+                        {% if slot.test.id in attempted_test_ids %}
+                            Reattempt Test →
+                        {% else %}
+                            Start Mock Test →
+                        {% endif %}
+                    </a>
+
+                    {% if slot.test.id in attempted_test_ids %}
+                        <span class="bank-attempted">
+                            ✓ Previously attempted
+                        </span>
+                    {% endif %}
+
+                {% else %}
+                    <p class="bank-test-description">
+                        This practice test is not available yet.
+                        Please check again later.
+                    </p>
+
+                    <span class="bank-soon-label">
+                        🔒 Available Soon
+                    </span>
+                {% endif %}
+
+            </article>
+        {% empty %}
+            <div class="bank-test-card">
+                <h3>No mock-test slots found</h3>
+                <p class="bank-test-description">
+                    No slots were supplied to this page. Please check
+                    the exam view in accounts/views.py.
+                </p>
+            </div>
+        {% endfor %}
+    </section>
+
+    <section class="bank-practice-tip">
+        <h3>💡 Your preparation tip</h3>
+        <p>
+            Attempt a test under exam-like conditions, review your answers,
+            and note the topics where you lost marks. Consistent practice
+            can help you identify areas for improvement.
+        </p>
+    </section>
+
+    <footer class="bank-test-footer">
+        <a class="bank-back-link" href="{% url 'banking' %}">
+            ← All Banking Exams
+        </a>
+
+        <a class="bank-back-link" href="{% url 'dashboard' %}">
+            🏠 Dashboard
+        </a>
+    </footer>
+
+</div>
+</div>
+{% endblock %}

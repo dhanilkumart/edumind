@@ -1,0 +1,677 @@
+{% extends "base.html" %}
+
+{% block title %}SSC MTS Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-mts{% endblock %}
+
+{% block content %}
+
+<style>
+
+.mts-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.mts-header {
+    background:
+        linear-gradient(
+            135deg,
+            #4c1d95,
+            #7c3aed,
+            #2563eb
+        );
+
+    color: white;
+    padding: 35px 25px;
+    border-radius: 25px;
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+}
+
+.mts-header h1 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.mts-header h2 {
+    margin: 8px 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.mts-header p {
+    margin: 7px 0;
+    font-size: 14px;
+    opacity: .95;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.mts-section {
+    margin-top: 30px;
+}
+
+.mts-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    color: #4c1d95;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.mts-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px, 1fr)
+        );
+
+    gap: 20px;
+}
+
+.mts-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    border:
+        1px solid #ddd6fe;
+
+    box-shadow:
+        0 7px 24px rgba(0,0,0,.09);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+.mts-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.15);
+}
+
+.mts-icon {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.mts-card h3 {
+    margin: 8px 0;
+
+    color: #4c1d95;
+
+    font-size: 19px;
+}
+
+.mts-card p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.mts-btn {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding:
+        11px 20px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #2563eb
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+    transition: .2s;
+}
+
+.mts-btn:hover {
+    transform: scale(1.04);
+}
+
+
+/* =========================
+   FULL MOCK CARD
+========================= */
+
+.mts-full-card {
+    background:
+        linear-gradient(
+            135deg,
+            #ede9fe,
+            #dbeafe
+        );
+
+    border:
+        2px solid #8b5cf6;
+}
+
+
+/* =========================
+   NO TEST
+========================= */
+
+.mts-no-test {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background: #fff7ed;
+
+    border:
+        1px solid #fed7aa;
+
+    color: #9a3412;
+
+    font-weight: 800;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .mts-page {
+        padding: 12px;
+    }
+
+    .mts-header {
+        padding: 28px 18px;
+    }
+
+    .mts-header h1 {
+        font-size: 30px;
+    }
+
+    .mts-header h2 {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+
+<div class="mts-page">
+
+
+    <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
+
+    <div class="mts-header">
+
+        <h1>🎯 SSC MTS</h1>
+
+        <h2>
+            Staff Selection Commission
+            Multi-Tasking Staff
+        </h2>
+
+        <p>
+            Complete SSC MTS preparation,
+            practice and mock tests
+        </p>
+
+        <p>
+            🚀 Prepare Smarter with EduMind
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================================
+         MOCK TESTS
+    ========================================== -->
+
+    <div class="mts-section">
+
+        <div class="mts-section-title">
+            🏆 Full Mock Tests
+        </div>
+
+
+        <div class="mts-grid">
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="mts-card mts-full-card">
+
+                        <div class="mts-icon">
+                            📝
+                        </div>
+
+                        <h3>
+                            {{ test.name }}
+                        </h3>
+
+                        <p>
+                            {{ test.questions.all|length }}
+                            Questions
+                        </p>
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="mts-btn"
+                            >
+                                🔄 Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="mts-btn"
+                            >
+                                ▶ Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="mts-no-test">
+                    ⚠️ No Mock Test Uploaded
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUBJECT TESTS
+    ========================================== -->
+
+    <div class="mts-section">
+
+        <div class="mts-section-title">
+            📚 Subject-wise Preparation
+        </div>
+
+
+        <div class="mts-grid">
+
+
+            <!-- Numerical Ability -->
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Numerical Ability
+                </h3>
+
+                <p>
+                    Practice arithmetic,
+                    numerical ability and
+                    mathematical problems.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- Reasoning -->
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Reasoning Ability
+                </h3>
+
+                <p>
+                    Logical reasoning,
+                    analytical ability and
+                    problem solving.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- English -->
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    📖
+                </div>
+
+                <h3>
+                    English Language
+                </h3>
+
+                <p>
+                    Grammar, vocabulary,
+                    comprehension and
+                    language practice.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- General Awareness -->
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    🌍
+                </div>
+
+                <h3>
+                    General Awareness
+                </h3>
+
+                <p>
+                    General knowledge,
+                    current affairs and
+                    important topics.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PRACTICE SECTION
+    ========================================== -->
+
+    <div class="mts-section">
+
+        <div class="mts-section-title">
+            📘 Practice Tests
+        </div>
+
+
+        <div class="mts-grid">
+
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Quick Practice
+                </h3>
+
+                <p>
+                    Short practice tests
+                    for quick revision.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    Start Practice
+                </a>
+
+            </div>
+
+
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Important and frequently
+                    asked SSC MTS questions.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Previous Papers
+                </h3>
+
+                <p>
+                    Solve previous SSC MTS
+                    examination questions.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    View Papers
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PERFORMANCE
+    ========================================== -->
+
+    <div class="mts-section">
+
+        <div class="mts-section-title">
+            📊 Your Preparation
+        </div>
+
+
+        <div class="mts-grid">
+
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Analyse your scores,
+                    attempts and progress.
+                </p>
+
+                <a
+                    href="{% url 'performance_analysis' %}"
+                    class="mts-btn"
+                >
+                    View Performance
+                </a>
+
+            </div>
+
+
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Compare your performance
+                    with other EduMind users.
+                </p>
+
+                <a
+                    href="#"
+                    class="mts-btn"
+                >
+                    View Ranking
+                </a>
+
+            </div>
+
+
+
+            <div class="mts-card">
+
+                <div class="mts-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Previous Attempts
+                </h3>
+
+                <p>
+                    Review your previously
+                    attempted tests.
+                </p>
+
+                <a
+                    href="{% url 'previous_tests' %}"
+                    class="mts-btn"
+                >
+                    View Attempts
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block title %}Explore Exams | EduMind{% endblock %}
+{% block page_class %}page-subjects{% endblock %}
+
+{% block content %}
+
+<style>
+.page-subjects {
+    background: #f5f7ff;
+}
+
+.subjects-page,
+.subjects-page * {
+    box-sizing: border-box;
+}
+
+.subjects-page {
+    min-height: 85vh;
+    padding: 35px 20px 50px;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at top left, #e0e7ff 0, transparent 40%),
+        radial-gradient(ellipse at bottom right, #d1fae5 0, transparent 38%),
+        #f8faff;
+    border-radius: 22px;
+}
+
+/* HERO SECTION */
+.subjects-hero {
+    max-width: 1100px;
+    margin: 0 auto 38px;
+    padding: 38px 24px;
+    text-align: center;
+    color: white;
+    border-radius: 26px;
+    background: linear-gradient(120deg, #312e81, #6d28d9, #2563eb);
+    box-shadow: 0 14px 35px rgba(79, 70, 229, .24);
+    position: relative;
+    overflow: hidden;
+}
+
+.subjects-hero:before,
+.subjects-hero:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.09);
+    pointer-events: none;
+}
+
+.subjects-hero:before {
+    width: 180px;
+    height: 180px;
+    top: -85px;
+    right: -30px;
+}
+
+.subjects-hero:after {
+    width: 130px;
+    height: 130px;
+    bottom: -75px;
+    left: 8%;
+}
+
+.hero-tag {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid rgba(255,255,255,.35);
+    background: rgba(255,255,255,.13);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+}
+
+.subjects-hero h1 {
+    color: white;
+    font-size: clamp(28px, 5vw, 43px);
+    margin: 0 0 14px;
+    line-height: 1.2;
+}
+
+.subjects-hero p {
+    color: #e0e7ff;
+    max-width: 650px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* SECTION TITLE */
+.subjects-section-title {
+    text-align: center;
+    margin-bottom: 27px;
+}
+
+.subjects-section-title h2 {
+    color: #172554;
+    font-size: 26px;
+    margin: 0 0 9px;
+}
+
+.subjects-section-title p {
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* EXAM GRID */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.subject-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    min-width: 0;
+}
+
+.subject-card {
+    height: 100%;
+    min-height: 290px;
+    position: relative;
+    overflow: hidden;
+    padding: 25px 22px;
+    border-radius: 23px;
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 9px 24px rgba(30,41,59,.09);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.subject-card:after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    right: -45px;
+    top: -45px;
+    background: rgba(255,255,255,.30);
+    pointer-events: none;
+}
+
+.subject-link:hover .subject-card {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 35px rgba(30,41,59,.17);
+}
+
+.subject-icon {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background: rgba(255,255,255,.76);
+    box-shadow: 0 6px 15px rgba(0,0,0,.07);
+    font-size: 39px;
+    margin-bottom: 20px;
+}
+
+.subject-card h3 {
+    font-size: 25px;
+    font-weight: 800;
+    margin: 0 0 11px;
+    letter-spacing: -.4px;
+}
+
+.subject-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0 0 20px;
+    color: #334155;
+    flex-grow: 1;
+}
+
+.subject-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 17px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    box-shadow: 0 5px 12px rgba(0,0,0,.10);
+    transition: gap .2s ease;
+}
+
+.subject-link:hover .subject-button {
+    gap: 13px;
+}
+
+/* INDIVIDUAL CARD COLOURS */
+.cat-card {
+    background: linear-gradient(145deg, #ffe4ed, #ffc2d7);
+}
+.cat-card h3 {
+    color: #9d174d;
+}
+.cat-card .subject-button {
+    background: linear-gradient(135deg, #be185d, #e11d48);
+}
+
+.bank-card {
+    background: linear-gradient(145deg, #dbeafe, #a5d8ff);
+}
+.bank-card h3 {
+    color: #075985;
+}
+.bank-card .subject-button {
+    background: linear-gradient(135deg, #0369a1, #2563eb);
+}
+
+.ssc-card {
+    background: linear-gradient(145deg, #ede9fe, #d8b4fe);
+}
+.ssc-card h3 {
+    color: #6b21a8;
+}
+.ssc-card .subject-button {
+    background: linear-gradient(135deg, #7e22ce, #6d28d9);
+}
+
+.rrb-card {
+    background: linear-gradient(145deg, #dcfce7, #a7f3d0);
+}
+.rrb-card h3 {
+    color: #166534;
+}
+.rrb-card .subject-button {
+    background: linear-gradient(135deg, #15803d, #059669);
+}
+
+.olympiad-card {
+    background: linear-gradient(145deg, #fef3c7, #fcd34d);
+}
+.olympiad-card h3 {
+    color: #92400e;
+}
+.olympiad-card .subject-button {
+    background: linear-gradient(135deg, #b45309, #d97706);
+}
+
+/* BOTTOM BANNER */
+.subjects-footer {
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 20px;
+    text-align: center;
+    border-radius: 17px;
+    background: linear-gradient(120deg, #ecfeff, #eef2ff);
+    border: 1px solid #dbeafe;
+}
+
+.subjects-footer strong {
+    color: #3730a3;
+    font-size: 16px;
+}
+
+.subjects-footer p {
+    color: #64748b;
+    margin: 8px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+}
+
+@media (max-width: 560px) {
+    .subjects-page {
+        padding: 18px 11px 30px;
+        border-radius: 14px;
+    }
+
+    .subjects-hero {
+        padding: 30px 17px;
+        margin-bottom: 28px;
+        border-radius: 20px;
+    }
+
+    .subjects-hero p {
+        font-size: 14px;
+    }
+
+    .subjects-section-title h2 {
+        font-size: 22px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .subject-card {
+        min-height: 255px;
+        padding: 23px;
+    }
+
+    .subject-icon {
+        width: 66px;
+        height: 66px;
+        font-size: 34px;
+        border-radius: 19px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .subject-card,
+    .subject-button {
+        transition: none;
+    }
+}
+</style>
+
+<div class="subjects-page">
+
+    <section class="subjects-hero">
+        <div class="hero-tag">EDUMIND • TURN FACE 2 SUCCESS</div>
+        <h1>🚀 Your Success Starts Here</h1>
+        <p>
+            Choose your dream examination, practise with mock tests,
+            improve your skills and move one step closer to your goal.
+        </p>
+    </section>
+
+    <section class="subjects-section-title">
+        <h2>✨ Explore Exam Categories</h2>
+        <p>Select a category to discover its available mock tests.</p>
+    </section>
+
+<div class="dashboard-grid">
+
+    {% for subject in subjects %}
+
+        {% if subject.name|upper == "CAT" %}
+        <a href="{% url 'subject_mock_tests' subject.id %}"
+           class="subject-link">
+            <article class="subject-card cat-card">
+                <div class="subject-icon">🎯</div>
+                <h3>CAT</h3>
+                <p>Prepare for CAT with Quantitative Aptitude, VARC and DILR.</p>
+                <span class="subject-button">Explore CAT Tests →</span>
+            </article>
+        </a>
+
+        {% elif subject.name|upper == "BANK" %}
+        <a href="{% url 'subject_mock_tests' subject.id %}"
+           class="subject-link">
+            <article class="subject-card bank-card">
+                <div class="subject-icon">🏦</div>
+                <h3>Bank Exams</h3>
+                <p>Prepare for SBI, IBPS and Regional Rural Bank examinations.</p>
+                <span class="subject-button">Explore Bank Tests →</span>
+            </article>
+        </a>
+
+        {% elif subject.name|upper == "SSC" %}
+        <a href="{% url 'subject_mock_tests' subject.id %}"
+           class="subject-link">
+            <article class="subject-card ssc-card">
+                <div class="subject-icon">📚</div>
+                <h3>SSC Exams</h3>
+                <p>Practise for CGL, CHSL, MTS, JE, GD, CPO and Stenographer.</p>
+                <span class="subject-button">Explore SSC Tests →</span>
+            </article>
+        </a>
+
+        
+        {% elif subject.name|upper == "RAILWAY" or subject.name|upper == "RRB" %}
+        <a href="{% url 'subject_mock_tests' subject.id %}"
+           class="subject-link">
+            <article class="subject-card rrb-card">
+                <div class="subject-icon">🚆</div>
+                <h3>Railway Exams (RRB)</h3>
+                <p>Prepare for NTPC, Group D, ALP and JE examinations.</p>
+                <span class="subject-button">Explore RRB Tests →</span>
+            </article>
+        </a>
+
+        {% elif subject.name|upper == "OLYMPIAD" %}
+        <a href="{% url 'subject_mock_tests' subject.id %}"
+           class="subject-link">
+            <article class="subject-card olympiad-card">
+                <div class="subject-icon">🏆</div>
+                <h3>Olympiad</h3>
+                <p>Build logical thinking and problem-solving skills through Olympiad practice.</p>
+                <span class="subject-button">Explore Olympiad Tests →</span>
+            </article>
+        </a>
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+    <div class="subjects-footer">
+        <strong>💡 Every practice test is a step towards your goal!</strong>
+        <p>Learn consistently • Practise regularly • Track your progress</p>
+    </div>
+
+</div>
+
+<div class="card p-3 mb-3">
+    <h4>Olympiad</h4>
+    <p>Select your class and practise Olympiad mock tests.</p>
+
+    <a href="{% url 'olympiad' %}" class="btn btn-success">
+        Select Olympiad
+    </a>
+</div>
+{% endblock %}

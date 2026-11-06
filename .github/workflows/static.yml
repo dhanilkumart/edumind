@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduMind Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ACE1AF, #d0f0c0);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      background-color: #ACE1AF;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      width: fit-content;
+    }
+
+    .left-image {
+      width: 100px;
+      margin-right: 20px;
+    }
+
+    .text-section h1 {
+      margin: 0;
+      letter-spacing: 2px;
+      font-size: 3em;
+      color: #2c3e50;
+    }
+
+    .text-section p {
+      margin: 4px 0 0;
+      font-size: 1.4em;
+      color: #444;
+    }
+
+    .below-section {
+      text-align: center;
+    }
+
+    .headline {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .box-row {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      padding: 20px 40px;
+      margin-top: 20px;
+    }
+
+    .box {
+      background-color: #ffffff;
+      color: #2c3e50;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      font-weight: bold;
+      font-size: 18px;
+      min-width: 150px;
+      text-align: center;
+    }
+
+    .instructions {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 15px 20px 40px;
+      border-radius: 10px;
+      color: #000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .start-button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+      padding-bottom: 10px;
+    }
+
+    .start-button {
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: #27ae60;
+    }
+
+    #quiz-container {
+      display: none;
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 1000px;
+      margin: 20px auto;
+    }
+
+    #question-section {
+      flex: 3;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #000;
+    }
+
+    #question-palette {
+      flex: 1;
+      margin-left: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #000;
+      position: relative;
+    }
+
+    .question-box {
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .question-box.attempted {
+      background-color: lightgreen;
+    }
+
+    .question-box.reviewed-circle {
+      border-radius: 50%;
+      background-color: violet;
+      color: white;
+    }
+
+    .question-box.reviewed-tick-circle {
+      border-radius: 50%;
+      background-color: violet;
+      color: white;
+      font-size: 22px;
+    }
+
+    .question-box.current {
+      background-color: #ff6666;
+      color: white;
+    }
+    
+    .question-box.wrong {
+  background-color: red;
+  color: white;
+    }
+    
+    .question-box.unvisited {
+      background-color: transparent;
+    }
+
+    .options li {
+      padding: 10px;
+      margin: 5px 0;
+      background: #f0f0f0;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .option.selected {
+      background-color: #c8e6c9;
+    }
+
+    .correct-answer {
+      background-color: #a5d6a7 !important;
+    }
+
+    .wrong-answer {
+      background-color: #ef9a9a !important;
+    }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    #timer {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #score-display {
+      display: none;
+      font-size: 22px;
+      font-weight: bold;
+      color: #2e7d32;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <img src="https://i.postimg.cc/MphtwzT0/Emblem.jpg" alt="EduMind Logo" class="left-image">
+  <div class="text-section">
+    <h1>EduMind</h1>
+    <p>Turn Face 2 Success</p>
+  </div>
+</div>
+
+<div class="below-section">
+  <div class="headline">RRB Exam</div> 
+</div>
+
+<div class="box-row">
+  <div class="box">Content</div>
+  <div class="box">Quantitative Aptitude</div>
+  <div class="box">Reasoning</div>
+  <div class="box">English</div>
+  <div class="box">General Awareness</div>
+</div>
+
+<div class="instructions">
+ <h2>✅ General Instructions</h2>
+  <ul>
+    <li>Total duration of the exam is <strong>60 minutes</strong>.</li>
+    <li>The test includes sections like Quantitative Aptitude, Reasoning, English, and General Awareness.</li>
+    <li>All questions are <strong>Multiple Choice Questions (MCQs)</strong>.</li>
+  </ul>
+  <h2>⏳ Time & Navigation</h2>
+  <ul>
+    <li>Timer will start as soon as the test begins and cannot be paused or stopped.</li>
+    <li>You can freely navigate between questions during the exam.</li>
+    <li>Use “Next”, “Back”, or question numbers to move through questions.</li>
+  </ul>
+  <h2>⚖️ Marking Scheme</h2>
+  <ul>
+    <li><strong>+1 mark</strong> for each correct answer.</li>
+    <li><strong>-0.25 mark</strong> for each wrong answer.</li>
+    <li>No penalty for unanswered questions.</li>
+  </ul>
+  <h2>🎯 Answering Guidelines</h2>
+  <ul>
+    <li>Click on the option to select your answer.</li>
+    <li>You can change your answer before submission.</li>
+    <li>You may mark questions for review and come back later.</li>
+  </ul>
+  <h2>📌 Submission Rules</h2>
+  <ul>
+    <li>Once submitted, the test <strong>cannot be reattempted</strong>.</li>
+    <li>The system will auto-submit when the timer ends.</li>
+    <li>Make sure to finalize your answers before submitting.</li>
+  </ul>
+  <h2>🚫 Prohibited Activities</h2>
+  <ul>
+    <li>Do not refresh or close the browser during the exam.</li>
+    <li>Switching tabs or windows may lead to disqualification.</li>
+    <li>Cheating or impersonation will result in cancellation.</li>
+  </ul>
+  <h2>💡 Technical Requirements</h2>
+  <ul>
+    <li>Stable internet connection is mandatory.</li>
+    <li>Use updated versions of Chrome, Firefox, or Edge browsers.</li>
+    <li>Turn off notifications and calls to avoid distractions.</li>
+  </ul>
+  <div class="start-button-wrapper">
+    <button onclick="startTest()" class="start-button">Start Test</button>
+  </div>
+</div>
+
+<div id="quiz-container">
+  <div id="question-section"></div>
+  <div id="question-palette">
+    <div id="timer"></div>
+    <div id="score-display"></div>
+    <h4 style="text-align:center;">Questions</h4>
+    <div id="palette-boxes"></div>
+    <button onclick="confirmSubmit()" style="margin-top: 10px;">Submit</button>
+  </div>
+</div>
+
+<script>
+  const questions =  [
+   { q: "A sum doubles in 5 years at simple interest. In how many years will it triple?", options: ["7.5", "10", "12.5", "15", "20"], correct: 1 },
+  { q: "If x : y = 2 : 3 and y : z = 4 : 5, what is x : z?", options: ["8:3", "2:5", "8:15", "3:5", "4:3"], correct: 2 },
+  { q: "What is the remainder when 57^45 is divided by 8?", options: ["1", "0", "7", "5", "3"], correct: 0 },
+  { q: "A train travels at 60 km/h. How long does it take to cover 180 km?", options: ["2 hrs", "3 hrs", "4 hrs", "1.5 hrs", "2.5 hrs"], correct: 1 },
+  { q: "If a:b = 3:4 and b:c = 2:5, then a:c = ?", options: ["3:10", "3:5", "2:7", "6:20", "3:6"], correct: 0 },
+  { q: "If the average of 5 numbers is 20, what is their total sum?", options: ["100", "80", "120", "110", "90"], correct: 0 },
+  { q: "The value of √(144) + √(49) is:", options: ["12", "19", "17", "21", "15"], correct: 1 },
+  { q: "If log(100) = 2, what is log(10000)?", options: ["3", "2", "5", "4", "6"], correct: 3 },
+  { q: "The LCM of 12, 15, and 20 is:", options: ["60", "120", "240", "30", "180"], correct: 1 },
+  { q: "If 5x + 3 = 18, what is the value of x?", options: ["2", "3", "4", "5", "6"], correct: 2 },
+  { q: "What is the square of 25?", options: ["525", "500", "625", "600", "650"], correct: 2 },
+  { q: "If A = 2 and B = 3, find the value of A² + B².", options: ["9", "11", "13", "15", "10"], correct: 1 },
+  { q: "If a shopkeeper gains 20% on cost price ₹200, what is selling price?", options: ["₹220", "₹240", "₹250", "₹260", "₹230"], correct: 1 },
+  { q: "A bag contains 3 red, 5 blue balls. Probability of picking red?", options: ["3/5", "3/8", "3/9", "3/7", "2/5"], correct: 1 },
+  { q: "If sin(30°) = ?", options: ["1", "0.5", "0.866", "0.707", "0"], correct: 1 },
+  { q: "What is the compound interest on ₹1000 at 10% per annum for 2 years?", options: ["₹210", "₹200", "₹220", "₹230", "₹190"], correct: 0 },
+  { q: "What is the area of a triangle with base 10 cm and height 5 cm?", options: ["25", "30", "20", "40", "50"], correct: 0 },
+  { q: "Find the next term: 2, 6, 12, 20, ___", options: ["28", "30", "32", "36", "40"], correct: 1 },
+  { q: "What is the sum of first 10 natural numbers?", options: ["55", "45", "65", "60", "50"], correct: 0 },
+  { q: "How many 3-digit numbers are divisible by 7?", options: ["128", "125", "130", "127", "129"], correct: 4 },
+  { q: "If the perimeter of a square is 40 cm, what is the area?", options: ["100", "64", "121", "81", "49"], correct: 1 },
+  { q: "Solve: (3x – 5) = 16", options: ["7", "6", "5", "8", "9"], correct: 0 },
+  { q: "What is the HCF of 36 and 48?", options: ["6", "12", "18", "24", "8"], correct: 1 },
+  { q: "If cost price = ₹400 and loss = 10%, find selling price.", options: ["₹360", "₹380", "₹390", "₹370", "₹350"], correct: 0 },
+  { q: "In triangle ABC, AB = AC and ∠A = 20°, find ∠B.", options: ["80°", "100°", "40°", "60°", "90°"], correct: 0 }
+];
+  let currentQuestion = 0;
+  let answers = Array(questions.length).fill(null);
+  let visited = Array(questions.length).fill(false);
+  let markedForReview = Array(questions.length).fill(false);
+  let submitted = false;
+  let timer;
+  let timeLeft = 1200;
+
+  function startTest() {
+    document.querySelector('.instructions').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'flex';
+    renderQuestion();
+    renderPalette();
+    timer = setInterval(updateTimer, 1000);
+  }
+
+  function updateTimer() {
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      showResults();
+      return;
+    }
+    document.getElementById('timer').textContent = `Time Left: ${Math.floor(timeLeft / 60)}:${('0' + (timeLeft % 60)).slice(-2)}`;
+    timeLeft--;
+  }
+
+  function renderQuestion() {
+    const q = questions[currentQuestion];
+    visited[currentQuestion] = true;
+    const container = document.getElementById('question-section');
+    let html = `<h3>Question ${currentQuestion + 1}</h3><p>${q.q}</p><ul class="options">`;
+    const optionLabels = ['A', 'B', 'C', 'D', 'E'];
+    q.options.forEach((opt, i) => {
+      let cls = 'option';
+      if (submitted) {
+        if (i === q.correct) cls += ' correct-answer';
+        else if (i === answers[currentQuestion] && i !== q.correct) cls += ' wrong-answer';
+      } else if (answers[currentQuestion] === i) {
+        cls += ' selected';
+      }
+      html += `<li class="${cls}" ${!submitted ? `onclick="selectOption(${i})"` : ''}><strong>${optionLabels[i]}.</strong> ${opt}</li>`;
+    });
+    html += `</ul><div class="navigation-buttons">`;
+    html += `<button onclick="toggleReview()" ${submitted ? 'disabled' : ''}>${markedForReview[currentQuestion] ? 'Unmark Review' : 'Mark for Review'}</button>`;
+    html += `<button onclick="clearAnswer()" ${submitted ? 'disabled' : ''}>Clear</button>`;
+    if (currentQuestion > 0) html += `<button onclick="changeQuestion(${currentQuestion - 1})">Back</button>`;
+    else html += '<div></div>';
+    if (currentQuestion < questions.length - 1) html += `<button onclick="changeQuestion(${currentQuestion + 1})">Next</button>`;
+    html += `</div>`;
+    container.innerHTML = html;
+  }
+
+  function selectOption(index) {
+    if (!submitted) {
+      answers[currentQuestion] = index;
+      renderQuestion();
+      renderPalette();
+    }
+  }
+
+  function changeQuestion(index) {
+    currentQuestion = index;
+    renderQuestion();
+    renderPalette();
+  }
+
+  function toggleReview() {
+    if (!submitted) {
+      markedForReview[currentQuestion] = !markedForReview[currentQuestion];
+      renderPalette();
+    }
+  }
+
+  function clearAnswer() {
+    if (!submitted) {
+      answers[currentQuestion] = null;
+      renderQuestion();
+      renderPalette();
+    }
+  }
+
+  function renderPalette() {
+    const palette = document.getElementById('palette-boxes');
+    palette.innerHTML = '';
+    questions.forEach((q, i) => {
+      let className = 'question-box';
+      let content = (i + 1).toString();
+
+      if (submitted) {
+        if (answers[i] === q.correct) {
+          className += ' attempted';
+        } else if (answers[i] !== null) {
+          className += ' wrong';
+        } else {
+          className += ' unvisited';
+        }
+      } else {
+        if (markedForReview[i]) {
+          if (answers[i] !== null) {
+            className += ' reviewed-tick-circle';
+            content = '✅';
+          } else {
+            className += ' reviewed-circle';
+          }
+        } else if (answers[i] !== null) {
+          className += ' attempted';
+        } else if (i === currentQuestion || visited[i]) {
+          className += ' current';
+        } else {
+          className += ' unvisited';
+        }
+      }
+
+      palette.innerHTML += `<div class="${className}" onclick="changeQuestion(${i})">${content}</div>`;
+    });
+  }
+
+  function confirmSubmit() {
+    if (submitted) return;
+    if (confirm("Do you want to submit?")) {
+      clearInterval(timer);
+      submitted = true;
+      showResults();
+    }
+  }
+
+  function showResults() {
+    document.getElementById('timer').textContent = '';
+    let score = 0;
+    questions.forEach((q, i) => {
+      const selected = answers[i];
+      if (selected === null) return;
+      score += (selected === q.correct) ? 1 : -0.25;
+    });
+
+    const scoreDisplay = document.getElementById('score-display');
+    scoreDisplay.style.display = 'block';
+    scoreDisplay.innerHTML = `Your Score: <span style="font-size: 26px; color: green;">${score.toFixed(2)}</span> / ${questions.length}`;
+
+    renderQuestion();
+    renderPalette();
+  }
+</script>
+</body>
+</html>

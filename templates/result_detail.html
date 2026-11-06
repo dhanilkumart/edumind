@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Result Details{% endblock %}
+
+{% block page_class %}page-result-detail{% endblock %}
+
+{% block content %}
+
+<h1>Test Result Details</h1>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Date</th>
+        <td>{{ test.date }}</td>
+    </tr>
+
+    <tr>
+        <th>Total Questions</th>
+        <td>{{ test.total_questions }}</td>
+    </tr>
+
+    <tr>
+        <th>Correct Answers</th>
+        <td>{{ test.correct }}</td>
+    </tr>
+
+    <tr>
+        <th>Wrong Answers</th>
+        <td>{{ test.wrong }}</td>
+    </tr>
+
+    <tr>
+        <th>Unanswered</th>
+        <td>{{ test.unanswered }}</td>
+    </tr>
+
+    <tr>
+        <th>Negative Marks</th>
+        <td>{{ test.negative_marks }}</td>
+    </tr>
+
+    <tr>
+        <th>Final Score</th>
+        <td><strong>{{ test.score }}</strong></td>
+    </tr>
+</table>
+
+<br>
+
+<a href="{% url 'previous_tests' %}">
+    <button>Back to Previous Tests</button>
+</a>
+
+{% endblock %}

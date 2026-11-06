@@ -1,0 +1,845 @@
+{% extends "base.html" %}
+
+{% block title %}SSC Stenographer Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-stenographer{% endblock %}
+
+{% block content %}
+
+<style>
+
+.steno-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.steno-header {
+    background:
+        linear-gradient(
+            135deg,
+            #312e81,
+            #4f46e5,
+            #0891b2
+        );
+
+    color: white;
+
+    padding: 35px 25px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+}
+
+.steno-header h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 900;
+}
+
+.steno-header h2 {
+    margin: 8px 0;
+
+    font-size: 20px;
+}
+
+.steno-header p {
+    margin: 7px 0;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.steno-section {
+    margin-top: 30px;
+}
+
+.steno-section-title {
+    margin-bottom: 18px;
+
+    color: #312e81;
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.steno-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px, 1fr)
+        );
+
+    gap: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.steno-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    border:
+        1px solid #c7d2fe;
+
+    box-shadow:
+        0 7px 24px rgba(0,0,0,.09);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+.steno-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.15);
+}
+
+.steno-icon {
+    font-size: 42px;
+
+    margin-bottom: 8px;
+}
+
+.steno-card h3 {
+    margin: 8px 0;
+
+    color: #3730a3;
+
+    font-size: 19px;
+}
+
+.steno-card p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.steno-btn {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding: 11px 20px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4f46e5,
+            #0891b2
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   GRADE CARDS
+========================= */
+
+.steno-grade-card {
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #ecfeff
+        );
+
+    border:
+        2px solid #6366f1;
+}
+
+
+/* =========================
+   SKILL CARD
+========================= */
+
+.steno-skill-card {
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdfa,
+            #eff6ff
+        );
+
+    border:
+        2px solid #14b8a6;
+}
+
+
+/* =========================
+   NO TEST
+========================= */
+
+.steno-no-test {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background: #fff7ed;
+
+    border:
+        1px solid #fed7aa;
+
+    color: #9a3412;
+
+    font-weight: 800;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .steno-page {
+        padding: 12px;
+    }
+
+    .steno-header {
+        padding: 28px 18px;
+    }
+
+    .steno-header h1 {
+        font-size: 30px;
+    }
+
+    .steno-header h2 {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+
+<div class="steno-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="steno-header">
+
+        <h1>⌨️ SSC Stenographer</h1>
+
+        <h2>
+            Grade C & Grade D
+        </h2>
+
+        <p>
+            Complete SSC Stenographer
+            preparation and mock tests
+        </p>
+
+        <p>
+            🚀 Prepare Smarter with EduMind
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================================
+         EXAM LEVEL
+    ========================================== -->
+
+    <div class="steno-section">
+
+        <div class="steno-section-title">
+            🎯 Choose Examination
+        </div>
+
+
+        <div class="steno-grid">
+
+
+            <!-- GRADE C -->
+
+            <div class="steno-card steno-grade-card">
+
+                <div class="steno-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Grade C
+                </h3>
+
+                <p>
+                    Prepare for SSC Stenographer
+                    Grade C examination.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Grade C Tests
+                </a>
+
+            </div>
+
+
+
+            <!-- GRADE D -->
+
+            <div class="steno-card steno-grade-card">
+
+                <div class="steno-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Grade D
+                </h3>
+
+                <p>
+                    Prepare for SSC Stenographer
+                    Grade D examination.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Grade D Tests
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         COMPUTER BASED EXAM
+    ========================================== -->
+
+    <div class="steno-section">
+
+        <div class="steno-section-title">
+            💻 Computer Based Examination
+        </div>
+
+
+        <div class="steno-grid">
+
+
+            <!-- GENERAL INTELLIGENCE -->
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    General Intelligence
+                    & Reasoning
+                </h3>
+
+                <p>
+                    Logical reasoning,
+                    analytical ability and
+                    problem solving.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- GENERAL AWARENESS -->
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    🌍
+                </div>
+
+                <h3>
+                    General Awareness
+                </h3>
+
+                <p>
+                    General knowledge,
+                    current affairs and
+                    important topics.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- ENGLISH -->
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    📖
+                </div>
+
+                <h3>
+                    English Language
+                </h3>
+
+                <p>
+                    Grammar, vocabulary,
+                    comprehension and
+                    language ability.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         SKILL TEST
+    ========================================== -->
+
+    <div class="steno-section">
+
+        <div class="steno-section-title">
+            ⌨️ Skill Test in Stenography
+        </div>
+
+
+        <div class="steno-grid">
+
+
+            <!-- SHORTHAND -->
+
+            <div class="steno-card steno-skill-card">
+
+                <div class="steno-icon">
+                    ✍️
+                </div>
+
+                <h3>
+                    Shorthand Practice
+                </h3>
+
+                <p>
+                    Improve shorthand speed,
+                    accuracy and transcription
+                    skills.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- DICTATION -->
+
+            <div class="steno-card steno-skill-card">
+
+                <div class="steno-icon">
+                    🎙️
+                </div>
+
+                <h3>
+                    Dictation Practice
+                </h3>
+
+                <p>
+                    Practice dictation and
+                    improve listening speed.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- TRANSCRIPTION -->
+
+            <div class="steno-card steno-skill-card">
+
+                <div class="steno-icon">
+                    ⌨️
+                </div>
+
+                <h3>
+                    Transcription Practice
+                </h3>
+
+                <p>
+                    Improve typing,
+                    transcription speed
+                    and accuracy.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         MOCK TESTS
+    ========================================== -->
+
+    <div class="steno-section">
+
+        <div class="steno-section-title">
+            🏆 Full Mock Tests
+        </div>
+
+
+        <div class="steno-grid">
+
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="steno-card steno-grade-card">
+
+                        <div class="steno-icon">
+                            📝
+                        </div>
+
+                        <h3>
+                            {{ test.name }}
+                        </h3>
+
+                        <p>
+                            {{ test.questions.all|length }}
+                            Questions
+                        </p>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="steno-btn"
+                            >
+                                🔄 Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="steno-btn"
+                            >
+                                ▶ Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="steno-no-test">
+                    ⚠️ No Mock Test Uploaded
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PREVIOUS PAPERS
+    ========================================== -->
+
+    <div class="steno-section">
+
+        <div class="steno-section-title">
+            📚 Additional Preparation
+        </div>
+
+
+        <div class="steno-grid">
+
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Previous Papers
+                </h3>
+
+                <p>
+                    Practice previous SSC
+                    Stenographer questions.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    View Papers
+                </a>
+
+            </div>
+
+
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Quick Practice
+                </h3>
+
+                <p>
+                    Short tests for
+                    quick revision.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Important questions
+                    for examination preparation.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PERFORMANCE
+    ========================================== -->
+
+    <div class="steno-section">
+
+        <div class="steno-section-title">
+            📊 Your Preparation
+        </div>
+
+
+        <div class="steno-grid">
+
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Analyse your scores,
+                    accuracy and progress.
+                </p>
+
+                <a
+                    href="{% url 'performance_analysis' %}"
+                    class="steno-btn"
+                >
+                    View Performance
+                </a>
+
+            </div>
+
+
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Compare your performance
+                    with other candidates.
+                </p>
+
+                <a
+                    href="#"
+                    class="steno-btn"
+                >
+                    View Ranking
+                </a>
+
+            </div>
+
+
+
+            <div class="steno-card">
+
+                <div class="steno-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Previous Attempts
+                </h3>
+
+                <p>
+                    Review your previous
+                    mock-test attempts.
+                </p>
+
+                <a
+                    href="{% url 'previous_tests' %}"
+                    class="steno-btn"
+                >
+                    View Attempts
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ exam_title }} | EduMind</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f1f7f4;
+            color: #18352b;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .test-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        .test-card a {
+            display: inline-block;
+            padding: 10px 16px;
+            background: #087f5b;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <a class="back-link" href="{% url 'railway_categories' %}">
+        ← Back to Railway Exams
+    </a>
+
+    <h1>{{ exam_title }}</h1>
+    <p>Select a mock test to begin your preparation.</p>
+
+    {% for test in mock_tests %}
+        <div class="test-card">
+            <h2>{{ test.name }}</h2>
+            <p>Questions: {{ test.questions.count }}</p>
+            <a href="{% url 'test' test.id %}">
+                Start Mock Test →
+            </a>
+        </div>
+    {% empty %}
+        <p>No tests were found for this exam. Check the mock-test names and subject in your database.</p>
+    {% endfor %}
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1098 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ category }} Performance Analysis
+{% endblock %}
+
+{% block page_class %}
+page-category-performance
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.category-performance {
+    max-width: 1250px;
+    margin: auto;
+    padding: 25px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.performance-header {
+    padding: 32px;
+    border-radius: 24px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #064e3b,
+            #059669,
+            #34d399
+        );
+
+    box-shadow:
+        0 10px 30px rgba(0,80,40,0.22);
+
+    margin-bottom: 28px;
+}
+
+.performance-header h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+}
+
+.performance-header p {
+    margin: 5px 0;
+    opacity: 0.92;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(150px, 1fr));
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    padding: 20px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background: white;
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,0.08);
+
+    border-top: 5px solid #10b981;
+
+    transition: 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+}
+
+.summary-card .icon {
+    font-size: 27px;
+}
+
+.summary-card h4 {
+    margin: 8px 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.summary-card strong {
+    font-size: 25px;
+
+    color: #047857;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+    margin: 35px 0 18px;
+
+    color: #064e3b;
+
+    font-size: 24px;
+}
+
+.section-title span {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: normal;
+
+    color: #64748b;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+.charts-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+    margin: 25px 0;
+}
+
+.chart-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 8px 25px rgba(0,80,30,0.10);
+
+    border: 1px solid #d1fae5;
+
+    height: 360px;
+}
+
+.chart-card h2 {
+    margin: 0;
+
+    color: #064e3b;
+
+    font-size: 20px;
+}
+
+.chart-description {
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin: 8px 0 15px;
+}
+
+.chart-card canvas {
+    width: 100% !important;
+
+    height: 270px !important;
+}
+
+
+/* =========================================================
+   TEST HISTORY GRID
+========================================================= */
+
+.mock-test-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   TEST CARD
+========================================================= */
+
+.mock-test-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.08);
+
+    border: 1px solid #d1fae5;
+
+    transition: 0.2s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.mock-test-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+}
+
+.mock-test-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.12);
+}
+
+
+/* =========================================================
+   TEST HEADER
+========================================================= */
+
+.mock-test-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 5px;
+}
+
+.mock-test-header h3 {
+    margin: 0;
+
+    color: #064e3b;
+
+    font-size: 19px;
+}
+
+.attempt-status {
+    font-size: 11px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    white-space: nowrap;
+}
+
+.attempted-status {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+/* =========================================================
+   SCORE
+========================================================= */
+
+.score-area {
+    text-align: center;
+
+    margin: 20px 0;
+}
+
+.score-number {
+    font-size: 38px;
+
+    font-weight: bold;
+
+    color: #047857;
+}
+
+.score-label {
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   TEST STATISTICS
+========================================================= */
+
+.test-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.stat-box {
+    padding: 11px;
+
+    border-radius: 11px;
+
+    background: #f0fdf4;
+
+    border: 1px solid #dcfce7;
+}
+
+.stat-box small {
+    display: block;
+
+    color: #64748b;
+
+    margin-bottom: 3px;
+}
+
+.stat-box strong {
+    font-size: 18px;
+
+    color: #334155;
+}
+
+.stat-box:nth-child(3) strong {
+    color: #15803d;
+}
+
+.stat-box:nth-child(4) strong {
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   ACCURACY
+========================================================= */
+
+.accuracy-area {
+    margin-top: 18px;
+}
+
+.accuracy-area strong {
+    color: #334155;
+}
+
+.accuracy-bar {
+    height: 9px;
+
+    background: #e2e8f0;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-top: 8px;
+}
+
+.accuracy-fill {
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #059669,
+            #34d399
+        );
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.test-actions {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.test-btn {
+    display: inline-block;
+
+    padding: 10px 13px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.test-btn:hover {
+    transform: translateY(-2px);
+}
+
+.performance-btn {
+    background: #2563eb;
+
+    color: white;
+}
+
+.ranking-btn {
+    background: #f59e0b;
+
+    color: white;
+}
+
+
+/* =========================================================
+   NO TESTS
+========================================================= */
+
+.not-attempted-content {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 45px;
+
+    text-align: center;
+
+    box-shadow:
+        0 7px 25px rgba(0,0,0,0.08);
+}
+
+.not-attempted-content .emoji {
+    font-size: 50px;
+}
+
+.not-attempted-content h2 {
+    color: #064e3b;
+}
+
+.not-attempted-content p {
+    color: #64748b;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-container {
+    text-align: center;
+
+    margin-top: 35px;
+}
+
+.back-btn {
+    display: inline-block;
+
+    padding: 12px 22px;
+
+    border-radius: 11px;
+
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #047857,
+            #10b981
+        );
+
+    color: white;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 5px 15px rgba(0,100,60,0.18);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .category-performance {
+        padding: 15px;
+    }
+
+    .performance-header {
+        padding: 24px 18px;
+    }
+
+    .performance-header h1 {
+        font-size: 25px;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+        height: 330px;
+    }
+
+    .mock-test-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+
+<div class="category-performance">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="performance-header">
+
+        <h1>
+            📊 {{ category|upper }} Performance Analysis
+        </h1>
+
+        <p>
+            Analyse your {{ category|upper }}
+            mock-test performance.
+        </p>
+
+        {% if category|upper == "CAT" %}
+
+        <p>
+            🏆 CAT Full Mock Tests + Session Tests
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <div class="icon">📝</div>
+            <h4>Tests Attempted</h4>
+            <strong>{{ total_tests }}</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">📚</div>
+            <h4>Total Mock Tests</h4>
+            <strong>{{ total_mock_tests }}</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">📈</div>
+            <h4>Average Score</h4>
+            <strong>{{ average_score }}</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">🏆</div>
+            <h4>Highest Score</h4>
+            <strong>{{ highest_score }}</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">🎯</div>
+            <h4>Accuracy</h4>
+            <strong>{{ accuracy }}%</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">✅</div>
+            <h4>Correct</h4>
+            <strong>{{ total_correct }}</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">❌</div>
+            <h4>Wrong</h4>
+            <strong>{{ total_wrong }}</strong>
+        </div>
+
+
+        <div class="summary-card">
+            <div class="icon">⚪</div>
+            <h4>Unattended</h4>
+            <strong>{{ total_unanswered }}</strong>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CHARTS
+    ====================================================== -->
+
+    <div class="charts-grid">
+
+        <div class="chart-card">
+
+            <h2>
+                📊 Attempt Analysis
+            </h2>
+
+            <p class="chart-description">
+                Attempted and unanswered questions
+                in each test.
+            </p>
+
+            <canvas id="attemptChart"></canvas>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h2>
+                🎯 Accuracy Analysis
+            </h2>
+
+            <p class="chart-description">
+                Accuracy across your tests.
+            </p>
+
+            <canvas id="accuracyChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SCORE JOURNEY
+    ====================================================== -->
+
+    {% if score_values %}
+
+    <h2 class="section-title">
+
+        📈 {{ category|upper }} Score Journey
+
+        <span>
+            Your score in each attempted test
+        </span>
+
+    </h2>
+
+
+    <div class="chart-card">
+
+        <canvas id="categoryScoreChart"></canvas>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         TEST HISTORY
+    ====================================================== -->
+
+    <h2 class="section-title">
+
+        🕘 {{ category|upper }} Test History
+
+        <span>
+            Individual scores and performance
+            of your attempted tests
+        </span>
+
+    </h2>
+
+
+    {% if test_data %}
+
+    <div class="mock-test-grid">
+
+        {% for test in test_data %}
+
+        <div class="mock-test-card">
+
+
+            <div class="mock-test-header">
+
+                <h3>
+                    {{ test.mock_test.name }}
+                </h3>
+
+                <span class="attempt-status attempted-status">
+                    ✓ Attempted
+                </span>
+
+            </div>
+
+
+            <!-- SCORE -->
+
+            <div class="score-area">
+
+                <div class="score-number">
+                    {{ test.score }}
+                </div>
+
+                <div class="score-label">
+                    Score
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="test-stats">
+
+                <div class="stat-box">
+                    <small>Questions</small>
+                    <strong>
+                        {{ test.total_questions }}
+                    </strong>
+                </div>
+
+
+                <div class="stat-box">
+                    <small>Attempted</small>
+                    <strong>
+                        {{ test.attempted }}
+                    </strong>
+                </div>
+
+
+                <div class="stat-box">
+                    <small>Correct</small>
+                    <strong>
+                        {{ test.correct }}
+                    </strong>
+                </div>
+
+
+                <div class="stat-box">
+                    <small>Wrong</small>
+                    <strong>
+                        {{ test.wrong }}
+                    </strong>
+                </div>
+
+
+                <div class="stat-box">
+                    <small>Unattended</small>
+                    <strong>
+                        {{ test.unanswered }}
+                    </strong>
+                </div>
+
+
+                <div class="stat-box">
+                    <small>Accuracy</small>
+                    <strong>
+                        {{ test.accuracy }}%
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- ACCURACY BAR -->
+
+            <div class="accuracy-area">
+
+                <strong>
+                    Accuracy: {{ test.accuracy }}%
+                </strong>
+
+                <div class="accuracy-bar">
+
+                    <div
+                        class="accuracy-fill"
+                        style="width: {{ test.accuracy }}%;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="test-actions">
+
+                {% if test.result_id %}
+
+                <a
+                    href="{% url 'test_result_detail' test.result_id %}"
+                    class="test-btn performance-btn"
+                >
+                    📊 View Performance
+                </a>
+
+                {% endif %}
+
+
+                {% if test.test_id %}
+
+                <a
+                    href="{% url 'test_ranking' test.test_id %}"
+                    class="test-btn ranking-btn"
+                >
+                    🏆 View Ranking
+                </a>
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+    <div class="not-attempted-content">
+
+        <div class="emoji">
+            📚
+        </div>
+
+        <h2>
+            No {{ category|upper }} Tests Attempted Yet
+        </h2>
+
+        <p>
+            Your individual test scores will appear
+            here after you complete a test.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         BACK
+    ====================================================== -->
+
+    <div class="back-container">
+
+        <a
+            href="{% url 'performance_analysis' %}"
+            class="back-btn"
+        >
+            ← Back to Performance Center
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     CHART.JS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+const attemptLabels =
+    {{ attempt_labels|safe }};
+
+const attemptedValues =
+    {{ attempted_values|safe }};
+
+const unansweredValues =
+    {{ unanswered_values|safe }};
+
+const accuracyValues =
+    {{ accuracy_values|safe }};
+
+const scoreValues =
+    {{ score_values|safe }};
+
+
+/* =========================================================
+   ATTEMPT CHART
+========================================================= */
+
+new Chart(
+    document.getElementById("attemptChart"),
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: attemptLabels,
+
+            datasets: [
+
+                {
+                    label: "Attempted",
+                    data: attemptedValues
+                },
+
+                {
+                    label: "Unanswered",
+                    data: unansweredValues
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            scales: {
+
+                y: {
+                    beginAtZero: true
+                }
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ACCURACY CHART
+========================================================= */
+
+new Chart(
+    document.getElementById("accuracyChart"),
+    {
+
+        type: "line",
+
+        data: {
+
+            labels: attemptLabels,
+
+            datasets: [
+
+                {
+                    label: "Accuracy %",
+                    data: accuracyValues,
+
+                    tension: 0.3,
+
+                    fill: false
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true,
+
+                    max: 100
+
+                }
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SCORE JOURNEY
+========================================================= */
+
+{% if score_values %}
+
+new Chart(
+    document.getElementById("categoryScoreChart"),
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: attemptLabels,
+
+            datasets: [
+
+                {
+                    label: "Score",
+                    data: scoreValues
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            scales: {
+
+                y: {
+                    beginAtZero: true
+                }
+
+            }
+
+        }
+
+    }
+);
+
+{% endif %}
+
+</script>
+
+{% endblock %}

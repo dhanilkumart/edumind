@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.test-page {
+    max-width: 1000px;
+    margin: 18px auto;
+    padding: 24px 14px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #fef3c7, #dbeafe, #f3e8ff);
+}
+
+.test-title {
+    text-align: center;
+    font-size: clamp(29px, 5vw, 40px);
+    font-weight: 900;
+    color: #713f12;
+    margin-bottom: 8px;
+}
+
+.test-subtitle {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 22px;
+}
+
+.test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.test-card {
+    display: flex;
+    min-height: 105px;
+    padding: 16px 8px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: #422006;
+    text-decoration: none;
+    font-size: 21px;
+    font-weight: 900;
+    border: 1px solid #ca8a04;
+    box-shadow: 0 4px 9px #0002;
+    transition: transform .2s;
+}
+
+.test-card:hover {
+    color: #422006;
+    transform: translateY(-3px);
+}
+
+.test-status {
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+/* Test 1 is light yellow; Test 10 is dark golden yellow. */
+.test-1  { background: #fffde7; }
+.test-2  { background: #fff9c4; }
+.test-3  { background: #fff59d; }
+.test-4  { background: #fff176; }
+.test-5  { background: #ffee58; }
+.test-6  { background: #ffeb3b; }
+.test-7  { background: #fdd835; }
+.test-8  { background: #fbc02d; }
+.test-9  { background: #f9a825; }
+.test-10 { background: #e69b00; }
+
+.test-unavailable {
+    opacity: .78;
+    cursor: not-allowed;
+}
+
+.back-button {
+    font-weight: 700;
+}
+</style>
+
+<div class="container test-page">
+    <h1 class="test-title">{{ subject_name }}</h1>
+    <p class="test-subtitle">
+        Class {{ class_no }} — Choose Test 1 to 10
+    </p>
+
+    <div class="test-grid">
+        {% for test in olympiad_tests %}
+        {% if test.has_questions %}
+        <a class="test-card test-{{ test.test_no }}"
+           href="{% url 'olympiad_test' class_no subject_slug test.test_no %}">
+            <span>📝 TEST {{ test.test_no }}</span>
+            <span class="test-status">Start Test →</span>
+        </a>
+        {% else %}
+        <div class="test-card test-{{ test.test_no }} test-unavailable"
+             aria-disabled="true">
+            <span>📝 TEST {{ test.test_no }}</span>
+            <span class="test-status">Available Soon</span>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'olympiad_class' class_no %}"
+           class="btn btn-dark back-button">
+            ← Back to Exam Categories
+        </a>
+    </div>
+</div>
+{% endblock %}

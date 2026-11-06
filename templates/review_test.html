@@ -1,0 +1,779 @@
+{% extends "base.html" %}
+
+{% block title %}Review Tests{% endblock %}
+
+{% block page_class %}page-review-test{% endblock %}
+
+{% block content %}
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+.review-header {
+    background: #1e3a8a;
+    color: white;
+    padding: 18px 25px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.review-header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.review-container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 15px;
+
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    gap: 20px;
+}
+
+.question-area {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    min-height: 600px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.10);
+}
+
+.question-number-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 20px;
+}
+
+.question-text {
+    font-size: 22px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+/* OPTIONS */
+
+.option {
+    padding: 16px;
+    margin: 12px 0;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    background: #f9fafb;
+
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+/* SELECTED ANSWER */
+
+.option.selected {
+    background: #fee2e2;
+    border: 2px solid #dc2626;
+}
+
+/* CORRECT ANSWER */
+
+.option.correct {
+    background: #dcfce7;
+    border: 2px solid #16a34a;
+}
+
+/* SELECTED + CORRECT */
+
+.option.selected.correct {
+    background: #bbf7d0;
+    border: 2px solid #15803d;
+}
+
+/* STATUS */
+
+.answer-status {
+    margin-top: 25px;
+    padding: 15px;
+
+    border-radius: 8px;
+
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.status-correct {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-wrong {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-unanswered {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ANSWER DETAILS */
+
+.answer-details {
+    margin-top: 20px;
+    padding: 15px;
+
+    background: #f8fafc;
+    border-radius: 8px;
+
+    border: 1px solid #e5e7eb;
+}
+
+.answer-details p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/* TIME */
+
+.time-box {
+    margin-top: 15px;
+    padding: 14px;
+
+    background: #f3f4f6;
+    border-radius: 8px;
+
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* EXPLANATION */
+
+.explanation {
+    margin-top: 25px;
+    padding: 20px;
+
+    background: #eff6ff;
+
+    border-left: 5px solid #2563eb;
+
+    border-radius: 6px;
+
+    line-height: 1.6;
+}
+
+.explanation h3 {
+    margin-top: 0;
+    color: #1e40af;
+}
+
+/* NAVIGATION */
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.nav-button {
+    padding: 12px 25px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+.nav-button:hover {
+    background: #1d4ed8;
+}
+
+.nav-disabled {
+    background: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+/* RIGHT PANEL */
+
+.question-panel {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    height: fit-content;
+
+    position: sticky;
+    top: 15px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.10);
+}
+
+.question-panel h2 {
+    margin-top: 0;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    color: #1f2937;
+}
+
+/* QUESTION GRID */
+
+.question-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+}
+
+.question-btn {
+    height: 45px;
+
+    border: none;
+    border-radius: 7px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CORRECT */
+
+.question-btn.correct {
+    background: #86efac;
+    color: #14532d;
+}
+
+/* WRONG */
+
+.question-btn.wrong {
+    background: #fca5a5;
+    color: #7f1d1d;
+}
+
+/* UNANSWERED */
+
+.question-btn.unanswered {
+    background: #fde68a;
+    color: #78350f;
+}
+
+/* CURRENT */
+
+.question-btn.active {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* LEGEND */
+
+.legend {
+    margin-top: 20px;
+
+    border-top: 1px solid #e5e7eb;
+
+    padding-top: 15px;
+
+    font-size: 14px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.legend-box {
+    width: 18px;
+    height: 18px;
+
+    border-radius: 4px;
+
+    margin-right: 8px;
+}
+
+.legend-correct {
+    background: #86efac;
+}
+
+.legend-wrong {
+    background: #fca5a5;
+}
+
+.legend-unanswered {
+    background: #fde68a;
+}
+
+/* DASHBOARD */
+
+.dashboard-area {
+    text-align: center;
+    margin: 20px 0 35px;
+}
+
+.dashboard-button {
+    display: inline-block;
+
+    padding: 13px 30px;
+
+    background: #374151;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+}
+
+.dashboard-button:hover {
+    background: #111827;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .review-container {
+        grid-template-columns: 1fr;
+    }
+
+    .question-panel {
+        position: static;
+        order: -1;
+    }
+
+    .question-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .question-area {
+        padding: 20px;
+    }
+
+    .question-text {
+        font-size: 18px;
+    }
+
+}
+
+</style>
+
+
+<!-- HEADER -->
+
+<div class="review-header">
+
+    <h1>
+        Review Your Answers
+    </h1>
+
+    {% if test.test_name %}
+        <div>{{ test.test_name }}</div>
+    {% endif %}
+
+</div>
+
+
+<div class="review-container">
+
+
+    <!-- QUESTION -->
+
+    <div class="question-area">
+
+
+        {% if answer %}
+
+            <div class="question-number-title">
+
+                Question {{ question_no }}
+                of {{ total_questions }}
+
+            </div>
+
+
+            <!-- QUESTION TEXT -->
+
+            <div class="question-text">
+
+                {{ answer.question.question }}
+
+            </div>
+
+
+            <!-- OPTION A -->
+
+            <div class="option
+                {% if selected_option == 'A' %}
+                    selected
+                {% endif %}
+
+                {% if answer.question.correct_option == 'A' %}
+                    correct
+                {% endif %}
+            ">
+
+                <strong>A.</strong>
+                {{ answer.question.option_a }}
+
+            </div>
+
+
+            <!-- OPTION B -->
+
+            <div class="option
+                {% if selected_option == 'B' %}
+                    selected
+                {% endif %}
+
+                {% if answer.question.correct_option == 'B' %}
+                    correct
+                {% endif %}
+            ">
+
+                <strong>B.</strong>
+                {{ answer.question.option_b }}
+
+            </div>
+
+
+            <!-- OPTION C -->
+
+            <div class="option
+                {% if selected_option == 'C' %}
+                    selected
+                {% endif %}
+
+                {% if answer.question.correct_option == 'C' %}
+                    correct
+                {% endif %}
+            ">
+
+                <strong>C.</strong>
+                {{ answer.question.option_c }}
+
+            </div>
+
+
+            <!-- OPTION D -->
+
+            <div class="option
+                {% if selected_option == 'D' %}
+                    selected
+                {% endif %}
+
+                {% if answer.question.correct_option == 'D' %}
+                    correct
+                {% endif %}
+            ">
+
+                <strong>D.</strong>
+                {{ answer.question.option_d }}
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            {% if not answer.selected_option %}
+
+                <div class="answer-status status-unanswered">
+
+                    🟡 Not Answered
+
+                </div>
+
+            {% elif answer.is_correct %}
+
+                <div class="answer-status status-correct">
+
+                    🟢 Correct Answer
+
+                </div>
+
+            {% else %}
+
+                <div class="answer-status status-wrong">
+
+                    🔴 Wrong Answer
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- DETAILS -->
+
+            <div class="answer-details">
+
+                <p>
+
+                    <strong>Your Answer:</strong>
+
+                    {% if answer.selected_option %}
+
+                        {{ selected_option }}
+
+                    {% else %}
+
+                        Not Answered
+
+                    {% endif %}
+
+                </p>
+
+
+                <p>
+
+                    <strong>Correct Answer:</strong>
+
+                    {{ correct_option }}
+
+                </p>
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="time-box">
+
+                ⏱ Time Taken:
+
+                {{ answer.time_spent }} seconds
+
+            </div>
+
+
+            <!-- EXPLANATION -->
+
+            <div class="explanation">
+
+                <h3>
+                    Explanation
+                </h3>
+
+                {% if answer.question.explanation %}
+
+                    {{ answer.question.explanation }}
+
+                {% else %}
+
+                    No explanation available.
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- PREVIOUS / NEXT -->
+
+            <div class="navigation">
+
+
+                {% if previous_question %}
+
+                    <a
+                        href="{% url 'review_question' test.id previous_question %}"
+                        class="nav-button"
+                    >
+
+                        ← Previous
+
+                    </a>
+
+                {% else %}
+
+                    <span class="nav-button nav-disabled">
+
+                        ← Previous
+
+                    </span>
+
+                {% endif %}
+
+
+                {% if next_question %}
+
+                    <a
+                        href="{% url 'review_question' test.id next_question %}"
+                        class="nav-button"
+                    >
+
+                        Next →
+
+                    </a>
+
+                {% else %}
+
+                    <span class="nav-button nav-disabled">
+
+                        Next →
+
+                    </span>
+
+                {% endif %}
+
+
+            </div>
+
+
+        {% else %}
+
+            <h2>
+                No questions available for this test.
+            </h2>
+
+            <p>
+                No answers were saved for this test.
+            </p>
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- RIGHT QUESTION PANEL -->
+
+    <div class="question-panel">
+
+        <h2>
+            Questions
+        </h2>
+
+
+        <div class="question-grid">
+
+
+            {% for item in answers %}
+
+                {% if item.is_correct %}
+
+                    <a
+                        href="{% url 'review_question' test.id forloop.counter %}"
+                        class="question-btn correct
+                        {% if forloop.counter == question_no %}
+                            active
+                        {% endif %}
+                        "
+                    >
+                        {{ forloop.counter }}
+                    </a>
+
+                {% elif not item.selected_option %}
+
+                    <a
+                        href="{% url 'review_question' test.id forloop.counter %}"
+                        class="question-btn unanswered
+                        {% if forloop.counter == question_no %}
+                            active
+                        {% endif %}
+                        "
+                    >
+                        {{ forloop.counter }}
+                    </a>
+
+                {% else %}
+
+                    <a
+                        href="{% url 'review_question' test.id forloop.counter %}"
+                        class="question-btn wrong
+                        {% if forloop.counter == question_no %}
+                            active
+                        {% endif %}
+                        "
+                    >
+                        {{ forloop.counter }}
+                    </a>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <!-- LEGEND -->
+
+        <div class="legend">
+
+            <div class="legend-item">
+
+                <span class="legend-box legend-correct"></span>
+
+                Correct
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span class="legend-box legend-wrong"></span>
+
+                Wrong
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span class="legend-box legend-unanswered"></span>
+
+                Unanswered
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div class="dashboard-area">
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="dashboard-button"
+    >
+
+        🏠 Back to Dashboard
+
+    </a>
+
+</div>
+
+
+{% endblock %}

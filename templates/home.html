@@ -1,0 +1,1966 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block page_class %}page-home{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   HOME PAGE
+   ===================================================== */
+
+.edumind-home {
+    min-height: calc(100vh - 70px);
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eaf6ff 0%,
+            #dff1ff 50%,
+            #f5fbff 100%
+        );
+}
+
+
+/* =====================================================
+   HOME TOP BAR
+   ===================================================== */
+
+.edumind-home-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: 10px 15px;
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   WELCOME AREA
+   ===================================================== */
+
+.edumind-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px 10px 35px;
+}
+
+
+/* =====================================================
+   ANIMATED WELCOME BOX
+   ===================================================== */
+
+.welcome-box {
+
+    width: min(1050px, 96%);
+
+    min-height: 100px;
+
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+    overflow: hidden;
+
+    padding: 45px 30px;
+
+    color: #064e3b;
+
+    box-shadow:
+        0 25px 60px rgba(0,100,50,0.18);
+
+    background:
+        linear-gradient(
+            110deg,
+            #d9ec98fe,
+            #bbf7d0,
+            #86efac,
+            #d1fae5,
+            #a7f3d0,
+            #bef264,
+            #d9f99d
+        );
+
+    background-size: 500% 500%;
+
+    animation:
+        flowingGradient 9s ease-in-out infinite;
+
+    box-sizing: border-box;
+}
+
+
+@keyframes flowingGradient {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 35%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 65%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* LIGHT EFFECT */
+
+.welcome-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.28);
+
+    filter: blur(25px);
+
+    top: -200px;
+    left: -150px;
+
+    animation: movingLight 8s ease-in-out infinite;
+}
+
+
+.welcome-box::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.20);
+
+    filter: blur(25px);
+
+    bottom: -180px;
+    right: -120px;
+
+    animation: movingLight2 9s ease-in-out infinite;
+}
+
+
+@keyframes movingLight {
+
+    0% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(600px,100px);
+    }
+
+    100% {
+        transform: translate(0,0);
+    }
+}
+
+
+@keyframes movingLight2 {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-500px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* =====================================================
+   WELCOME CONTENT
+   ===================================================== */
+
+.welcome-content {
+
+    position: relative;
+    z-index: 5;
+
+    max-width: 800px;
+}
+
+
+.welcome-content h1 {
+
+    font-size: clamp(30px, 5vw, 46px);
+
+    margin: 0 0 10px;
+
+    color: #065f46;
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+}
+
+
+.welcome-content h3 {
+
+    font-size: clamp(21px, 4vw, 30px);
+
+    margin: 0 0 18px;
+
+    color: #166534;
+}
+
+
+.welcome-content p {
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    color: #14532d;
+
+    margin: 0 auto 15px;
+
+    max-width: 720px;
+}
+
+
+/* =====================================================
+   GET STARTED BUTTON
+   ===================================================== */
+
+.get-started {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    padding: 14px 34px;
+
+    border-radius: 30px;
+
+    background: #047857;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 25px rgba(0,80,50,0.25);
+
+    transition: 0.3s ease;
+
+    margin-top: 10px;
+}
+
+
+.get-started:hover {
+
+    background: #065f46;
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 30px rgba(0,80,50,0.30);
+}
+
+
+/* =====================================================
+   FEATURES
+   ===================================================== */
+
+.features {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}
+
+
+.feature {
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.48);
+
+    color: #166534;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =====================================================
+   EXAM INTRODUCTION
+   ===================================================== */
+
+.exam-intro {
+
+    max-width: 1100px;
+
+    margin: 20px auto 0;
+
+    padding: 10px;
+}
+
+
+.exam-intro > h1 {
+
+    text-align: center;
+
+    color: #075985;
+
+    font-size: clamp(25px, 4vw, 34px);
+
+    margin: 20px 0 10px;
+
+    font-weight: 800;
+}
+
+
+.intro-text {
+
+    text-align: center;
+
+    color: #475569;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    max-width: 850px;
+
+    margin: 0 auto 25px;
+}
+
+
+/* =====================================================
+   EXAM BOXES - 2 COLUMN LAYOUT
+   ===================================================== */
+
+.exam-intro {
+    max-width: 1100px;
+    margin: 20px auto 0;
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+
+/* Heading and introduction use full width */
+
+.exam-intro > h1,
+.exam-intro > .intro-text {
+    grid-column: 1 / -1;
+}
+
+
+.exam-section {
+    padding: 18px 20px;
+
+    margin: 0;
+
+    border-radius: 18px;
+
+    color: white;
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    box-sizing: border-box;
+}
+
+.exam-section:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.18);
+}
+
+
+/* =====================================================
+   DIFFERENT EXAM COLORS
+   ===================================================== */
+
+.cat-section {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+}
+
+
+.banking-section {
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #0d9488
+        );
+}
+
+
+.ssc-section {
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #9333ea
+        );
+}
+
+
+.railway-section {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ea580c,
+            #f59e0b
+        );
+}
+
+
+.olympiad-section {
+
+    background:
+        linear-gradient(
+            135deg,
+            #db2777,
+            #e11d48
+        );
+}
+
+
+/* =====================================================
+   EXAM HEADINGS
+   ===================================================== */
+
+.exam-section h2 {
+
+    margin: 0 0 7px;
+
+    font-size: 21px;
+
+    line-height: 1.3;
+}
+
+
+.exam-link {
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 800;
+}
+
+
+.exam-link:hover {
+
+    text-decoration: underline;
+}
+
+
+.exam-section p {
+
+    margin: 0 0 10px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: rgba(255,255,255,0.92);
+}
+
+
+.exam-section ul {
+
+    margin: 0;
+
+    padding-left: 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 4px 25px;
+}
+
+
+.exam-section li {
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+.exam-section strong {
+
+    color: white;
+}
+
+
+/* =====================================================
+   OLYMPIAD ELIGIBILITY
+   ===================================================== */
+
+.eligibility {
+
+    margin-top: 12px;
+
+    padding: 8px 10px;
+
+    background:
+        rgba(255,255,255,0.15);
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    text-align: center;
+
+    line-height: 1.6;
+}
+
+/* =====================================================
+   CHOOSE YOUR EXAM PATH
+   ===================================================== */
+
+.choose-section {
+
+    grid-column: 1 / -1;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #eff6ff
+        );
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    margin-top: 5px;
+
+    box-shadow:
+        0 8px 22px rgba(0,80,150,0.10);
+}
+
+
+.choose-section h2 {
+
+    text-align: center;
+
+    color: #075985;
+
+    margin: 0 0 18px;
+
+    font-size: 24px;
+}
+
+
+.choose-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+
+/* =====================================================
+   COLORFUL PATH CARDS
+   ===================================================== */
+
+.choose-card {
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    color: white;
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    min-height: 105px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.choose-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.18);
+}
+
+
+/* Different backgrounds */
+
+.choose-card:nth-child(1) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        );
+}
+
+
+.choose-card:nth-child(2) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #14b8a6
+        );
+}
+
+
+.choose-card:nth-child(3) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
+}
+
+
+.choose-card:nth-child(4) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ea580c,
+            #f97316
+        );
+}
+
+
+.choose-card:nth-child(5) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0891b2,
+            #06b6d4
+        );
+}
+
+
+.choose-card:nth-child(6) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #db2777,
+            #ec4899
+        );
+}
+
+
+.choose-card h3 {
+
+    color: white;
+
+    margin: 0 0 7px;
+
+    font-size: 18px;
+}
+
+
+.choose-card p {
+
+    color: rgba(255,255,255,0.95);
+
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .edumind-home {
+
+        padding: 10px;
+    }
+
+
+    .edumind-main {
+
+        padding: 15px 5px 25px;
+    }
+
+
+    .welcome-box {
+
+        min-height: 100px;
+
+        padding: 30px 18px;
+
+        border-radius: 25px;
+    }
+
+
+    .welcome-content h1 {
+
+        letter-spacing: -1px;
+    }
+
+
+    .welcome-content p {
+
+        font-size: 15px;
+    }
+
+
+    .features {
+
+        gap: 6px;
+    }
+
+
+    .feature {
+
+        font-size: 12px;
+
+        padding: 7px 11px;
+    }
+
+
+    .exam-intro {
+    grid-template-columns: 1fr;
+    padding: 5px;
+}
+
+.exam-intro > h1,
+.exam-intro > .intro-text,
+.choose-section {
+    grid-column: 1;
+}
+
+.choose-grid {
+    grid-template-columns: 1fr;
+}
+
+    .exam-section {
+
+        padding: 15px;
+
+        margin: 10px 0;
+    }
+
+
+    .exam-section h2 {
+
+        font-size: 18px;
+    }
+
+
+    .exam-section ul {
+
+        grid-template-columns: 1fr;
+
+        gap: 3px;
+    }
+
+
+    .exam-section li {
+
+        font-size: 12px;
+    }
+
+
+    .choose-section {
+
+        padding: 18px 12px;
+    }
+
+
+    .choose-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 10px;
+    }
+
+}
+
+
+/* VERY SMALL PHONES */
+
+@media (max-width: 400px) {
+
+    .choose-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =====================================================
+   CAREER INFORMATION FLOW
+   ===================================================== */
+
+.career-flow-wrapper {
+    width: 100%;
+    margin: 25px auto 10px;
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.88),
+            rgba(236,253,245,0.92),
+            rgba(239,246,255,0.90)
+        );
+
+    box-shadow:
+        0 10px 30px rgba(0,80,50,0.15);
+
+    border: 1px solid rgba(22,163,74,0.15);
+}
+
+
+/* CLOSE BUTTON */
+
+.career-flow-close {
+    position: absolute;
+
+    right: 12px;
+    top: 10px;
+
+    z-index: 20;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.88);
+
+    color: #166534;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.12);
+
+    transition: 0.25s;
+}
+
+.career-flow-close:hover {
+    background: #dc2626;
+    color: white;
+
+    transform: scale(1.08);
+}
+
+
+/* FLOW WINDOW */
+
+.career-flow-window {
+    width: 100%;
+    overflow: hidden;
+
+    padding: 25px 0;
+}
+
+
+/* MOVING TRACK */
+
+.career-flow-track {
+    display: flex;
+
+    width: max-content;
+
+    align-items: center;
+
+    animation:
+        careerFlow 45s linear infinite;
+}
+
+
+/*
+   RIGHT → LEFT
+*/
+
+@keyframes careerFlow {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =====================================================
+   CAREER CARD
+   ===================================================== */
+
+.career-flow-card {
+
+    width: 330px;
+    min-width: 330px;
+
+    height: 185px;
+
+    margin: 0 15px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.16);
+
+    background: #ffffff;
+
+    transition: 0.3s;
+}
+
+.career-flow-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.22);
+}
+
+
+/* IMAGE */
+
+.career-flow-card img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    position: absolute;
+
+    inset: 0;
+}
+
+
+/* DARK IMAGE OVERLAY */
+
+.career-flow-card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 25%,
+            rgba(0,0,0,0.82)
+        );
+}
+
+
+/* INFORMATION */
+
+.career-flow-info {
+    position: relative;
+
+    z-index: 3;
+
+    width: 100%;
+
+    padding: 15px;
+
+    color: white;
+}
+
+.career-flow-info h3 {
+    margin: 0 0 5px;
+
+    font-size: 20px;
+}
+
+.career-flow-info p {
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+}
+
+
+/* =====================================================
+   TRANSPARENT GAP
+   ===================================================== */
+
+.career-flow-gap {
+    width: 150px;
+    min-width: 150px;
+
+    height: 20px;
+}
+
+
+/* =====================================================
+   NOT ENDING CARD
+   ===================================================== */
+
+.career-ending-card {
+
+    width: 330px;
+    min-width: 330px;
+
+    height: 185px;
+
+    margin: 0 15px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #065f46,
+            #0891b2,
+            #7c3aed,
+            #db2777
+        );
+
+    box-shadow:
+        0 8px 22px rgba(80,40,150,0.22);
+}
+
+.career-ending-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 25px;
+}
+
+.career-ending-card p {
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   SMALL LABEL
+   ===================================================== */
+
+.career-flow-title {
+    text-align: center;
+
+    padding-top: 15px;
+
+    color: #166534;
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .career-flow-card,
+    .career-ending-card {
+        width: 285px;
+        min-width: 285px;
+
+        height: 165px;
+    }
+
+    .career-flow-gap {
+        width: 100px;
+        min-width: 100px;
+    }
+
+    .career-flow-track {
+        animation-duration: 38s;
+    }
+
+}
+
+
+</style>
+
+
+<div class="edumind-home">
+
+
+    <!-- =================================================
+         TOP AREA
+         ================================================= -->
+
+    <div class="edumind-home-top">
+
+        <a
+            href="/register/"
+            class="get-started"
+        >
+            Get Started
+        </a>
+
+    </div>
+    
+
+    <!-- =================================================
+         WELCOME
+         ================================================= -->
+
+    <main class="edumind-main">
+
+        <div class="welcome-box">
+
+            <div class="welcome-content">
+
+                <h1>
+                    🚀 Welcome to EduMind
+                </h1>
+
+                <h3>
+                    Turn Face 2 Success
+                </h3>
+
+                          </div>
+
+        </div>
+
+    </main>
+    </div>
+
+
+    <!-- =================================================
+         EXAM INTRODUCTION
+         ================================================= -->
+
+    <section class="exam-intro">
+
+        <h1>
+            Competitive Exams & Olympiad Preparation
+        </h1>
+
+        <p class="intro-text">
+            EduMind helps students and aspirants prepare for major
+            entrance, competitive and government examinations through
+            smart practice, mock tests, question banks and
+            performance analysis.
+        </p>
+
+
+        <!-- =================================================
+             CAT
+             ================================================= -->
+
+        <div class="exam-section cat-section">
+
+            <h2>
+                <a
+                    href="{% url 'cat' %}"
+                    class="exam-link"
+                >
+                    🎓 CAT – Common Admission Test
+                </a>
+            </h2>
+
+            <p>
+                Prepare for India's leading management entrance examination.
+            </p>
+
+            <ul>
+
+                <li>
+                    <strong>VARC</strong> –
+                    Verbal Ability & Reading Comprehension
+                </li>
+
+                <li>
+                    <strong>DILR</strong> –
+                    Data Interpretation & Logical Reasoning
+                </li>
+
+                <li>
+                    <strong>QA</strong> –
+                    Quantitative Ability
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- =================================================
+             BANKING
+             ================================================= -->
+
+        <div class="exam-section banking-section">
+
+            <h2>
+                <a
+                    href="{% url 'banking' %}"
+                    class="exam-link"
+                >
+                    🏦 Banking Exams
+                </a>
+            </h2>
+
+            <p>
+                Prepare for banking and financial-sector competitive exams.
+            </p>
+
+            <ul>
+
+                <li>
+                    <strong>Bank PO</strong>
+                </li>
+
+                <li>
+                    <strong>Bank Clerk / CSA</strong>
+                </li>
+
+                <li>
+                    <strong>Specialist Officer</strong>
+                </li>
+
+                <li>
+                    <strong>RBI / NABARD / SEBI</strong>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- =================================================
+             SSC
+             ================================================= -->
+
+        <div class="exam-section ssc-section">
+
+            <h2>
+                <a
+                    href="{% url 'ssc' %}"
+                    class="exam-link"
+                >
+                    🏛️ SSC – Staff Selection Commission
+                </a>
+            </h2>
+
+            <p>
+                Prepare for major SSC examinations and central government
+                recruitment opportunities.
+            </p>
+
+            <ul>
+
+                <li>
+                    <strong>SSC CGL</strong> –
+                    Graduate Level
+                </li>
+
+                <li>
+                    <strong>SSC CHSL</strong> –
+                    12th Level
+                </li>
+
+                <li>
+                    <strong>SSC MTS</strong> –
+                    Multi-Tasking Staff
+                </li>
+
+                <li>
+                    <strong>SSC GD</strong> –
+                    Constable
+                </li>
+
+                <li>
+                    <strong>SSC CPO</strong> –
+                    Sub-Inspector
+                </li>
+
+                <li>
+                    <strong>SSC JE</strong> –
+                    Junior Engineer
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- =================================================
+             RAILWAY
+             ================================================= -->
+
+        <div class="exam-section railway-section">
+
+            <h2>
+                <a
+                    href="{% url 'railway' %}"
+                    class="exam-link"
+                >
+                    🚆 Railway / RRB
+                </a>
+            </h2>
+
+            <p>
+                Prepare for Railway Recruitment Board examinations.
+            </p>
+
+            <ul>
+
+                <li>
+                    <strong>RRB NTPC</strong>
+                </li>
+
+                <li>
+                    <strong>RRB Group D</strong>
+                </li>
+
+                <li>
+                    <strong>Assistant Loco Pilot</strong>
+                </li>
+
+                <li>
+                    <strong>Technician</strong>
+                </li>
+
+                <li>
+                    <strong>RRB JE</strong>
+                </li>
+
+                <li>
+                    <strong>RPF</strong>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- =================================================
+             OLYMPIAD
+             ================================================= -->
+
+        <div class="exam-section olympiad-section">
+
+            <h2>
+                <a
+                    href="{% url 'olympiad' %}"
+                    class="exam-link"
+                >
+                    🏆 Olympiad – School-Level Competitive Exams
+                </a>
+            </h2>
+
+            <p>
+                Build logical thinking, problem-solving ability and
+                subject knowledge through Olympiad practice.
+            </p>
+
+            <ul>
+
+                <li>
+                    <strong>Mathematics Olympiad</strong>
+                </li>
+
+                <li>
+                    <strong>Science Olympiad</strong>
+                </li>
+
+                <li>
+                    <strong>English Olympiad</strong>
+                </li>
+
+                <li>
+                    <strong>Logical Reasoning Olympiad</strong>
+                </li>
+
+                <li>
+                    <strong>Computer / Cyber Olympiad</strong>
+                </li>
+
+                <li>
+                    <strong>General Knowledge Olympiad</strong>
+                </li>
+
+            </ul>
+
+
+            <div class="eligibility">
+
+                🧠 Logical Thinking
+                &nbsp; • &nbsp;
+
+                🔢 Mathematical Ability
+                &nbsp; • &nbsp;
+
+                🔬 Scientific Thinking
+                &nbsp; • &nbsp;
+
+                📖 Language Skills
+                &nbsp; • &nbsp;
+
+                🎯 Problem Solving
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CHOOSE YOUR PATH
+             ================================================= -->
+
+        <div class="choose-section">
+
+            <h2>
+                🎯 Choose Your Exam Path
+            </h2>
+
+            <div class="choose-grid">
+
+
+                <a
+                    href="{% url 'tenth_pass' %}"
+                    class="choose-card"
+                >
+
+                    <h3>
+                        10th Pass
+                    </h3>
+
+                    <p>
+                        SSC MTS • SSC GD<br>
+                        RRB Group D
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="{% url 'twelfth_pass' %}"
+                    class="choose-card">
+                <h3>12th Pass</h3>
+                <p>
+                    SSC CHSL • SSC Stenographer<br>
+                    RRB NTPC
+                </p>
+            </a>
+
+            <a href="{% url 'graduate' %}" class="choose-card">
+                <h3>Graduate</h3>
+                <p>
+                    CAT • Bank PO/Clerk<br>
+                    SSC CGL/CPO • RRB NTPC
+                </p>
+            </a>
+
+            <a href="{% url 'engineering' %}" class="choose-card">
+                <h3>Engineering</h3>
+                <p>
+                    SSC JE • RRB JE<br>
+                    Technical Railway Posts
+                </p>
+            </a>
+
+            <a href="{% url 'specialized' %}" class="choose-card">
+                <h3>Specialized</h3>
+                <p>
+                    Bank SO • RBI<br>
+                    NABARD • SEBI
+                </p>
+            </a>
+
+            <a href="{% url 'olympiad' %}" class="choose-card">
+                <h3>Olympiad</h3>
+                <p>
+                    Class 1–12<br>
+                    Mathematics • Science<br>
+                    English • Reasoning • GK
+                </p>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+                <a
+                    href="/register/"
+                    class="get-started">
+
+                    Get Started
+
+                </a>
+
+
+                <!-- FEATURES -->
+
+                <div class="features">
+                    
+                    <div class="feature">
+                        📚 Practice
+                    </div>
+
+                    <div class="feature">
+                        🧠 Learn
+                    </div>
+
+                    <div class="feature">
+                        📝 Mock Tests
+                    </div>
+
+                    <div class="feature">
+                        📊 Analyse
+                    </div>
+
+                    <div class="feature">
+                        🎯 Succeed
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+<!-- =====================================================
+     CAREER INFORMATION FLOW
+     ===================================================== -->
+
+<div class="career-flow-wrapper" id="careerFlow">
+
+    <button
+        type="button"
+        class="career-flow-close"
+        onclick="closeCareerFlow()"
+        aria-label="Close career information"
+    >
+        ×
+    </button>
+
+
+    <div class="career-flow-title">
+        🎯 Explore Your Career Opportunities
+    </div>
+
+
+    <div class="career-flow-window">
+
+        <div class="career-flow-track">
+
+
+            <!-- ================= MBA ================= -->
+
+            <div class="career-flow-card">
+
+                <img src="https://i.ibb.co/S4fdQR28/file-0000000010508211a0e537c43f7842fd.png" alt="file-0000000010508211a0e537c43f7842fd" border="0">
+
+                <div class="career-flow-info">
+
+                    <h3>🎓 MBA Career</h3>
+
+                    <p>
+                        Management • Finance • Marketing • Consulting
+                    </p>
+
+                    <p>
+                        💰 Typical salary varies widely by institute,
+                        role and experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAP -->
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- ================= BANK ================= -->
+
+            <div class="career-flow-card">
+
+            <img src="https://i.ibb.co/zTq2Kybn/IMG-20260930-WA0000.jpg" alt="IMG-20260930-WA0000" border="0">                <div class="career-flow-info">
+
+                    <h3>🏦 Banking Career</h3>
+
+                    <p>
+                        PO • Clerk • Specialist Officer
+                    </p>
+
+                    <p>
+                        💰 Salary depends on bank, post,
+                        allowances and experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAP -->
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- ================= SSC ================= -->
+
+            <div class="career-flow-card">
+
+                <img src="https://i.ibb.co/tTxxZsZv/IMG-20260930-WA0001.jpg" alt="IMG-20260930-WA0001" border="0"></a><br />< target='_blank' href='https://imgbb.com/'>get direct url for image<br />
+
+                <div class="career-flow-info">
+
+                    <h3>🏛️ SSC Careers</h3>
+
+                    <p>
+                        CGL • CHSL • MTS • GD • CPO • JE
+                    </p>
+
+                    <p>
+                        💼 Central Government career opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAP -->
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- ================= RAILWAY ================= -->
+
+            <div class="career-flow-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=700&q=80"
+                    alt="Railway career"
+                >
+
+                <div class="career-flow-info">
+
+                    <h3>🚆 Railway Careers</h3>
+
+                    <p>
+                        NTPC • Group D • ALP • Technician • JE
+                    </p>
+
+                    <p>
+                        💼 Technical and non-technical opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAP -->
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- ================= OLYMPIAD ================= -->
+
+            <div class="career-flow-card">
+
+                <img src="https://i.ibb.co/QjT2XvPK/file-000000005e608211ba0180f676075921.png" alt="file-000000005e608211ba0180f676075921" border="0">
+                <div class="career-flow-info">
+
+                    <h3>🏆 Olympiad</h3>
+
+                    <p>
+                        Mathematics • Science • English • Reasoning
+                    </p>
+
+                    <p>
+                        🧠 Build strong academic and problem-solving skills.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAP -->
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- ================= NOT ENDING ================= -->
+
+            <div class="career-ending-card">
+
+                <div>
+
+                    <h3>
+                        🚀 Not Ending
+                    </h3>
+
+                    <p>
+                        Your journey doesn't stop here.
+                        Explore Engineering, Medicine, Law,
+                        Entrepreneurship, specialized careers
+                        and many more opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAP -->
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- =================================================
+                 DUPLICATE MBA
+                 Creates continuous looping flow
+                 ================================================= -->
+
+            <div class="career-flow-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=80"
+                    alt="MBA professionals"
+                >
+
+                <div class="career-flow-info">
+
+                    <h3>🎓 MBA Career</h3>
+
+                    <p>
+                        Management • Finance • Marketing • Consulting
+                    </p>
+
+                    <p>
+                        💰 Explore management career opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- DUPLICATE BANK -->
+
+            <div class="career-flow-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80"
+                    alt="Banking professional"
+                >
+
+                <div class="career-flow-info">
+
+                    <h3>🏦 Banking Career</h3>
+
+                    <p>
+                        PO • Clerk • Specialist Officer
+                    </p>
+
+                    <p>
+                        💼 Build a career in banking.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="career-flow-gap"></div>
+
+
+            <!-- DUPLICATE SSC -->
+
+            <div class="career-flow-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80"
+                    alt="Government career"
+                >
+
+                <div class="career-flow-info">
+
+                    <h3>🏛️ SSC Careers</h3>
+
+                    <p>
+                        CGL • CHSL • MTS • GD • CPO • JE
+                    </p>
+
+                    <p>
+                        💼 Government career opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function closeCareerFlow() {
+
+    const flow =
+        document.getElementById("careerFlow");
+
+    if (flow) {
+        flow.style.display = "none";
+    }
+
+}
+
+</script>
+ 
+</main>
+
+</div>  <!-- closes .edumind-home -->
+
+{% endblock %}

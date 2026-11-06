@@ -1,0 +1,473 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_class %}page-dashboard{% endblock %}
+
+{% block content %}
+<style>
+
+.dashboard-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 15px;
+}
+
+.dashboard-container h1 {
+    text-align: center;
+    color: #065f46;
+}
+
+.dashboard-subtitle {
+    text-align: center;
+    color: #4b5563;
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   MAIN DASHBOARD CARDS
+   ========================= */
+
+/* =========================
+   MAIN DASHBOARD CARDS
+   ========================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    padding: 20px 0;
+}
+
+.card {
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    color: white;
+    min-height: 150px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 13px 28px rgba(0,0,0,0.18);
+}
+
+/* Different colors for dashboard cards */
+
+.dashboard-grid .card:nth-child(1) {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+}
+
+.dashboard-grid .card:nth-child(2) {
+    background: linear-gradient(135deg, #059669, #0d9488);
+}
+
+.dashboard-grid .card:nth-child(3) {
+    background: linear-gradient(135deg, #7c3aed, #9333ea);
+}
+
+.dashboard-grid .card:nth-child(4) {
+    background: linear-gradient(135deg, #ea580c, #f59e0b);
+}
+
+.dashboard-grid .card:nth-child(5) {
+    background: linear-gradient(135deg, #db2777, #e11d48);
+}
+
+.dashboard-grid .card:nth-child(6) {
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.card p {
+    margin: 0 0 15px;
+    color: rgba(255,255,255,0.95);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.card button {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 9px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.card button:hover {
+    background: rgba(255,255,255,0.35);
+}
+/* =========================
+   TEST GRID
+   ========================= */
+
+.test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.test-card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 80, 40, 0.12);
+
+    text-align: center;
+    transition: 0.25s;
+}
+
+.test-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 80, 40, 0.18);
+}
+
+.test-card h2 {
+    color: #047857;
+    margin-bottom: 8px;
+}
+
+.category {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   LAST SCORE
+   ========================= */
+
+.last-score {
+    background: #ecfdf5;
+    border-radius: 12px;
+
+    padding: 12px;
+    margin: 15px 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.last-score span {
+    font-size: 14px;
+    color: #166534;
+}
+
+.last-score strong {
+    font-size: 25px;
+    color: #047857;
+}
+
+
+/* =========================
+   TEST BUTTONS
+   ========================= */
+
+.start-button,
+.reattempt-button {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    padding: 12px 25px;
+
+    border-radius: 25px;
+
+    font-weight: 700;
+
+    transition: 0.25s;
+}
+
+.start-button {
+    background: #047857;
+    color: white;
+}
+
+.start-button:hover {
+    background: #065f46;
+}
+
+.reattempt-button {
+    background: #16a34a;
+    color: white;
+}
+
+.reattempt-button:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .dashboard-container {
+        padding: 20px 10px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .card {
+        min-height: 130px;
+        padding: 18px;
+    }
+
+    .card h2 {
+        font-size: 19px;
+    }
+
+    .card p {
+        font-size: 12px;
+    }
+
+    .test-card {
+        padding: 20px;
+    }
+}
+    .dashboard-container {
+        padding: 20px 10px;
+    }
+
+    .test-card {
+        padding: 20px;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================
+     DASHBOARD TITLE
+     ========================= -->
+
+<div class="dashboard-container">
+
+    <h1>EduMind Dashboard</h1>
+
+    <p class="dashboard-subtitle">
+        Welcome to EduMind. Select an option below.
+    </p>
+
+
+    <!-- =========================
+         MAIN DASHBOARD OPTIONS
+         ========================= -->
+
+    <div class="dashboard-grid">
+
+        <!-- MOCK TESTS -->
+
+        <div class="card">
+
+            <h2>📝 Mock Tests</h2>
+
+            <p>
+                Select a subject and start a mock test.
+            </p>
+
+            <a href="{% url 'subjects' %}">
+                <button>Select Subject</button>
+            </a>
+
+        </div>
+
+
+        <!-- PERFORMANCE -->
+
+        <div class="card">
+
+            <h2>📊 Performance</h2>
+
+            <p>
+                View your performance analysis.
+            </p>
+
+            <a href="{% url 'performance_analysis' %}">
+                <button>View</button>
+            </a>
+
+        </div>
+
+
+        <!-- PREVIOUS TESTS -->
+
+        <div class="card">
+
+            <h2>📚 Previous Tests</h2>
+
+            <p>
+                See all your previous results.
+            </p>
+
+            <a href="{% url 'previous_tests' %}">
+                <button class="dashboard-btn">
+                    Previous Tests
+                </button>
+            </a>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="card">
+
+            <h2>👤 Profile</h2>
+
+            <p>
+                Update your profile.
+            </p>
+
+            <a href="{% url 'profile' %}">
+                <button>Edit</button>
+            </a>
+
+        </div>
+
+
+        <!-- UPLOAD QUESTIONS -->
+
+        {% if request.user.is_staff %}
+
+        <div class="card">
+
+            <h2>📤 Upload Questions</h2>
+
+            <p>
+                Upload questions from an Excel file.
+            </p>
+
+            <a href="{% url 'upload_questions' %}">
+                <button>Upload</button>
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+   <!-- =========================
+     AVAILABLE MOCK TESTS
+     ========================= -->
+
+<h1 style="margin-top:40px;">
+    Available Mock Tests
+</h1>
+
+<p class="dashboard-subtitle">
+    Select a test and start your preparation.
+</p>
+
+
+<div class="test-grid">
+
+    {% for item in test_data %}
+
+    <div class="test-card">
+
+        <h2>
+            {{ item.test.name }}
+        </h2>
+
+
+        {% if item.test.category %}
+
+        <p class="category">
+            {{ item.test.category }}
+        </p>
+
+        {% endif %}
+
+
+        {% if item.last_attempt %}
+
+            <!-- ALREADY ATTEMPTED -->
+
+            <div class="last-score">
+
+                <span>
+                    Last Score
+                </span>
+
+                <strong>
+                    {{ item.last_attempt.score }}
+                    /
+                    {{ item.last_attempt.total_questions }}
+                </strong>
+
+            </div>
+
+
+            <a
+                href="{% url 'test' item.test.id %}"
+                class="reattempt-button"
+            >
+                Reattempt Now
+            </a>
+
+
+        {% else %}
+
+            <!-- NOT ATTEMPTED -->
+
+            <p style="color:#6b7280; margin:20px 0;">
+                New Mock Test
+            </p>
+
+            <a
+                href="{% url 'test' item.test.id %}"
+                class="start-button"
+            >
+                Start Test
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    {% empty %}
+
+    <p style="text-align:center; grid-column:1/-1;">
+        No mock tests available.
+    </p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

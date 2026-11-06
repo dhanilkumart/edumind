@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}SSC JE Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-je{% endblock %}
+
+{% block content %}
+
+<style>
+.je-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+.je-header {
+    background: linear-gradient(135deg, #172554, #1d4ed8, #0891b2);
+    color: white;
+    padding: 32px;
+    border-radius: 24px;
+    text-align: center;
+}
+
+.je-header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.je-section {
+    margin-top: 30px;
+}
+
+.je-section h2 {
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.je-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.je-card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 6px 22px rgba(0,0,0,.10);
+    border: 1px solid #dbeafe;
+}
+
+.je-card h3 {
+    color: #1e40af;
+}
+
+.je-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 18px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+}
+</style>
+
+<div class="je-page">
+
+    <div class="je-header">
+        <h1>⚙️ SSC JE</h1>
+        <p>Staff Selection Commission – Junior Engineer</p>
+        <p>Engineering-focused preparation on EduMind</p>
+    </div>
+
+    <div class="je-section">
+
+        <h2>📘 Paper-I</h2>
+
+        <div class="je-grid">
+
+            <div class="je-card">
+                <h3>🧠 General Intelligence</h3>
+                <p>Reasoning and analytical ability.</p>
+                <a href="#" class="je-btn">Practice</a>
+            </div>
+
+            <div class="je-card">
+                <h3>🌍 General Awareness</h3>
+                <p>General knowledge and current affairs.</p>
+                <a href="#" class="je-btn">Practice</a>
+            </div>
+
+            <div class="je-card">
+                <h3>⚙️ General Engineering</h3>
+                <p>Engineering-specific questions.</p>
+                <a href="#" class="je-btn">Practice</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="je-section">
+
+        <h2>🔧 Engineering Divisions</h2>
+
+        <div class="je-grid">
+
+            <div class="je-card">
+                <h3>🏗️ Civil Engineering</h3>
+                <p>SSC JE Civil preparation.</p>
+                <a href="#" class="je-btn">Civil Tests</a>
+            </div>
+
+            <div class="je-card">
+                <h3>⚡ Electrical Engineering</h3>
+                <p>SSC JE Electrical preparation.</p>
+                <a href="#" class="je-btn">Electrical Tests</a>
+            </div>
+
+            <div class="je-card">
+                <h3>⚙️ Mechanical Engineering</h3>
+                <p>SSC JE Mechanical preparation.</p>
+                <a href="#" class="je-btn">Mechanical Tests</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="je-section">
+
+        <h2>🏆 Mock Tests</h2>
+
+        <div class="je-grid">
+
+            <div class="je-card">
+                <h3>Full Mock Tests</h3>
+                <p>Complete SSC JE examination simulation.</p>
+                <a href="#" class="je-btn">Start Mock Test</a>
+            </div>
+
+            <div class="je-card">
+                <h3>Previous Papers</h3>
+                <p>Practice previous examination questions.</p>
+                <a href="#" class="je-btn">View Papers</a>
+            </div>
+
+            <div class="je-card">
+                <h3>📊 Performance</h3>
+                <p>Analyse your SSC JE preparation.</p>
+                <a href="{% url 'performance_analysis' %}" class="je-btn">
+                    Performance
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if not mock_tests %}
+        <div class="je-card" style="margin-top:30px;">
+            ⚠️ No Mock Test Uploaded
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

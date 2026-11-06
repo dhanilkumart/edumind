@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title %}Previous Tests{% endblock %}
+
+{% block page_class %}page-previous-tests{% endblock %}
+
+{% block content %}
+
+<style>
+    .test-history {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.test-row {
+    background: rgba(255,255,255,0.88);
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 6px 20px rgba(0,80,40,0.08);
+}
+</style>
+
+<h1>Previous Tests</h1>
+
+<p>
+    <strong>Total Tests:</strong> {{ tests|length }}
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+
+    <tr>
+        <th>Date</th>
+        <th>Test</th>
+        <th>Total Questions</th>
+        <th>Correct</th>
+        <th>Wrong</th>
+        <th>Unanswered</th>
+        <th>Score</th>
+        <th>Details</th>
+    </tr>
+
+    {% for test in tests %}
+
+    <tr>
+
+        <td>
+            {{ test.created_at|date:"d-m-Y H:i" }}
+        </td>
+
+        <td>
+            {{ test.test_name }}
+        </td>
+
+        <td>
+            {{ test.total_questions }}
+        </td>
+
+        <td>
+            {{ test.correct }}
+        </td>
+
+        <td>
+            {{ test.wrong }}
+        </td>
+
+        <td>
+            {{ test.unanswered }}
+        </td>
+
+        <td>
+            {{ test.score }}
+        </td>
+
+        <td>
+            <a href="{% url 'review_test' test.id %}"
+               class="btn btn-primary">
+                View Review
+            </a>
+        </td>
+
+    </tr>
+
+    {% empty %}
+
+    <tr>
+        <td colspan="8">
+            No previous tests found.
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-lg border-0 p-4 text-center"
+         style="border-radius:20px; background:linear-gradient(135deg,#dbeafe,#fce7f3);">
+        <h2>🏆 Class {{ class_no }}</h2>
+        <h3>Test {{ test_no }}</h3>
+        <p>Subject category: {{ subject_slug }}</p>
+
+        <p>
+            This page is ready for the test questions and Start Test button.
+        </p>
+
+        <a
+            class="btn btn-primary"
+            href="{% url 'olympiad_subject' class_no subject_slug %}"
+        >
+            ← Back to Tests
+        </a>
+    </div>
+</div>
+{% endblock %}

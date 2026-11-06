@@ -1,0 +1,1201 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}EduMind{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+/* =========================================================
+   EDUMIND TOP HEADER
+   ========================================================= */
+
+.edumind-top-header {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 150px;
+
+    padding: 10px 18px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            110deg,
+            #ecfdf5,
+            #eff6ff,
+            #f5f3ff,
+            #ecfdf5
+        );
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 6px 22px rgba(15, 118, 110, 0.10);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LOGO AREA
+   ========================================================= */
+
+.edumind-logo-area {
+
+    flex: 0 0 auto;
+
+    width: 200px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 10;
+}
+
+
+.edumind-logo-area img {
+
+    width: 275px;
+
+    height: 275px;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   MOVING IMAGE AREA
+   ========================================================= */
+
+.edumind-carousel {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 300px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    margin: 0 10px;
+}
+
+
+/* =========================================================
+   MOVING TRACK
+   ========================================================= */
+
+.edumind-carousel-track {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    width: max-content;
+
+    animation:
+        edumind-carousel-move 12s linear infinite;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   IMAGES
+   ========================================================= */
+
+.edumind-carousel-image {
+
+    flex: 0 0 200px;
+
+    width: 250px;
+
+    height: 235px;
+
+    object-fit: contain;
+
+    background: white;
+
+    padding: 5px;
+
+    box-sizing: border-box;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(16, 185, 129, 0.18);
+
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   CONTINUOUS CYCLIC MOVEMENT
+   ========================================================= */
+
+@keyframes edumind-carousel-move {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT SIDE EDUMIND TITLE
+   ========================================================= */
+
+.edumind-title-area {
+
+    flex: 0 0 auto;
+
+    width: 235px;
+
+    text-align: center;
+
+    z-index: 10;
+
+    padding: 0 10px;
+}
+
+
+.edumind-title-area h1 {
+
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #047857,
+            #059669,
+            #2563eb,
+            #7c3aed
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+.edumind-title-area p {
+
+    margin: 5px 0 0;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #475569;
+}
+
+
+/* =========================================================
+   EXAMS PAGE - HIDE CAROUSEL
+   ========================================================= */
+
+.page-exams .edumind-carousel {
+
+    display: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .edumind-top-header {
+
+        min-height: 110px;
+
+        padding: 7px 8px;
+
+    }
+
+
+    .edumind-logo-area {
+
+        width: 90px;
+
+    }
+
+
+    .edumind-logo-area img {
+
+        width: 82px;
+
+        height: 82px;
+
+    }
+
+
+    .edumind-carousel {
+
+        height: 90px;
+
+    }
+
+
+    .edumind-carousel-image {
+
+        flex-basis: 90px;
+
+        width: 90px;
+
+        height: 82px;
+
+    }
+
+
+    .edumind-title-area {
+
+        width: 115px;
+
+        padding: 0 5px;
+
+    }
+
+
+    .edumind-title-area h1 {
+
+        font-size: 22px;
+
+    }
+
+
+    .edumind-title-area p {
+
+        font-size: 9px;
+
+    }
+
+}
+/* =========================================
+   EDUMIND PAGE-SPECIFIC GRADIENT BACKGROUNDS
+   ========================================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-size: 300% 300%;
+    background-attachment: fixed;
+
+    animation: eduMindBackground 60s ease infinite;
+}
+
+@keyframes eduMindBackground {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* =========================================
+   HOME
+   Green + Emerald
+   ========================================= */
+
+body.page-home {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(16, 185, 129, 0.30),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #bbf7d0,
+            #d1fae5,
+            #a7f3d0
+        );
+}
+
+
+/* =========================================
+   DASHBOARD
+   Emerald + Light Green
+   ========================================= */
+
+body.page-dashboard {
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(5, 150, 105, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #d1fae5,
+            #ecfdf5,
+            #bbf7d0,
+            #f0fdf4
+        );
+}
+
+
+/* =========================================
+   PERFORMANCE
+   Blue + Green
+   ========================================= */
+
+body.page-performance {
+    background:
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(37, 99, 235, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #dbeafe,
+            #dcfce7,
+            #ecfdf5
+        );
+}
+
+
+/* =========================================
+   EXAMS
+   Purple + Green
+   ========================================= */
+
+body.page-exams {
+    background:
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(139, 92, 246, 0.28),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f5f3ff,
+            #ede9fe,
+            #dcfce7,
+            #d1fae5
+        );
+}
+
+
+/* =========================================
+   PREVIOUS TESTS
+   Orange + Green
+   ========================================= */
+
+body.page-previous-tests {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(249, 115, 22, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fed7aa,
+            #dcfce7,
+            #ecfdf5
+        );
+}
+
+
+/* =========================================
+   PROFILE
+   Blue + Purple
+   ========================================= */
+
+body.page-profile {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(139, 92, 246, 0.28),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #dbeafe,
+            #ede9fe,
+            #f5f3ff
+        );
+}
+
+
+/* =========================================
+   SETTINGS
+   Teal + Blue
+   ========================================= */
+
+body.page-settings {
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(13, 148, 136, 0.28),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ecfeff,
+            #cffafe,
+            #dbeafe,
+            #e0f2fe
+        );
+}
+
+
+/* =========================================
+   MOCK TEST
+   Green + Cyan
+   ========================================= */
+
+body.page-mock-test {
+    background:
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(6, 182, 212, 0.22),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #d1fae5,
+            #cffafe,
+            #ecfeff
+        );
+}
+
+
+/* =========================================
+   RESULT
+   Gold + Orange
+   ========================================= */
+
+body.page-result {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(245, 158, 11, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #fffbeb,
+            #fef3c7,
+            #fed7aa,
+            #fff7ed
+        );
+}
+
+
+/* =========================================
+   LOGIN
+   Blue + Violet
+   ========================================= */
+
+body.page-login {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(99, 102, 241, 0.28),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #dbeafe,
+            #e0e7ff,
+            #f5f3ff
+        );
+}
+
+
+/* =========================================
+   REGISTER
+   Green + Emerald
+   ========================================= */
+
+body.page-register {
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(16, 185, 129, 0.30),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #d1fae5,
+            #bbf7d0,
+            #f0fdf4
+        );
+}
+
+
+/* =========================================
+   OLYMPIAD
+   Violet + Pink
+   ========================================= */
+
+body.page-olympiad {
+    background:
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(236, 72, 153, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f5f3ff,
+            #ede9fe,
+            #fce7f3,
+            #fdf2f8
+        );
+}
+
+
+/* =========================================
+   CATEGORY MOCK TESTS
+   ========================================= */
+
+body.page-category-tests {
+    background:
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(34, 197, 94, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f0fdf4,
+            #dcfce7,
+            #dbeafe,
+            #eff6ff
+        );
+}
+
+
+/* =========================================
+   REVIEW
+   ========================================= */
+
+body.page-review {
+    background:
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(168, 85, 247, 0.22),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #faf5ff,
+            #f3e8ff,
+            #dbeafe,
+            #eff6ff
+        );
+}
+
+/* =================================
+   EDUMIND TOP BAR
+   ================================= */
+
+.edumind-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: 10px 18px;
+
+    box-sizing: border-box;
+}
+
+
+/* =================================
+   LOGO — LEFT
+   ================================= */
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo-container img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+
+/* =================================
+   EDUMIND TITLE — RIGHT
+   ================================= */
+
+.edumind-header {
+    margin-left: auto;
+    width: 300px;
+    text-align: center;
+    padding-left: 18px;
+}
+
+.edumind-title {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.05;
+
+    background: linear-gradient(
+        90deg,
+        #00a878,
+        #00b4d8,
+        #7b2cbf
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+
+    background: linear-gradient(
+        90deg,
+        #7b2cbf,
+        #00b4d8,
+        #00a878
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    white-space: nowrap;
+}
+
+
+.tagline {
+    margin-top: 2px;
+
+    font-size: 13px;
+
+    color: white;
+}
+
+@media (max-width: 600px) {
+
+    .edumind-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 18px;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+    .logo-container img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .edumind-title {
+        font-size: 20px;
+    }
+
+    .tagline {
+        font-size: 11px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .logo-container img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .edumind-header {
+        width: 190px;
+        padding-left: 10px;
+    }
+
+    .edumind-title {
+        font-size: 30px;
+    }
+
+    .tagline {
+        font-size: 13px;
+    }
+}
+
+
+/* =================================
+   COMMON NAVIGATION
+   ================================= */
+
+.main-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 20px;
+
+    background: rgba(30, 136, 229, 0.85);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 6px 18px rgba(0, 80, 150, 0.15);
+
+    margin-bottom: 20px;
+}
+
+.nav-brand {
+    flex-shrink: 0;
+}
+
+.main-navigation .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+.main-navigation .nav-links a {
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    padding: 8px 13px;
+
+    border-radius: 20px;
+
+    transition: 0.3s ease;
+}
+
+.main-navigation .nav-links a:hover {
+    background: rgba(255, 255, 255, 0.22);
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .main-navigation {
+        padding: 10px;
+    }
+
+    .main-navigation .nav-links {
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .main-navigation .nav-links a {
+        font-size: 13px;
+        padding: 7px 9px;
+    }
+
+}
+
+/* =====================================================
+   MAIN NAVIGATION
+   ===================================================== */
+
+.main-navigation {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin: 10px auto 18px;
+
+    padding: 8px 12px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ecfdf5,
+            #eff6ff,
+            #f5f3ff,
+            #ecfdf5
+        );
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 14px rgba(15, 118, 110, 0.08);
+}
+
+
+.main-navigation a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 9px 17px;
+
+    border-radius: 10px;
+
+    color: #334155;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border: 1px solid rgba(148, 163, 184, 0.18);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        all 0.2s ease;
+}
+
+
+.main-navigation a:hover {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #047857,
+            #059669
+        );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 12px rgba(4, 120, 87, 0.18);
+}
+
+
+/* =====================================================
+   MOBILE NAVIGATION
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .main-navigation {
+
+        gap: 5px;
+
+        padding: 7px;
+
+    }
+
+
+    .main-navigation a {
+
+        padding: 7px 10px;
+
+        font-size: 12px;
+
+    }
+
+    }
+
+    /* Carousel container */
+.edumind-carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Continuously moving image track */
+.edumind-carousel-track {
+    display: flex;
+    width: max-content;
+    animation: edumindImageFlow 30s linear infinite;
+    will-change: transform;
+}
+
+/* Pause the image flow while the cursor is over it */
+.edumind-carousel:hover .edumind-carousel-track {
+    animation-play-state: paused;
+}
+
+/* Image styling */
+.edumind-carousel-image {
+    display: block;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+/* Continuous horizontal movement */
+@keyframes edumindImageFlow {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+.edumind-carousel:hover .edumind-carousel-track {
+    animation-play-state: paused;
+}
+
+</style>
+
+</head>
+
+
+<body class="{% block page_class %}page-default{% endblock %}">
+
+
+  <!-- =================================
+     EDUMIND HEADER
+     ================================= -->
+<div class="edumind-top-header">
+
+    <!-- LOGO -->
+
+    <div class="edumind-logo-area">
+
+       <img
+            src="{% static 'images/Logo.jpg' %}"
+            alt="EduMind Logo"
+        >
+
+    </div>
+
+
+    <!-- =================================================
+         CONTINUOUS MOVING IMAGES
+         ================================================= -->
+
+    <div class="edumind-carousel">
+
+        <div class="edumind-carousel-track">
+
+
+            <!-- MBA -->
+
+            <img
+                src="https://i.ibb.co/C5XBX2gp/file-000000009e18821195ade70ccf409284.png"
+                class="edumind-carousel-image"
+                alt="MBA"
+            >
+
+
+            
+            <!-- BANK -->
+
+            <img
+                src="https://i.ibb.co/23hqNVqp/file-00000000f9f482118b2f649bf1f839db.png"
+                class="edumind-carousel-image"
+                alt="Bank"
+            >
+
+
+            <!-- SSC -->
+
+            <img
+                src="https://i.ibb.co/C5jWcDTH/file-00000000ce5882119f852abf2ad31376.png"
+                class="edumind-carousel-image"
+                alt="SSC"
+            >
+
+
+            <!-- RAILWAY -->
+
+            <img
+                src="https://i.ibb.co/JFtJgLh6/file-00000000a11c8211a9e15d8153f51fec.png"
+                class="edumind-carousel-image"
+                alt="Railway"
+            >
+
+
+            <!-- OLYMPIAD -->
+
+            <img
+                src="https://i.ibb.co/C5XBX2gp/file-000000009e18821195ade70ccf409284.png"
+                class="edumind-carousel-image"
+                alt="Olympiad"
+            >
+
+
+            <!-- DUPLICATE SET FOR SEAMLESS LOOP -->
+
+            <img
+                src="https://i.ibb.co/C5XBX2gp/file-000000009e18821195ade70ccf409284.png"
+                class="edumind-carousel-image"
+                alt="MBA"
+            >
+
+            
+            <img
+                src="https://i.ibb.co/23hqNVqp/file-00000000f9f482118b2f649bf1f839db.png"
+                class="edumind-carousel-image"
+                alt="Bank"
+            >
+
+            <img
+                src="https://i.ibb.co/C5XBX2gp/file-000000009e18821195ade70ccf409284.png"
+                class="edumind-carousel-image"
+                alt="SSC"
+            >
+
+            <img
+                src="https://i.ibb.co/C5XBX2gp/file-000000009e18821195ade70ccf409284.png"
+                class="edumind-carousel-image"
+                alt="Railway"
+            >
+
+            <img
+                src="https://i.ibb.co/C5XBX2gp/file-000000009e18821195ade70ccf409284.png"
+                class="edumind-carousel-image"
+                alt="Olympiad"
+            >
+
+        </div>
+
+    </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     MAIN NAVIGATION
+     ===================================================== -->
+
+<nav class="main-navigation">
+
+    <a href="{% url 'home' %}">
+        🏠 Home
+    </a>
+
+    {% if user.is_authenticated %}
+
+        <a href="{% url 'dashboard' %}">
+            📊 Dashboard
+        </a>
+
+        <a href="{% url 'performance_analysis' %}">
+            📈 Performance
+        </a>
+
+        <a href="{% url 'profile' %}">
+            👤 Profile
+        </a>
+
+        <a href="{% url 'logout' %}">
+            🚪 Logout
+        </a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}">
+            🔐 Login
+        </a>
+
+        <a href="{% url 'register' %}">
+            📝 Register
+        </a>
+
+    {% endif %}
+
+</nav>
+
+    <!-- =================================
+         PAGE CONTENT
+         ================================= -->
+
+    <main class="page-content">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.exam-page {
+    max-width: 1000px;
+    margin: 18px auto;
+    padding: 24px 14px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #dbeafe, #fce7f3, #d1fae5);
+}
+
+.exam-title {
+    text-align: center;
+    font-size: clamp(30px, 5vw, 42px);
+    font-weight: 900;
+    color: #5b21b6;
+    margin-bottom: 8px;
+}
+
+.exam-subtitle {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 22px;
+    color: #374151;
+}
+
+.exam-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.exam-card {
+    display: flex;
+    min-height: 145px;
+    padding: 18px 12px;
+    border-radius: 17px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 5px 12px #0002;
+    transition: transform .2s;
+}
+
+.exam-card:hover {
+    transform: translateY(-3px);
+}
+
+.exam-name {
+    font-size: clamp(19px, 3vw, 25px);
+    line-height: 1.25;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ffffff, #fff7ad, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 1px #0002;
+}
+
+.exam-caption {
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 12px;
+}
+
+.exam-0 { background: linear-gradient(135deg,#1d4ed8,#7c3aed); }
+.exam-1 { background: linear-gradient(135deg,#047857,#0f766e); }
+.exam-2 { background: linear-gradient(135deg,#be185d,#9333ea); }
+.exam-3 { background: linear-gradient(135deg,#c2410c,#b45309); }
+.exam-4 { background: linear-gradient(135deg,#4338ca,#2563eb); }
+</style>
+
+<div class="container exam-page">
+    <h1 class="exam-title">🏆 CLASS {{ class_no }} OLYMPIAD</h1>
+    <p class="exam-subtitle">
+        Choose your examination category
+    </p>
+
+    <div class="exam-grid">
+        {% for subject in subjects %}
+        <a class="exam-card exam-{{ forloop.counter0 }}"
+           href="{% url 'olympiad_subject' class_no subject.slug %}">
+            <span class="exam-name">{{ subject.name }}</span>
+            <span class="exam-caption">Choose this exam →</span>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'olympiad' %}" class="btn btn-dark">
+            ← Back to Classes
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,1313 @@
+{% extends "base.html" %}
+
+{% block title %}SBI PO Mock Tests{% endblock %}
+
+{% block page_class %}page-sbi-po{% endblock %}
+
+{% block content %}
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background:
+        linear-gradient(135deg, #fff7e8, #eef8ff, #effff5);
+}
+
+.sbi-po-page {
+    max-width: 1250px;
+    margin: auto;
+    padding: 25px 18px 50px;
+}
+
+/* =====================================
+   HERO
+===================================== */
+
+.sbi-po-hero {
+    background:
+        linear-gradient(135deg, #8b0000, #c62828, #00695c);
+    color: white;
+    border-radius: 26px;
+    padding: 40px 30px;
+    margin-bottom: 26px;
+    box-shadow: 0 15px 38px rgba(80,0,0,.20);
+}
+
+.sbi-po-badge {
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.17);
+    border: 1px solid rgba(255,255,255,.35);
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.sbi-po-hero h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+}
+
+.sbi-po-hero p {
+    margin: 7px 0;
+    line-height: 1.65;
+}
+
+/* =====================================
+   STATS
+===================================== */
+
+.sbi-po-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.sbi-po-stat {
+    background: white;
+    border-radius: 20px;
+    padding: 22px 15px;
+    text-align: center;
+    box-shadow: 0 8px 23px rgba(0,0,0,.08);
+}
+
+.sbi-po-stat-icon {
+    font-size: 31px;
+}
+
+.sbi-po-stat h3 {
+    margin: 7px 0 4px;
+    color: #8b0000;
+}
+
+.sbi-po-stat p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+/* =====================================
+   SECTION
+===================================== */
+
+.sbi-po-section {
+    margin-bottom: 31px;
+}
+
+.sbi-po-heading {
+    background:
+        linear-gradient(90deg, #8b0000, #c62828, #00695c);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 16px;
+    margin-bottom: 17px;
+}
+
+.sbi-po-heading h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* =====================================
+   EXAM STAGES
+===================================== */
+
+.sbi-po-stage {
+    background: white;
+    border-radius: 21px;
+    padding: 25px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.sbi-po-stage h3 {
+    margin: 0 0 17px;
+    color: #8b0000;
+}
+
+.sbi-po-stage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.sbi-po-stage-item {
+    background: #fff7f5;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.sbi-po-stage-item strong {
+    display: block;
+    color: #8b0000;
+    margin-bottom: 6px;
+}
+
+.sbi-po-stage-item span {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =====================================
+   SUBJECT CARDS
+===================================== */
+
+.sbi-po-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+}
+
+.sbi-po-card {
+    background: white;
+    border-radius: 20px;
+    padding: 23px;
+    box-shadow: 0 8px 23px rgba(0,0,0,.08);
+    border-left: 5px solid #c62828;
+    transition: .2s;
+}
+
+.sbi-po-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 13px 29px rgba(0,0,0,.13);
+}
+
+.sbi-po-card h3 {
+    margin: 0 0 9px;
+    color: #8b0000;
+}
+
+.sbi-po-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.sbi-po-card a {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 9px 15px;
+    border-radius: 10px;
+    background: #c62828;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.sbi-po-card a:hover {
+    background: #8b0000;
+}
+
+/* =====================================
+   DESCRIPTIVE / INTERVIEW AREA
+===================================== */
+
+.sbi-po-officer {
+    background:
+        linear-gradient(135deg, #fff1ed, #edf9f4);
+    border-radius: 23px;
+    padding: 26px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.sbi-po-officer h2 {
+    margin-top: 0;
+    color: #8b0000;
+}
+
+.sbi-po-officer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.sbi-po-officer-item {
+    background: white;
+    padding: 17px;
+    border-radius: 14px;
+    font-weight: bold;
+    color: #37474f;
+}
+
+.sbi-po-officer-item span {
+    display: block;
+    margin-top: 6px;
+    color: #777;
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: normal;
+}
+
+/* =====================================
+   MOCK TESTS
+===================================== */
+
+.sbi-po-tests {
+    background:
+        linear-gradient(135deg, #ffffff, #fff6f3);
+    border-radius: 23px;
+    padding: 25px;
+    box-shadow: 0 9px 27px rgba(0,0,0,.08);
+}
+
+.sbi-po-test {
+    background: white;
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 14px;
+    border: 1px solid #f0d9d5;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.sbi-po-test-info h3 {
+    margin: 0 0 7px;
+    color: #8b0000;
+}
+
+.sbi-po-test-info p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.sbi-po-test-btn {
+    background: #c62828;
+    color: white;
+    text-decoration: none;
+    padding: 11px 19px;
+    border-radius: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.sbi-po-test-btn:hover {
+    background: #8b0000;
+}
+
+.sbi-po-test-btn.attempted {
+    background: #607d8b;
+}
+
+/* =====================================
+   NO TEST
+===================================== */
+
+.sbi-po-no-tests {
+    text-align: center;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    color: #795548;
+    padding: 27px;
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+/* =====================================
+   SPECIAL PREPARATION
+===================================== */
+
+.sbi-po-special {
+    background: white;
+    border-radius: 23px;
+    padding: 26px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.sbi-po-special h2 {
+    margin-top: 0;
+    color: #8b0000;
+}
+
+.sbi-po-special-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.sbi-po-special-item {
+    padding: 17px;
+    border-radius: 14px;
+    background: #fff7f5;
+    font-weight: bold;
+    color: #37474f;
+}
+
+.sbi-po-special-item span {
+    display: block;
+    margin-top: 6px;
+    color: #777;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+.sbi-po-progress {
+    background:
+        linear-gradient(135deg, #fff1ed, #eaf8f3);
+    border-radius: 23px;
+    padding: 26px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.sbi-po-progress h2 {
+    margin-top: 0;
+    color: #8b0000;
+}
+
+.sbi-po-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+}
+
+.sbi-po-progress-item {
+    background: white;
+    border-radius: 14px;
+    padding: 17px;
+    font-weight: bold;
+}
+
+.sbi-po-progress-item a {
+    color: #8b0000;
+    text-decoration: none;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.sbi-po-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #607d8b;
+    font-size: 13px;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 900px) {
+
+    .sbi-po-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sbi-po-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sbi-po-stage-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .sbi-po-page {
+        padding: 15px 10px 35px;
+    }
+
+    .sbi-po-hero {
+        padding: 27px 20px;
+    }
+
+    .sbi-po-hero h1 {
+        font-size: 28px;
+    }
+
+    .sbi-po-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sbi-po-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-po-stage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-po-officer-grid,
+    .sbi-po-special-grid,
+    .sbi-po-progress-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sbi-po-test {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sbi-po-test-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+</style>
+
+
+<div class="sbi-po-page">
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <div class="sbi-po-hero">
+
+        <div class="sbi-po-badge">
+            BANKING • OFFICER RECRUITMENT
+        </div>
+
+        <h1>
+            👨‍💼 SBI PO
+        </h1>
+
+        <p>
+            <strong>State Bank of India – Probationary Officer</strong>
+        </p>
+
+        <p>
+            Build your SBI PO preparation through Prelims,
+            Mains, advanced sectional practice, full mock tests,
+            banking awareness and officer-level preparation.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         QUICK STATS
+    ====================================== -->
+
+    <div class="sbi-po-stats">
+
+        <div class="sbi-po-stat">
+
+            <div class="sbi-po-stat-icon">
+                🧠
+            </div>
+
+            <h3>
+                Reasoning
+            </h3>
+
+            <p>
+                Logical & analytical ability
+            </p>
+
+        </div>
+
+
+        <div class="sbi-po-stat">
+
+            <div class="sbi-po-stat-icon">
+                📊
+            </div>
+
+            <h3>
+                Data Analysis
+            </h3>
+
+            <p>
+                Advanced quantitative practice
+            </p>
+
+        </div>
+
+
+        <div class="sbi-po-stat">
+
+            <div class="sbi-po-stat-icon">
+                📖
+            </div>
+
+            <h3>
+                English
+            </h3>
+
+            <p>
+                Language & comprehension
+            </p>
+
+        </div>
+
+
+        <div class="sbi-po-stat">
+
+            <div class="sbi-po-stat-icon">
+                🏦
+            </div>
+
+            <h3>
+                Banking
+            </h3>
+
+            <p>
+                Financial & economic awareness
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         EXAMINATION STAGES
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                📋 SBI PO Examination Stages
+            </h2>
+
+        </div>
+
+
+        <!-- PRELIMS -->
+
+        <div class="sbi-po-stage">
+
+            <h3>
+                🟢 Preliminary Examination
+            </h3>
+
+            <div class="sbi-po-stage-grid">
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        English Language
+                    </strong>
+
+                    <span>
+                        Reading comprehension, grammar,
+                        vocabulary, fillers and cloze tests.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Quantitative Aptitude
+                    </strong>
+
+                    <span>
+                        Arithmetic, simplification,
+                        number series and data interpretation.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Reasoning Ability
+                    </strong>
+
+                    <span>
+                        Puzzles, seating arrangement,
+                        syllogism and logical reasoning.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MAINS -->
+
+        <div class="sbi-po-stage">
+
+            <h3>
+                🔵 Main Examination
+            </h3>
+
+            <div class="sbi-po-stage-grid">
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Reasoning & Computer Aptitude
+                    </strong>
+
+                    <span>
+                        Advanced reasoning, puzzles,
+                        logical ability and computer aptitude.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Data Analysis & Interpretation
+                    </strong>
+
+                    <span>
+                        Advanced DI, arithmetic,
+                        charts, graphs and caselets.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        General / Economy / Banking
+                    </strong>
+
+                    <span>
+                        Current affairs, banking,
+                        economy and financial awareness.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        English Language
+                    </strong>
+
+                    <span>
+                        Comprehension, grammar,
+                        vocabulary and verbal ability.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Descriptive Writing
+                    </strong>
+
+                    <span>
+                        Practice for formal writing
+                        and communication skills.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FINAL STAGE -->
+
+        <div class="sbi-po-stage">
+
+            <h3>
+                🏆 Final Selection Stage
+            </h3>
+
+            <div class="sbi-po-stage-grid">
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Psychometric / Assessment
+                    </strong>
+
+                    <span>
+                        Preparation for applicable
+                        assessment components.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Group Exercise
+                    </strong>
+
+                    <span>
+                        Communication, teamwork
+                        and analytical discussion.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-stage-item">
+
+                    <strong>
+                        Interview
+                    </strong>
+
+                    <span>
+                        Banking knowledge, current affairs
+                        and personality preparation.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         PRELIMS
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                🎯 SBI PO Prelims Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-po-grid">
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    🧠 Reasoning Ability
+                </h3>
+
+                <p>
+                    Puzzles, seating arrangements,
+                    syllogism, inequality, coding-decoding,
+                    direction and blood relations.
+                </p>
+
+                <a href="#">
+                    Practice Reasoning
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    🔢 Quantitative Aptitude
+                </h3>
+
+                <p>
+                    Simplification, approximation,
+                    number series, arithmetic and DI.
+                </p>
+
+                <a href="#">
+                    Practice Quant
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    📖 English Language
+                </h3>
+
+                <p>
+                    Reading comprehension, error spotting,
+                    fillers, cloze test and vocabulary.
+                </p>
+
+                <a href="#">
+                    Practice English
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         MAINS
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                📚 SBI PO Mains Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-po-grid">
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    🧠 Advanced Reasoning
+                </h3>
+
+                <p>
+                    High-level puzzles, input-output,
+                    logical reasoning and analytical questions.
+                </p>
+
+                <a href="#">
+                    Advanced Reasoning
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    📊 Data Analysis
+                </h3>
+
+                <p>
+                    Advanced data interpretation,
+                    arithmetic and analytical calculations.
+                </p>
+
+                <a href="#">
+                    Practice Data Analysis
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    🏦 Banking & Economy
+                </h3>
+
+                <p>
+                    RBI, monetary policy, banking system,
+                    financial institutions and economy.
+                </p>
+
+                <a href="#">
+                    Banking Practice
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    🌐 Current Affairs
+                </h3>
+
+                <p>
+                    Banking, economy, government schemes
+                    and major national and international events.
+                </p>
+
+                <a href="#">
+                    Current Affairs
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    💻 Computer Aptitude
+                </h3>
+
+                <p>
+                    Computer fundamentals, networking,
+                    internet, operating systems and digital technology.
+                </p>
+
+                <a href="#">
+                    Computer Practice
+                </a>
+
+            </div>
+
+
+            <div class="sbi-po-card">
+
+                <h3>
+                    ✍️ Descriptive English
+                </h3>
+
+                <p>
+                    Formal writing, communication,
+                    comprehension and structured responses.
+                </p>
+
+                <a href="#">
+                    Writing Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+   <!-- =====================================
+         OFFICER PREPARATION
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                👨‍💼 Officer-Level Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-po-officer">
+
+            <h2>
+                Develop SBI PO-Level Knowledge
+            </h2>
+
+
+            <div class="sbi-po-officer-grid">
+
+                <div class="sbi-po-officer-item">
+
+                    🏦 Banking System
+
+                    <span>
+                        RBI, commercial banking,
+                        monetary policy and financial institutions.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-officer-item">
+
+                    💰 Financial Awareness
+
+                    <span>
+                        Financial markets, banking products,
+                        digital payments and economic concepts.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-officer-item">
+
+                    📈 Economy
+
+                    <span>
+                        Indian economy, major indicators,
+                        policies and economic developments.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-officer-item">
+
+                    🗣️ Interview Skills
+
+                    <span>
+                        Communication, current affairs,
+                        banking knowledge and personality development.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         MOCK TESTS
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                📝 SBI PO Mock Tests
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-po-tests">
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="sbi-po-test">
+
+                        <div class="sbi-po-test-info">
+
+                            <h3>
+                                {{ test.name }}
+                            </h3>
+
+                            <p>
+                                {{ test.questions.count }} Questions
+                            </p>
+
+                        </div>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="sbi-po-test-btn attempted"
+                            >
+                                Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="sbi-po-test-btn"
+                            >
+                                Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="sbi-po-no-tests">
+
+                    ⚠️ No Mock Test Uploaded
+
+                    <br><br>
+
+                    SBI PO mock tests will appear here
+                    after they are uploaded.
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         SPECIAL PRACTICE
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                🚀 Special Practice
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-po-special">
+
+            <h2>
+                Build Your Competitive Edge
+            </h2>
+
+
+            <div class="sbi-po-special-grid">
+
+                <div class="sbi-po-special-item">
+
+                    ⏱️ Speed Tests
+
+                    <span>
+                        Improve solving speed and
+                        section-wise time management.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-special-item">
+
+                    🎯 Accuracy Tests
+
+                    <span>
+                        Reduce calculation and
+                        reasoning errors.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-special-item">
+
+                    📜 Previous Year Papers
+
+                    <span>
+                        Practice questions based on
+                        previous SBI PO examinations.
+                    </span>
+
+                </div>
+
+
+                <div class="sbi-po-special-item">
+
+                    🧩 High-Level Questions
+
+                    <span>
+                        Practice difficult reasoning,
+                        DI and banking-awareness questions.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         YOUR PREPARATION
+    ====================================== -->
+
+    <div class="sbi-po-section">
+
+        <div class="sbi-po-heading">
+
+            <h2>
+                📈 Your SBI PO Preparation
+            </h2>
+
+        </div>
+
+
+        <div class="sbi-po-progress">
+
+            <h2>
+                Track Your Progress
+            </h2>
+
+
+            <div class="sbi-po-progress-grid">
+
+                <div class="sbi-po-progress-item">
+
+                    📊
+                    <a href="{% url 'performance_analysis' %}">
+                        Performance Analysis
+                    </a>
+
+                </div>
+
+
+                <div class="sbi-po-progress-item">
+
+                    🏆
+                    <a href="#">
+                        Test Ranking
+                    </a>
+
+                </div>
+
+
+                <div class="sbi-po-progress-item">
+
+                    📋
+                    <a href="{% url 'previous_tests' %}">
+                        Previous Attempts
+                    </a>
+
+                </div>
+
+
+                <div class="sbi-po-progress-item">
+
+                    🎯
+                    <a href="#">
+                        Exam Target
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <div class="sbi-po-footer">
+
+        EduMind – Turn Face 2 Success
+
+        <br>
+
+        SBI Probationary Officer Preparation
+
+    </div>
+
+</div>
+
+{% endblock %}

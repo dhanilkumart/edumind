@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block title %}Test V2{% endblock %}
+
+{% block page_class %}page-test-v2{% endblock %}
+
+{% block content %}
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    background:#f4f6f9;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.test-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#1E3A8A;
+    color:white;
+    padding:15px 25px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+.timer-box{
+    background:white;
+    color:red;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.test-container{
+    display:flex;
+    gap:20px;
+}
+
+.left-panel{
+    flex:3;
+    background:white;
+    border-radius:10px;
+    padding:25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.right-panel{
+    flex:1;
+    background:white;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+.test-info{
+    line-height:30px;
+}
+
+.question-palette{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+
+.palette-btn{
+    height:45px;
+    width:45px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+}
+
+.current{
+    background:#2563EB;
+}
+
+.answered{
+    background:#16A34A;
+}
+
+.visited{
+    background:#FACC15;
+}
+
+.review{
+    background:#9333EA;
+}
+
+.reviewanswered{
+    background:#F97316;
+}
+
+.notvisited{
+    background:#94A3B8;
+}
+
+.legend{
+    margin-top:20px;
+}
+
+.legend div{
+    margin:10px 0;
+}
+
+.legend-box{
+    display:inline-block;
+    width:18px;
+    height:18px;
+    border-radius:4px;
+    margin-right:10px;
+}
+
+@media(max-width:900px){
+
+.test-container{
+    flex-direction:column;
+}
+
+.right-panel{
+    width:100%;
+}
+
+.question-palette{
+    grid-template-columns:repeat(7,1fr);
+}
+
+}
+
+</style>
+
+<div class="test-header">
+
+    <div class="title">
+        <h2>EduMind Mock Test</h2>
+    </div>
+
+    <div class="timer-box">
+        Time Left :
+        <span id="timer">00:00:00</span>
+    </div>
+
+</div>
+
+
+<div class="test-container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel">
+
+        <form id="testForm" method="POST">
+
+            {% csrf_token %}
+
+            {% csrf_token %}
+
+{% for question in questions %}
+
+<div
+    class="question-card"
+    id="question{{ forloop.counter }}"
+    {% if not forloop.first %}style="display:none"{% endif %}>
+
+<h2>
+Question {{ forloop.counter }}
+/
+{{ total_questions }}
+</h2>
+
+<hr>
+
+<h3>
+
+{{ question.question }}
+
+</h3>
+
+<br>
+
+<label>
+
+<input
+type="radio"
+name="question_{{ question.id }}"
+value="A">
+
+A. {{ question.option_a }}
+
+</label>
+
+<br><br>
+
+<label>
+
+<input
+type="radio"
+name="question_{{ question.id }}"
+value="B">
+
+B. {{ question.option_b }}
+
+</label>
+
+<br><br>
+
+<label>
+
+<input
+type="radio"
+name="question_{{ question.id }}"
+value="C">
+
+C. {{ question.option_c }}
+
+</label>
+
+<br><br>
+
+<label>
+
+<input
+type="radio"
+name="question_{{ question.id }}"
+value="D">
+
+D. {{ question.option_d }}
+
+</label>
+
+</div>
+
+{% endfor %}
+
+        </form>
+
+    </div>
+
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel">
+
+        <div class="test-info">
+
+            <h3>Test Information</h3>
+                <p>
+        Prepare yourself for the {{ mock_test.subject.name }} examination
+        with this comprehensive mock test.
+    </p>
+
+    <div class="test-info">
+            <p>
+                <strong>Total Questions :</strong>
+                {{ total_questions }}
+            </p>
+
+            <p>
+                <strong>Current Question :</strong>
+                <span id="currentQuestionNumber">1</span>
+            </p>
+
+        </div>
+
+        <hr>
+
+        <h3>Question Palette</h3>
+
+
+
+        <div
+    class="question-palette"
+    id="questionPalette">
+
+{% for question in questions %}
+
+<button
+    type="button"
+    id="palette{{ forloop.counter }}"
+    class="palette-btn notvisited">
+
+    {{ forloop.counter }}
+
+</button>
+
+{% endfor %}
+
+</div>
+
+        <hr>
+
+        <h3>Legend</h3>
+
+        <div class="legend">
+
+            <div><span class="legend-box current"></span> Current</div>
+
+            <div><span class="legend-box answered"></span> Answered</div>
+
+            <div><span class="legend-box visited"></span> Visited</div>
+
+            <div><span class="legend-box review"></span> Review</div>
+
+            <div><span class="legend-box reviewanswered"></span> Review + Answered</div>
+
+            <div><span class="legend-box notvisited"></span> Not Visited</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

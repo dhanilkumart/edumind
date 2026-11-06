@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Verify Registration - EduMind{% endblock %}
+{% block page_class %}page-verify-registration{% endblock %}
+
+{% block content %}
+<style>
+.otp-wrapper {
+    max-width: 500px;
+    margin: 35px auto;
+    padding: 16px;
+}
+.otp-card {
+    background: #fff;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 28px rgba(0,0,0,.07);
+}
+.otp-card h1 {
+    text-align: center;
+    color: #166534;
+    font-size: 26px;
+}
+.otp-description {
+    text-align: center;
+    color: #64748b;
+    line-height: 1.6;
+}
+.otp-group { margin: 22px 0; }
+.otp-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #334155;
+}
+.otp-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 18px;
+    letter-spacing: 5px;
+    text-align: center;
+}
+.otp-input:focus {
+    outline: 2px solid #86efac;
+    border-color: #16a34a;
+}
+.otp-button {
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 9px;
+    background: #15803d;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.otp-button:hover { background: #166534; }
+.otp-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    padding: 11px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+.otp-success {
+    background: #f0fdf4;
+    color: #166534;
+    padding: 11px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+.otp-help {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 7px;
+}
+.otp-resend {
+    margin-top: 18px;
+    text-align: center;
+}
+.otp-resend button {
+    border: none;
+    background: none;
+    color: #15803d;
+    cursor: pointer;
+    font-weight: 700;
+}
+.otp-resend button:disabled {
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+</style>
+
+<div class="otp-wrapper">
+    <div class="otp-card">
+        <h1>Verify Your Registration</h1>
+        <p class="otp-description">
+            Enter the OTPs sent to your registered email address and
+            mobile number. Both must be verified to complete registration.
+        </p>
+
+        {% if error %}
+            <div class="otp-error" role="alert">{{ error }}</div>
+        {% endif %}
+
+        {% if errors %}
+            {% for message in errors %}
+                <div class="otp-error" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="otp-success" role="status">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="" autocomplete="off">
+            {% csrf_token %}
+
+            <div class="otp-group">
+                <label for="email_otp">Email OTP</label>
+                <input
+                    class="otp-input"
+                    id="email_otp"
+                    name="email_otp"
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]{6}"
+                    minlength="6"
+                    maxlength="6"
+                    placeholder="000000"
+                    autocomplete="one-time-code"
+                    required
+                >
+                <p class="otp-help">
+                    Enter the six-digit code sent to your email.
+                </p>
+            </div>
+
+            <div class="otp-group">
+                <label for="mobile_otp">Mobile OTP</label>
+                <input
+                    class="otp-input"
+                    id="mobile_otp"
+                    name="mobile_otp"
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]{6}"
+                    minlength="6"
+                    maxlength="6"
+                    placeholder="000000"
+                    required
+                >
+                <p class="otp-help">
+                    Enter the six-digit code sent to your mobile.
+                </p>
+            </div>
+
+            <button class="otp-button" type="submit">
+                Verify OTPs and Complete Registration
+            </button>
+        </form>
+
+        <div class="otp-resend">
+            <form method="post" action="{% url 'resend_registration_otp' %}">
+                {% csrf_token %}
+                <button type="submit" id="resendButton" disabled>
+                    Resend OTPs (<span id="countdown">60</span>s)
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const button = document.getElementById("resendButton");
+    const countdown = document.getElementById("countdown");
+    let remaining = 60;
+
+    const timer = window.setInterval(function () {
+        remaining -= 1;
+        countdown.textContent = Math.max(remaining, 0);
+
+        if (remaining <= 0) {
+            window.clearInterval(timer);
+            button.disabled = false;
+            button.textContent = "Resend OTPs";
+        }
+    }, 1000);
+})();
+</script>
+{% endblock %}

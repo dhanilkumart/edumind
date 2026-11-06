@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+{% block title %}Railway Exam Hub | EduMind{% endblock %}
+
+{% block content %}
+<style>
+.railway-page, .railway-page * {
+    box-sizing: border-box;
+}
+
+.railway-page {
+    min-height: 100vh;
+    padding: 24px 15px 45px;
+    background: linear-gradient(140deg, #f0faf5, #edf3ff, #fff7ed);
+    color: #18382c;
+    font-family: Arial, sans-serif;
+}
+
+.railway-wrap {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.railway-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 40px 32px;
+    border-radius: 25px;
+    color: white;
+    background: linear-gradient(120deg, #082f49, #075985, #0f766e);
+    box-shadow: 0 15px 35px rgba(8, 47, 73, .18);
+}
+
+.railway-label {
+    display: inline-block;
+    padding: 8px 13px;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 30px;
+    background: rgba(255,255,255,.1);
+    color: #d9fff2;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.railway-hero h1 {
+    margin: 19px 0 12px;
+    font-size: clamp(30px, 5vw, 45px);
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.railway-hero h1 span {
+    color: #fcd66b;
+}
+
+.railway-hero p {
+    max-width: 720px;
+    margin: 0;
+    color: #e0f2fe;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.railway-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 22px;
+}
+
+.railway-pills span {
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.12);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.railway-section {
+    margin: 32px 0 20px;
+}
+
+.railway-section h2 {
+    margin: 0 0 8px;
+    color: #123e35;
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.railway-section p {
+    margin: 0;
+    color: #6b7f76;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.railway-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.railway-card {
+    --accent: #0369a1;
+    --tint: #e0f2fe;
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    padding: 23px;
+    border: 1px solid #e0ebe6;
+    border-top: 5px solid var(--accent);
+    border-radius: 19px;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 6px 18px rgba(20,60,42,.06);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.railway-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px rgba(20,60,42,.12);
+}
+
+.railway-card.je {
+    --accent: #2563eb;
+    --tint: #eaf1ff;
+}
+
+.railway-card.alp {
+    --accent: #7c3aed;
+    --tint: #f2eaff;
+}
+
+.railway-card.ntpc {
+    --accent: #0f766e;
+    --tint: #e0f7f3;
+}
+
+.railway-card.groupd {
+    --accent: #ea580c;
+    --tint: #fff0e5;
+}
+
+.railway-card.other {
+    --accent: #b45309;
+    --tint: #fef3c7;
+}
+
+.railway-icon {
+    display: grid;
+    place-items: center;
+    width: 57px;
+    height: 57px;
+    margin-bottom: 17px;
+    border-radius: 16px;
+    background: var(--tint);
+    font-size: 29px;
+}
+
+.railway-card h3 {
+    margin: 0 0 10px;
+    color: #183d30;
+    font-size: 20px;
+    font-weight: 850;
+}
+
+.railway-card p {
+    flex: 1;
+    margin: 0 0 20px;
+    color: #718178;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.railway-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.railway-link:hover {
+    filter: brightness(.92);
+}
+
+.railway-link:focus-visible,
+.railway-back:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+
+.railway-tip {
+    margin-top: 30px;
+    padding: 23px;
+    border: 1px solid #d9e9df;
+    border-radius: 17px;
+    background: linear-gradient(110deg, #e7f8ed, #ffffff);
+}
+
+.railway-tip h3 {
+    margin: 0 0 8px;
+    color: #176342;
+    font-size: 18px;
+}
+
+.railway-tip p {
+    margin: 0;
+    color: #667a6e;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.railway-footer {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.railway-back {
+    display: inline-block;
+    padding: 12px 19px;
+    border: 1px solid #d3e4da;
+    border-radius: 11px;
+    background: white;
+    color: #176342 !important;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.railway-back:hover {
+    background: #e5f7eb;
+}
+
+@media (max-width: 900px) {
+    .railway-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .railway-page {
+        padding: 13px 10px 30px;
+    }
+
+    .railway-hero {
+        padding: 28px 20px;
+        border-radius: 20px;
+    }
+
+    .railway-hero h1 {
+        font-size: 32px;
+    }
+
+    .railway-hero p {
+        font-size: 13px;
+    }
+
+    .railway-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .railway-card {
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .railway-section h2 {
+        font-size: 23px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .railway-card {
+        transition: none;
+    }
+}
+</style>
+
+<div class="railway-page">
+<div class="railway-wrap">
+
+    <section class="railway-hero">
+        <div class="railway-label">✦ EDUMIND · RAILWAY EXAM HUB</div>
+
+        <h1>Build Your Railway Career.<br>
+            <span>Prepare. Practise. Progress.</span>
+        </h1>
+
+        <p>
+            Choose your railway recruitment examination and access
+            the relevant mock-test page. Practise available questions,
+            review your results, and prepare systematically.
+        </p>
+
+        <div class="railway-pills">
+            <span>🚆 RRB JE</span>
+            <span>⚙️ RRB ALP</span>
+            <span>📋 RRB NTPC</span>
+            <span>🎯 Group D</span>
+        </div>
+    </section>
+
+    <section class="railway-section">
+        <h2>Choose Your Railway Examination</h2>
+        <p>
+            Select an exam to view its mock tests and practice options.
+        </p>
+    </section>
+
+    <section class="railway-grid">
+
+        <article class="railway-card je">
+            <div class="railway-icon">🛠️</div>
+            <h3>RRB JE</h3>
+            <p>
+                Junior Engineer preparation, including CBT 1 practice
+                and technical recruitment exam preparation.
+            </p>
+            <a class="railway-link"
+               href="{% url 'rrb_je_cbt1_mock_tests' %}">
+                <span>Explore RRB JE CBT 1</span><span>→</span>
+            </a>
+        </article>
+
+        <article class="railway-card alp">
+            <div class="railway-icon">🚆</div>
+            <h3>RRB ALP</h3>
+            <p>
+                Assistant Loco Pilot preparation and available
+                recruitment mock tests.
+            </p>
+            <a class="railway-link" href="{% url 'rrb_alp' %}">
+                <span>Explore RRB ALP</span><span>→</span>
+            </a>
+        </article>
+
+        <article class="railway-card ntpc">
+            <div class="railway-icon">🚉</div>
+            <h3>RRB NTPC</h3>
+            <p>
+                Non-Technical Popular Categories exam preparation
+                and practice opportunities.
+            </p>
+            <a class="railway-link" href="{% url 'rrb_ntpc' %}">
+                <span>Explore RRB NTPC</span><span>→</span>
+            </a>
+        </article>
+
+        <article class="railway-card groupd">
+            <div class="railway-icon">🚧</div>
+            <h3>RRB Group D</h3>
+            <p>
+                Prepare for Group D recruitment with available
+                practice questions and mock tests.
+            </p>
+            <a class="railway-link" href="{% url 'rrb_group_d' %}">
+                <span>Explore Group D</span><span>→</span>
+            </a>
+        </article>
+
+        <article class="railway-card other">
+            <div class="railway-icon">📚</div>
+            <h3>Other Railway Exams</h3>
+            <p>
+                Use this section for additional railway exam categories
+                when their individual pages are configured.
+            </p>
+            <a class="railway-link" href="{% url 'subject_mock_tests' 5 %}">
+                <span>Explore Railway Tests</span><span>→</span>
+            </a>
+        </article>
+
+    </section>
+
+    <section class="railway-tip">
+        <h3>💡 Study strategy</h3>
+        <p>
+            Start with the syllabus for your chosen examination.
+            Practise under timed conditions where available, review
+            incorrect answers, and revisit weak topics regularly.
+        </p>
+    </section>
+
+    <div class="railway-footer">
+        <a class="railway-back" href="{% url 'dashboard' %}">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,957 @@
+{% extends "base.html" %}
+
+{% block title %}Performance Analysis{% endblock %}
+
+{% block page_class %}page-performance{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   EDUMIND PERFORMANCE — MODERN COLOURFUL DESIGN
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99,102,241,.12),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(236,72,153,.12),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(16,185,129,.10),
+            transparent 30%
+        ),
+        #f7f9fc;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.performance-container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 25px 18px 60px;
+}
+
+
+/* =========================================================
+   HERO HEADER
+   ========================================================= */
+
+.performance-header {
+    position: relative;
+    overflow: hidden;
+
+    padding: 38px 35px;
+
+    border-radius: 28px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827 0%,
+            #312e81 35%,
+            #7c3aed 65%,
+            #db2777 100%
+        );
+
+    box-shadow:
+        0 18px 45px rgba(79,70,229,.25);
+
+    margin-bottom: 28px;
+}
+
+.performance-header::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    right: -80px;
+    top: -140px;
+}
+
+.performance-header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.07);
+
+    left: 45%;
+    bottom: -120px;
+}
+
+.performance-header h1 {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+.performance-header p {
+    position: relative;
+    z-index: 2;
+
+    margin: 12px 0 0;
+
+    font-size: 16px;
+
+    color: rgba(255,255,255,.90);
+
+    max-width: 700px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+   ========================================================= */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 35px;
+}
+
+.summary-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 145px;
+
+    padding: 20px;
+
+    border-radius: 21px;
+
+    color: white;
+
+    box-shadow:
+        0 10px 28px rgba(15,23,42,.12);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.summary-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    right: -35px;
+    bottom: -45px;
+
+    background: rgba(255,255,255,.12);
+}
+
+.summary-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 17px 35px rgba(15,23,42,.18);
+}
+
+
+/* =========================================================
+   SUMMARY CARD COLOURS
+   ========================================================= */
+
+.summary-card:nth-child(1) {
+    background:
+        linear-gradient(135deg,#2563eb,#4f46e5);
+}
+
+.summary-card:nth-child(2) {
+    background:
+        linear-gradient(135deg,#059669,#0d9488);
+}
+
+.summary-card:nth-child(3) {
+    background:
+        linear-gradient(135deg,#f97316,#ea580c);
+}
+
+.summary-card:nth-child(4) {
+    background:
+        linear-gradient(135deg,#db2777,#e11d48);
+}
+
+.summary-card:nth-child(5) {
+    background:
+        linear-gradient(135deg,#0891b2,#0284c7);
+}
+
+.summary-card:nth-child(6) {
+    background:
+        linear-gradient(135deg,#dc2626,#b91c1c);
+}
+
+.summary-card:nth-child(7) {
+    background:
+        linear-gradient(135deg,#64748b,#334155);
+}
+
+.summary-card .icon {
+    position: relative;
+    z-index: 2;
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.18);
+
+    font-size: 24px;
+}
+
+.summary-card h4 {
+    position: relative;
+    z-index: 2;
+
+    margin: 13px 0 3px;
+
+    font-size: 13px;
+
+    color: rgba(255,255,255,.88);
+}
+
+.summary-card strong {
+    position: relative;
+    z-index: 2;
+
+    font-size: 28px;
+
+    color: white;
+}
+
+
+/* =========================================================
+   SECTION TITLES
+   ========================================================= */
+
+.section-title {
+    position: relative;
+
+    margin: 38px 0 18px;
+
+    padding-left: 15px;
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    color: #172554;
+}
+
+.section-title::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 3px;
+
+    width: 5px;
+    height: 27px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4f46e5,
+            #ec4899
+        );
+}
+
+.section-title span {
+    margin-left: 8px;
+
+    font-size: 13px;
+
+    color: #64748b;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   EXAM CATEGORY CARDS
+   ========================================================= */
+
+.category-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 17px;
+}
+
+.category-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 155px;
+
+    padding: 23px 20px;
+
+    border-radius: 22px;
+
+    text-decoration: none;
+
+    color: white;
+
+    box-shadow:
+        0 10px 26px rgba(15,23,42,.13);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.category-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    right: -45px;
+    bottom: -50px;
+
+    background: rgba(255,255,255,.10);
+}
+
+
+/* CAT */
+
+.category-card:nth-child(1) {
+    background:
+        linear-gradient(135deg,#1d4ed8,#6366f1,#8b5cf6);
+}
+
+
+/* BANK */
+
+.category-card:nth-child(2) {
+    background:
+        linear-gradient(135deg,#047857,#0d9488,#14b8a6);
+}
+
+
+/* SSC */
+
+.category-card:nth-child(3) {
+    background:
+        linear-gradient(135deg,#7e22ce,#9333ea,#c026d3);
+}
+
+
+/* RAILWAY */
+
+.category-card:nth-child(4) {
+    background:
+        linear-gradient(135deg,#c2410c,#ea580c,#f59e0b);
+}
+
+
+/* OLYMPIAD */
+
+.category-card:nth-child(5) {
+    background:
+        linear-gradient(135deg,#be123c,#db2777,#ec4899);
+}
+
+
+/* OTHERS */
+
+.category-card:nth-child(6) {
+    background:
+        linear-gradient(135deg,#0369a1,#0284c7,#06b6d4);
+}
+
+.category-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 35px rgba(15,23,42,.20);
+}
+
+.category-card.active {
+    outline: 4px solid rgba(99,102,241,.25);
+
+    transform: translateY(-3px);
+}
+
+.category-icon {
+    position: relative;
+    z-index: 2;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,.18);
+
+    font-size: 29px;
+
+    margin-bottom: 13px;
+}
+
+.category-card h3 {
+    position: relative;
+    z-index: 2;
+
+    margin: 0 0 6px;
+
+    font-size: 20px;
+
+    color: white;
+}
+
+.category-card p {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    font-size: 12px;
+
+    color: rgba(255,255,255,.88);
+}
+
+
+/* =========================================================
+   SUBJECT ANALYSIS
+   ========================================================= */
+
+.subject-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 17px;
+}
+
+.subject-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 135px;
+
+    padding: 21px;
+
+    border-radius: 21px;
+
+    color: white;
+
+    box-shadow:
+        0 9px 24px rgba(15,23,42,.11);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.subject-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 15px 30px rgba(15,23,42,.17);
+}
+
+.subject-card:nth-child(1) {
+    background:
+        linear-gradient(135deg,#0284c7,#06b6d4);
+}
+
+.subject-card:nth-child(2) {
+    background:
+        linear-gradient(135deg,#15803d,#22c55e);
+}
+
+.subject-card:nth-child(3) {
+    background:
+        linear-gradient(135deg,#7e22ce,#c026d3);
+}
+
+.subject-card:nth-child(4) {
+    background:
+        linear-gradient(135deg,#c2410c,#f59e0b);
+}
+
+.subject-card h3 {
+    margin: 0 0 9px;
+
+    font-size: 17px;
+
+    color: white;
+}
+
+.subject-card p {
+    margin: 0;
+
+    color: rgba(255,255,255,.90);
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .category-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .subject-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .performance-container {
+        padding: 16px 10px 40px;
+    }
+
+    .performance-header {
+        padding: 28px 21px;
+
+        border-radius: 22px;
+    }
+
+    .performance-header h1 {
+        font-size: 27px;
+    }
+
+    .performance-header p {
+        font-size: 13px;
+    }
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap: 10px;
+    }
+
+    .summary-card {
+        min-height: 125px;
+
+        padding: 15px;
+    }
+
+    .summary-card .icon {
+        width: 38px;
+        height: 38px;
+
+        font-size: 20px;
+    }
+
+    .summary-card h4 {
+        font-size: 11px;
+    }
+
+    .summary-card strong {
+        font-size: 22px;
+    }
+
+    .section-title {
+        font-size: 20px;
+
+        margin-top: 30px;
+    }
+
+    .section-title span {
+        display: block;
+
+        margin: 4px 0 0;
+
+        font-size: 11px;
+    }
+
+    .category-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap: 10px;
+    }
+
+    .category-card {
+        min-height: 130px;
+
+        padding: 16px 13px;
+
+        border-radius: 17px;
+    }
+
+    .category-icon {
+        width: 42px;
+        height: 42px;
+
+        font-size: 23px;
+
+        margin-bottom: 9px;
+    }
+
+    .category-card h3 {
+        font-size: 16px;
+    }
+
+    .category-card p {
+        font-size: 10px;
+    }
+
+    .subject-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap: 10px;
+    }
+
+    .subject-card {
+        min-height: 120px;
+
+        padding: 15px;
+
+        border-radius: 17px;
+    }
+
+    .subject-card h3 {
+        font-size: 14px;
+    }
+
+    .subject-card p {
+        font-size: 10px;
+    }
+}
+
+</style>
+
+
+<div class="performance-container">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="performance-header">
+
+        <h1>📊 Performance Analysis</h1>
+
+        <p>
+            Track your progress, understand your strengths
+            and improve your exam performance.
+        </p>
+
+    </div>
+
+
+    {% if tests_attempted == 0 %}
+
+
+        <!-- =================================================
+             NO TEST
+        ================================================== -->
+
+        <div class="no-test">
+
+            <div class="emoji">🚀</div>
+
+            <h2>Your Performance Journey Starts Here</h2>
+
+            <p>
+                You haven't attempted any mock test yet.
+                Take your first test and EduMind will
+                automatically build your performance analysis.
+            </p>
+
+            <a
+                href="{% url 'mock_tests' %}"
+                class="start-btn"
+            >
+                Start Your First Mock Test
+            </a>
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             OVERALL SUMMARY
+        ================================================== -->
+
+        <div class="summary-grid">
+
+            <div class="summary-card">
+                <div class="icon">📝</div>
+                <h4>Tests Attempted</h4>
+                <strong>{{ tests_attempted }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">📈</div>
+                <h4>Average Score</h4>
+                <strong>{{ average_score }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">🏆</div>
+                <h4>Highest Score</h4>
+                <strong>{{ highest_score }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">🎯</div>
+                <h4>Accuracy</h4>
+                <strong>{{ overall_accuracy }}%</strong>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">✅</div>
+                <h4>Correct</h4>
+                <strong>{{ total_correct }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">❌</div>
+                <h4>Wrong</h4>
+                <strong>{{ total_wrong }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">⚪</div>
+                <h4>Unattended</h4>
+                <strong>{{ total_unanswered }}</strong>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             EXAM CATEGORIES
+        ================================================== -->
+
+        <h2 class="section-title">
+            🎓 Exam Categories
+            <span>Choose your preparation area</span>
+        </h2>
+
+        <div class="category-grid">
+
+            <a
+                href="{% url 'category_performance' 'cat' %}"
+                class="category-card"
+            >
+                <div class="category-icon">🎯</div>
+                <h3>CAT</h3>
+                <p>Management Entrance</p>
+            </a>
+
+
+            <a
+                href="{% url 'category_performance' 'bank' %}"
+                class="category-card"
+            >
+                <div class="category-icon">🏦</div>
+                <h3>Bank</h3>
+                <p>Banking Exams</p>
+            </a>
+
+
+            <a
+                href="{% url 'category_performance' 'ssc' %}"
+                class="category-card"
+            >
+                <div class="category-icon">📚</div>
+                <h3>SSC</h3>
+                <p>Government Jobs</p>
+            </a>
+
+
+            <a
+                href="{% url 'category_performance' 'rrb' %}"
+                class="category-card"
+            >
+                <div class="category-icon">🚆</div>
+                <h3>Railway</h3>
+                <p>Railway Recruitment</p>
+            </a>
+
+
+            <a
+                href="{% url 'category_performance' 'olympiad' %}"
+                class="category-card"
+            >
+                <div class="category-icon">🏅</div>
+                <h3>Olympiad</h3>
+                <p>Olympiad Preparation</p>
+            </a>
+
+
+            <a
+                href="{% url 'category_performance' 'others' %}"
+                class="category-card"
+            >
+                <div class="category-icon">📚</div>
+                <h3>Others</h3>
+                <p>Other Competitive Exams</p>
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             SUBJECT ANALYSIS
+        ================================================== -->
+
+        <h2 class="section-title">
+            📚 Subject Analysis
+            <span>Build your core skills</span>
+        </h2>
+
+        <div class="subject-grid">
+
+            <div class="subject-card">
+
+                <h3>
+                    🔢 Quantitative Aptitude
+                </h3>
+
+                <p>
+                    Numbers, arithmetic, algebra and data analysis
+                </p>
+
+            </div>
+
+
+            <div class="subject-card">
+
+                <h3>
+                    🧩 Reasoning
+                </h3>
+
+                <p>
+                    Logical thinking, arrangements and puzzles
+                </p>
+
+            </div>
+
+
+            <div class="subject-card">
+
+                <h3>
+                    📖 English
+                </h3>
+
+                <p>
+                    Vocabulary, grammar and reading comprehension
+                </p>
+
+            </div>
+
+
+            <div class="subject-card">
+
+                <h3>
+                    🌎 GK
+                </h3>
+
+                <p>
+                    General knowledge and current awareness
+                </p>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

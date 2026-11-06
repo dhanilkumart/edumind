@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Mock Tests{% endblock %}
+
+{% block page_class %}page-mock-tests{% endblock %}
+
+{% block content %}
+
+<h2>Select Exam</h2>
+
+<ul>
+    {% for subject in subjects %}
+        <li>
+            <a href="{% url 'subject_mock_tests' subject.id %}">
+                {{ subject.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}SSC CHSL Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-chsl{% endblock %}
+
+{% block content %}
+
+<style>
+.chsl-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+.chsl-header {
+    background: linear-gradient(135deg, #7c2d12, #ea580c, #dc2626);
+    color: white;
+    border-radius: 22px;
+    padding: 30px;
+    text-align: center;
+}
+
+.chsl-header h1 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.chsl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+}
+
+.chsl-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 7px 25px rgba(0,0,0,.10);
+}
+
+.chsl-card h2 {
+    color: #9a3412;
+}
+
+.chsl-btn {
+    display: inline-block;
+    padding: 11px 20px;
+    margin-top: 12px;
+    background: #ea580c;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
+</style>
+
+<div class="chsl-page">
+
+    <div class="chsl-header">
+        <h1>🎯 SSC CHSL</h1>
+        <p>Combined Higher Secondary Level</p>
+    </div>
+
+    <div class="chsl-grid">
+
+        <div class="chsl-card">
+            <h2>📝 Tier-I</h2>
+            <p>Complete Tier-I mock tests.</p>
+            <a href="#" class="chsl-btn">View Tests</a>
+        </div>
+
+        <div class="chsl-card">
+            <h2>📚 Tier-II</h2>
+            <p>Advanced CHSL Tier-II preparation.</p>
+            <a href="#" class="chsl-btn">View Tests</a>
+        </div>
+
+        <div class="chsl-card">
+            <h2>🧮 Mathematics</h2>
+            <p>CHSL quantitative aptitude practice.</p>
+            <a href="#" class="chsl-btn">Practice</a>
+        </div>
+
+        <div class="chsl-card">
+            <h2>🧠 Reasoning</h2>
+            <p>General Intelligence practice.</p>
+            <a href="#" class="chsl-btn">Practice</a>
+        </div>
+
+        <div class="chsl-card">
+            <h2>📖 English</h2>
+            <p>English language preparation.</p>
+            <a href="#" class="chsl-btn">Practice</a>
+        </div>
+
+        <div class="chsl-card">
+            <h2>🌍 General Awareness</h2>
+            <p>GK and current affairs practice.</p>
+            <a href="#" class="chsl-btn">Practice</a>
+        </div>
+
+        <div class="chsl-card">
+            <h2>🏆 Full Mock Tests</h2>
+            <p>Complete CHSL examination simulation.</p>
+            <a href="#" class="chsl-btn">Start</a>
+        </div>
+
+    </div>
+
+    {% if not mock_tests %}
+        <div class="chsl-card" style="margin-top:25px;">
+            ⚠️ No Mock Test Uploaded
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

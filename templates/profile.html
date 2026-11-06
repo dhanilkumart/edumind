@@ -1,0 +1,469 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | EduMind{% endblock %}
+
+{% block page_class %}page-profile{% endblock %}
+
+{% block content %}
+
+<style>
+.page-profile {
+    min-height: 100vh;
+    padding: 35px 15px 60px;
+    background:
+        radial-gradient(circle at 8% 10%, #bbf7d0 0, transparent 32%),
+        radial-gradient(circle at 95% 90%, #99f6e4 0, transparent 32%),
+        linear-gradient(135deg, #ecfdf5, #eff6ff, #f0fdfa);
+}
+
+.profile-box {
+    max-width: 760px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(255,255,255,.9);
+    box-shadow: 0 25px 65px rgba(15,118,80,.16);
+    animation: profileAppear .65s ease;
+}
+
+@keyframes profileAppear {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-header {
+    text-align: center;
+    padding: 38px 20px 32px;
+    color: white;
+    background: linear-gradient(120deg, #047857, #059669, #0f766e);
+}
+
+.profile-avatar {
+    width: 112px;
+    height: 112px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff, #d1fae5);
+    color: #047857;
+    font-size: 42px;
+    font-weight: 800;
+    border: 5px solid rgba(255,255,255,.75);
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-header h1 {
+    margin: 16px 0 7px;
+    font-size: clamp(25px, 5vw, 34px);
+    font-weight: 800;
+}
+
+.profile-header p {
+    margin: 0;
+    color: #d1fae5;
+    font-size: 14px;
+}
+
+.profile-status {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 7px 13px;
+    border-radius: 30px;
+    background: #d1fae5;
+    color: #047857;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.photo-label {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 11px 17px;
+    border-radius: 11px;
+    background: white;
+    color: #047857;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.photo-label:hover {
+    background: #d1fae5;
+    transform: translateY(-2px);
+}
+
+.photo-help {
+    margin-top: 8px !important;
+    font-size: 12px !important;
+    color: #d1fae5 !important;
+}
+
+.profile-content {
+    padding: 30px clamp(18px, 5vw, 42px) 35px;
+}
+
+.profile-section-title {
+    margin: 0 0 20px;
+    color: #065f46;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.profile-field {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #dbeee5;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8fffb, #f0fdfa);
+    transition: .25s;
+}
+
+.profile-field:hover {
+    border-color: #34d399;
+    box-shadow: 0 7px 18px rgba(5,150,105,.08);
+    transform: translateY(-2px);
+}
+
+.profile-field label.field-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.profile-value {
+    color: #064e3b;
+    font-size: 15px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.profile-input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    border: 1.5px solid #cbded4;
+    border-radius: 10px;
+    outline: none;
+    background: white;
+    color: #064e3b;
+    font-size: 15px;
+    transition: .25s;
+}
+
+.profile-input:focus {
+    border-color: #059669;
+    box-shadow: 0 0 0 4px rgba(5,150,105,.12);
+}
+
+.profile-note {
+    margin: 10px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.profile-divider {
+    border: 0;
+    border-top: 1px solid #e2eee7;
+    margin: 30px 0;
+}
+
+.profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.profile-btn {
+    flex: 1;
+    min-width: 150px;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.profile-btn-primary {
+    color: white;
+    background: linear-gradient(110deg, #059669, #0f766e);
+    box-shadow: 0 7px 18px rgba(5,150,105,.2);
+}
+
+.profile-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 23px rgba(5,150,105,.3);
+}
+
+.profile-btn-secondary {
+    color: #047857;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+}
+
+.profile-btn-secondary:hover {
+    background: #d1fae5;
+}
+
+.profile-message {
+    display: none;
+    margin-top: 16px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+    .page-profile { padding: 15px 10px 35px; }
+    .profile-header { padding: 30px 15px; }
+    .profile-content { padding: 24px 17px; }
+    .profile-grid { grid-template-columns: 1fr; gap: 12px; }
+    .profile-btn { min-width: 100%; }
+}
+</style>
+
+<div class="profile-box">
+
+    <!-- PROFILE HEADER -->
+    <div class="profile-header">
+
+        <div class="profile-avatar" id="avatarPreview">
+            <span id="avatarInitial">
+                {{ user.first_name|default:user.username|first|upper }}
+            </span>
+            <img id="profileImage" alt="Selected profile photo"
+                 style="display:none;">
+        </div>
+
+        <h1>My Profile</h1>
+        <p>EduMind — Turn Face 2 Success</p>
+
+        <div>
+            <span class="profile-status">● Registered Member</span>
+        </div>
+
+        <label for="profilePhoto" class="photo-label">
+            📷 Upload Profile Photo
+        </label>
+
+        <input
+            type="file"
+            id="profilePhoto"
+            accept="image/jpeg,image/png,image/webp"
+            style="display:none;"
+        >
+
+        <p class="photo-help">JPG, PNG or WebP · Maximum 5 MB</p>
+
+    </div>
+
+    <!-- PROFILE DETAILS -->
+    <div class="profile-content">
+
+        <h2 class="profile-section-title">
+            👤 Personal Information
+        </h2>
+
+        <div class="profile-grid">
+
+            <div class="profile-field">
+                <label class="field-label">Username</label>
+                <div class="profile-value">
+                    {{ user.username|default:"Not provided" }}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label class="field-label">First Name</label>
+                <div class="profile-value">
+                    {{ user.first_name|default:"Not provided" }}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label class="field-label">Last Name</label>
+                <div class="profile-value">
+                    {{ user.last_name|default:"Not provided" }}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label class="field-label">Email Address</label>
+                <div class="profile-value">
+                    {{ user.email|default:"Not provided" }}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label class="field-label">Member Since</label>
+                <div class="profile-value">
+                    {{ user.date_joined|date:"d M Y" }}
+                </div>
+            </div>
+
+            <div class="profile-field">
+                <label class="field-label">Account Status</label>
+                <div class="profile-value" style="color:#059669;">
+                    Active
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="profile-divider">
+
+        <!-- CONTACT DETAILS -->
+        <h2 class="profile-section-title">
+            📱 Contact Information
+        </h2>
+
+        <form id="profileForm">
+
+            {% csrf_token %}
+
+            <div class="profile-field">
+                <label class="field-label" for="mobile">
+                    Mobile Number
+                </label>
+
+                <input
+                    class="profile-input"
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter your 10-digit mobile number"
+                    maxlength="10"
+                    pattern="[6-9][0-9]{9}"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    required
+                >
+
+                <p class="profile-note">
+                    Enter a valid 10-digit Indian mobile number.
+                </p>
+            </div>
+
+            <div id="profileMessage"
+                 class="profile-message"
+                 role="status"
+                 aria-live="polite"></div>
+
+            <div class="profile-actions">
+
+                <button type="submit" class="profile-btn profile-btn-primary">
+                    Save Profile
+                </button>
+
+                <a href="{% url 'dashboard' %}"
+                   class="profile-btn profile-btn-secondary">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+        </form>
+
+        <p class="profile-note" style="text-align:center; margin-top:25px;">
+            Keep your contact information up to date to help secure your EduMind account.
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+/* PROFILE PHOTO PREVIEW */
+document.getElementById("profilePhoto").addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const message = document.getElementById("profileMessage");
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        alert("Please select a JPG, PNG or WebP image.");
+        this.value = "";
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        alert("Please select an image smaller than 5 MB.");
+        this.value = "";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        const image = document.getElementById("profileImage");
+        const initial = document.getElementById("avatarInitial");
+
+        image.src = event.target.result;
+        image.style.display = "block";
+
+        if (initial) {
+            initial.style.display = "none";
+        }
+
+        message.style.display = "block";
+        message.style.background = "#ecfdf5";
+        message.style.color = "#047857";
+        message.textContent =
+            "Photo preview updated. Save it through the Django backend to keep it permanently.";
+    };
+
+    reader.readAsDataURL(file);
+});
+
+/* MOBILE NUMBER VALIDATION */
+document.getElementById("profileForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const mobile = document.getElementById("mobile");
+    const message = document.getElementById("profileMessage");
+
+    if (!mobile.checkValidity()) {
+        mobile.reportValidity();
+        return;
+    }
+
+    message.style.display = "block";
+    message.style.background = "#fef3c7";
+    message.style.color = "#92400e";
+    message.textContent =
+        "Mobile number validated. Permanent saving is not connected yet. A Django view and database field are required.";
+});
+</script>
+
+{% endblock %}

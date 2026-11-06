@@ -1,0 +1,1884 @@
+{% extends "base.html" %}
+
+{% block title %}Test{% endblock %}
+
+{% block page_class %}page-test{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>EduMind {{ mock_test.name }} Mock Test</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f3f4f6;
+        }
+
+        .header {
+            background: #1f2937;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 60px;
+        }
+
+        .start-btn {
+            padding: 15px 35px;
+            font-size: 18px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .start-btn:hover {
+            background: #15803d;
+        }
+
+        #test-area {
+            display: none;
+            padding: 20px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        .question-box,
+        .navigation {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .option {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background: #f3f4f6;
+        }
+
+
+        /* =========================================
+           QUESTION NUMBER PALETTE
+           ========================================= */
+
+        .numbers {
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 4px;
+
+    height: 260px;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding: 6px;
+
+    box-sizing: border-box;
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior: contain;
+
+    cursor: grab;
+
+    user-select: none;
+
+    touch-action: pan-y;
+}
+            /*
+               Smooth scrolling on mobile
+            */
+
+            -webkit-overflow-scrolling: touch;
+
+            /*
+               Prevent scrolling from
+               affecting the main page.
+            */
+
+            overscroll-behavior: contain;
+
+            /*
+               Drag cursor on computer
+            */
+
+            cursor: grab;
+
+            /*
+               Prevent text selection
+               while dragging.
+            */
+
+            user-select: none;
+
+            /*
+               Better touch behaviour.
+            */
+
+            touch-action: pan-y;
+        }
+
+
+        .numbers.dragging {
+
+            cursor: grabbing;
+
+        }
+
+
+        /*
+           Scrollbar appearance
+        */
+
+        .numbers::-webkit-scrollbar {
+
+            width: 7px;
+
+        }
+
+        .numbers::-webkit-scrollbar-track {
+
+            background: #f1f1f1;
+
+            border-radius: 10px;
+
+        }
+
+        .numbers::-webkit-scrollbar-thumb {
+
+            background: #9ca3af;
+
+            border-radius: 10px;
+
+        }
+
+
+        .numbers button {
+
+    width: 100%;
+
+    height: 28px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+}
+
+
+        .unseen {
+
+            background: #d1d5db;
+
+        }
+
+        .seen {
+
+            background: #60a5fa;
+
+            color: white;
+
+        }
+
+        .answered {
+
+            background: #22c55e;
+
+            color: white;
+
+        }
+
+        .review {
+
+            background: #eab308;
+
+            color: white;
+
+        }
+
+
+        .btn {
+
+            padding: 10px 15px;
+
+            margin: 5px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+        }
+
+        .next {
+
+            background: #16a34a;
+
+            color: white;
+
+        }
+
+        .prev {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+        .clear {
+
+            background: #dc2626;
+
+            color: white;
+
+        }
+
+        .mark {
+
+            background: #eab308;
+
+        }
+
+
+        #submit-btn {
+
+            margin-top: 20px;
+
+            width: 100%;
+
+            padding: 12px;
+
+            background: #111827;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+        }
+
+
+        #result {
+
+            display: none;
+
+            background: white;
+
+            margin: 30px auto;
+
+            padding: 30px;
+
+            max-width: 600px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+        }
+
+
+        /*
+           MOBILE
+        */
+
+        @media (max-width: 768px) {
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .navigation {
+        order: 2;
+    }
+
+    .question-box {
+        order: 1;
+    }
+
+    .numbers {
+
+        grid-template-columns: repeat(5, 1fr);
+
+        gap: 4px;
+
+        height: 180px;
+
+    }
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h2>
+        EduMind {{ mock_test.name }} Mock Test
+    </h2>
+
+    <div>
+
+        Time Left:
+
+        <strong id="timer">
+            00:00
+        </strong>
+
+    </div>
+
+</div>
+
+
+
+<!-- START SCREEN -->
+
+<div
+    id="start-screen"
+    class="start-screen"
+>
+
+    <h1>
+        {{ mock_test.name }}
+    </h1>
+
+    <p>
+
+        Total Questions:
+
+        <strong id="total-questions">
+            0
+        </strong>
+
+    </p>
+
+    <p>
+
+        Time:
+
+        <strong id="test-time">
+            0
+        </strong>
+
+        minutes
+
+    </p>
+
+
+    <button
+        class="start-btn"
+        onclick="startTest()"
+    >
+
+        START TEST
+
+    </button>
+
+</div>
+
+
+
+<!-- TEST AREA -->
+
+<div id="test-area">
+
+    <div class="layout">
+
+
+        <!-- QUESTION -->
+
+        <div class="question-box">
+
+            <h3>
+
+                Question
+
+                <span id="question-number">
+                </span>
+
+                of
+
+                <span id="question-total">
+                </span>
+
+            </h3>
+
+
+            <h3 id="question-text">
+            </h3>
+
+
+            <div id="options">
+            </div>
+
+
+            <div>
+
+                <button
+                    class="btn prev"
+                    onclick="previousQuestion()"
+                >
+
+                    Previous
+
+                </button>
+
+
+                <button
+                    class="btn clear"
+                    onclick="clearAnswer()"
+                >
+
+                    Clear Response
+
+                </button>
+
+
+                <button
+                    class="btn mark"
+                    onclick="markReview()"
+                >
+
+                    Mark Review
+
+                </button>
+
+
+                <button
+                    class="btn next"
+                    onclick="nextQuestion()"
+                >
+
+                    Save & Next
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <div class="navigation">
+
+            <h3>
+                Questions
+            </h3>
+
+
+            <!--
+                ONLY THIS AREA SCROLLS / DRAGS
+            -->
+
+            <div
+                id="question-numbers"
+                class="numbers"
+            >
+            </div>
+
+
+            <hr>
+
+
+            <p>
+                ⚪ Unseen
+            </p>
+
+            <p>
+                🔵 Seen
+            </p>
+
+            <p>
+                🟢 Answered
+            </p>
+
+            <p>
+                🟡 Review
+            </p>
+
+
+            <button
+            type="button"
+            id="submit-test-btn"
+            class="submit-btn"
+            onclick="submitTest()"
+            >
+            Submit Test
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- RESULT -->
+
+<div id="result">
+
+    <h1>
+        Test Result
+    </h1>
+
+
+    <p>
+
+        Total Questions:
+
+        <strong id="result-total">
+        </strong>
+
+    </p>
+
+
+    <p>
+
+        Attempted:
+
+        <strong id="result-attempted">
+        </strong>
+
+    </p>
+
+
+    <p>
+
+        Correct:
+
+        <strong id="result-correct">
+        </strong>
+
+    </p>
+
+
+    <p>
+
+        Wrong:
+
+        <strong id="result-wrong">
+        </strong>
+
+    </p>
+
+
+    <h2>
+
+        Score:
+
+        <span id="result-score">
+        </span>
+
+    </h2>
+
+</div>
+
+
+
+<script>
+
+const questions = JSON.parse('{{ questions_json|escapejs }}');
+
+const durationMinutes = {{ duration_minutes }};
+
+console.log("QUESTIONS FROM DJANGO:", questions);
+console.log("QUESTION COUNT:", questions.length);
+
+/*
+   QUESTIONS FROM DJANGO
+*/
+
+let currentQuestion = 0;
+
+let answers = [];
+
+let status = [];
+
+let timeRemaining = 0;
+
+let timerInterval;
+
+let questionTimes = [];
+
+let questionStartTime = null;
+
+let activeQuestionForTimer = null;
+
+
+
+
+
+/*
+   INITIALIZE
+*/
+
+function initializeTest() {
+
+    console.log("Questions received:", questions);
+    console.log("Number of questions:", questions.length);
+
+    answers = new Array(questions.length).fill(null);
+    status = new Array(questions.length).fill("unseen");
+    questionTimes = new Array(questions.length).fill(0);
+
+    questionStartTime = null;
+    activeQuestionForTimer = null;
+
+    const totalQuestionsElement =
+        document.getElementById("total-questions");
+
+    const testTimeElement =
+        document.getElementById("test-time");
+
+    console.log(
+        "total-questions element:",
+        totalQuestionsElement
+    );
+
+    console.log(
+        "test-time element:",
+        testTimeElement
+    );
+
+    if (totalQuestionsElement) {
+        totalQuestionsElement.textContent =
+            questions.length;
+    }
+
+    if (testTimeElement) {
+    testTimeElement.textContent =
+        durationMinutes + " minutes";
+}
+
+    const questionTotalElement =
+        document.getElementById("question-total");
+
+    if (questionTotalElement) {
+        questionTotalElement.textContent =
+            questions.length;
+    }
+
+    createQuestionNumbers();
+
+    currentQuestion = 0;
+}
+/*
+   START TEST
+*/
+
+function startTest() {
+
+    if (questions.length === 0) {
+
+        alert(
+            "No questions found."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "start-screen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "test-area"
+    ).style.display =
+        "block";
+
+
+    timeRemaining =
+    Number(durationMinutes) * 60;
+
+
+    startTimer();
+
+
+    showQuestion();
+
+}
+
+
+
+/*
+   TIMER
+*/
+
+function startTimer() {
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            function() {
+
+                timeRemaining--;
+
+
+                updateTimer();
+
+
+                if (
+                    timeRemaining <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+
+                    alert(
+                        "Time is over!"
+                    );
+
+
+                    submitTest();
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+
+function updateTimer() {
+
+    let minutes =
+        Math.floor(
+            timeRemaining / 60
+        );
+
+
+    let seconds =
+        timeRemaining % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+
+        String(minutes)
+            .padStart(2, "0")
+
+        +
+
+        ":"
+
+        +
+
+        String(seconds)
+            .padStart(2, "0");
+
+}
+
+
+
+/*
+   SHOW QUESTION
+*/
+
+function showQuestion() {
+
+    /*
+       Save time spent on the
+       question we are leaving.
+    */
+
+    if (
+        questionStartTime !== null &&
+        activeQuestionForTimer !== null
+    ) {
+
+        const elapsed =
+            Math.floor(
+                (
+                    Date.now()
+                    -
+                    questionStartTime
+                ) / 1000
+            );
+
+        questionTimes[
+            activeQuestionForTimer
+        ] += elapsed;
+    }
+
+
+    /*
+       Show new question
+    */
+
+    const question =
+        questions[
+            currentQuestion
+        ];
+
+
+    /*
+       Remember which question
+       the timer belongs to.
+    */
+
+    activeQuestionForTimer =
+        currentQuestion;
+
+
+    questionStartTime =
+        Date.now();
+
+
+    const questionNumber =
+        document.getElementById(
+            "question-number"
+        );
+
+
+    questionNumber.textContent =
+        currentQuestion + 1;
+
+
+    document.getElementById(
+        "question-text"
+    ).textContent =
+        question.question;
+
+
+    const options =
+        document.getElementById(
+            "options"
+        );
+
+
+    options.innerHTML = "";
+
+
+    question.options.forEach(
+        function(option, index) {
+
+            const label =
+                document.createElement(
+                    "label"
+                );
+
+
+            label.className =
+                "option";
+
+
+            const radio =
+                document.createElement(
+                    "input"
+                );
+
+
+            radio.type =
+                "radio";
+
+
+            radio.name =
+                "answer";
+
+
+            radio.value =
+                index;
+
+
+            if (
+                answers[
+                    currentQuestion
+                ] === index
+            ) {
+
+                radio.checked =
+                    true;
+
+            }
+
+
+            radio.onclick =
+                function() {
+
+                    answers[
+                        currentQuestion
+                    ] =
+                        index;
+
+
+                    status[
+                        currentQuestion
+                    ] =
+                        "answered";
+
+
+                    createQuestionNumbers();
+
+                };
+
+
+            label.appendChild(
+                radio
+            );
+
+
+            label.appendChild(
+                document.createTextNode(
+                    " " + option
+                )
+            );
+
+
+            options.appendChild(
+                label
+            );
+
+        }
+    );
+
+
+    if (
+        status[
+            currentQuestion
+        ] === "unseen"
+    ) {
+
+        status[
+            currentQuestion
+        ] =
+            "seen";
+
+    }
+
+
+    createQuestionNumbers();
+
+}
+
+
+/*
+   QUESTION NUMBERS
+*/
+
+function createQuestionNumbers() {
+
+    const container =
+        document.getElementById(
+            "question-numbers"
+        );
+
+
+    /*
+       Remember current scroll position
+       so that updating the colours does
+       NOT jump the question-number list.
+    */
+
+    const savedScrollTop =
+        container.scrollTop;
+
+
+    container.innerHTML = "";
+
+
+    questions.forEach(
+        function(question, index) {
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.textContent =
+                index + 1;
+
+
+            button.className =
+                status[index];
+
+
+            button.onclick =
+                function() {
+
+                    currentQuestion =
+                        index;
+
+
+                    showQuestion();
+
+                };
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    /*
+       Restore the position of
+       the question-number list.
+    */
+
+    container.scrollTop =
+        savedScrollTop;
+
+}
+
+
+
+/*
+   DRAG QUESTION NUMBER AREA
+*/
+
+function enableQuestionNumberDragging() {
+
+    const container =
+        document.getElementById(
+            "question-numbers"
+        );
+
+
+    let isDragging =
+        false;
+
+
+    let startY =
+        0;
+
+
+    let startScrollTop =
+        0;
+
+
+    /*
+       MOUSE DOWN
+    */
+
+    container.addEventListener(
+        "mousedown",
+        function(e) {
+
+            isDragging =
+                true;
+
+
+            startY =
+                e.clientY;
+
+
+            startScrollTop =
+                container.scrollTop;
+
+
+            container.classList.add(
+                "dragging"
+            );
+
+        }
+    );
+
+
+    /*
+       MOUSE MOVE
+    */
+
+    container.addEventListener(
+        "mousemove",
+        function(e) {
+
+            if (!isDragging) {
+
+                return;
+
+            }
+
+
+            e.preventDefault();
+
+
+            const difference =
+                e.clientY - startY;
+
+
+            container.scrollTop =
+                startScrollTop -
+                difference;
+
+        }
+    );
+
+
+    /*
+       MOUSE UP
+    */
+
+    container.addEventListener(
+        "mouseup",
+        function() {
+
+            isDragging =
+                false;
+
+
+            container.classList.remove(
+                "dragging"
+            );
+
+        }
+    );
+
+
+    /*
+       MOUSE LEAVE
+    */
+
+    container.addEventListener(
+        "mouseleave",
+        function() {
+
+            isDragging =
+                false;
+
+
+            container.classList.remove(
+                "dragging"
+            );
+
+        }
+    );
+
+
+
+    /*
+       TOUCH START
+    */
+
+    container.addEventListener(
+        "touchstart",
+        function(e) {
+
+            startY =
+                e.touches[0].clientY;
+
+
+            startScrollTop =
+                container.scrollTop;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+
+    /*
+       TOUCH MOVE
+    */
+
+    container.addEventListener(
+        "touchmove",
+        function(e) {
+
+            const currentY =
+                e.touches[0].clientY;
+
+
+            const difference =
+                currentY - startY;
+
+
+            container.scrollTop =
+                startScrollTop -
+                difference;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
+
+
+
+/*
+   NEXT
+*/
+
+function nextQuestion() {
+
+    if (
+        currentQuestion < questions.length - 1
+        
+    ) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    }
+
+}
+
+
+
+/*
+   PREVIOUS
+*/
+
+function previousQuestion() {
+
+    if (
+        currentQuestion > 0
+    ) {
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+
+
+/*
+   CLEAR ANSWER
+*/
+
+function clearAnswer() {
+
+    answers[
+        currentQuestion
+    ] = null;
+
+
+    status[
+        currentQuestion
+    ] = "seen";
+
+
+    showQuestion();
+
+}
+
+
+
+/*
+   MARK REVIEW
+*/
+
+function markReview() {
+
+    status[
+        currentQuestion
+    ] = "review";
+
+
+    createQuestionNumbers();
+
+}
+
+
+
+/*
+   CSRF COOKIE
+*/
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+
+    if (
+        document.cookie &&
+        document.cookie !== ""
+    ) {
+
+        const cookies =
+            document.cookie.split(";");
+
+
+        for (
+            let i = 0;
+            i < cookies.length;
+            i++
+        ) {
+
+            const cookie =
+                cookies[i].trim();
+
+
+            if (
+                cookie.substring(
+                    0,
+                    name.length + 1
+                )
+                ===
+                (name + "=")
+            ) {
+
+                cookieValue =
+                    decodeURIComponent(
+                        cookie.substring(
+                            name.length + 1
+                        )
+                    );
+
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    return cookieValue;
+
+}
+
+
+
+/*
+   SUBMIT
+*/
+
+function submitTest() {
+
+    /*
+       Stop the test timer
+    */
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    /*
+       Prevent double submission
+    */
+
+    const submitButton =
+        document.getElementById(
+            "submit-test-btn"
+        );
+
+    if (submitButton) {
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "Submitting...";
+    }
+
+
+    /*
+       Save time spent on the
+       currently displayed question
+    */
+
+    if (
+        questionStartTime !== null &&
+        activeQuestionForTimer !== null
+    ) {
+
+        const elapsed =
+            Math.floor(
+                (
+                    Date.now()
+                    -
+                    questionStartTime
+                ) / 1000
+            );
+
+
+        if (
+            questionTimes[
+                activeQuestionForTimer
+            ] === undefined
+        ) {
+
+            questionTimes[
+                activeQuestionForTimer
+            ] = 0;
+
+        }
+
+
+        questionTimes[
+            activeQuestionForTimer
+        ] += elapsed;
+
+
+        questionStartTime = null;
+
+    }
+
+
+    /*
+       Calculate attempted
+       and correct answers
+    */
+
+    let attempted = 0;
+
+    let correct = 0;
+
+
+    questions.forEach(
+        function(question, index) {
+
+            /*
+               Check whether the question
+               has an answer
+            */
+
+            if (
+                answers[index] !== null &&
+                answers[index] !== undefined
+            ) {
+
+                attempted++;
+
+
+                /*
+                   Selected option
+
+                   0 = A
+                   1 = B
+                   2 = C
+                   3 = D
+                */
+
+                const selected =
+                    Number(
+                        answers[index]
+                    );
+
+
+                /*
+                   Convert selected option
+                   into A / B / C / D
+                */
+
+                const selectedLetter =
+                    String.fromCharCode(
+                        65 + selected
+                    );
+
+
+                /*
+                   Get correct answer
+                   from question data
+                */
+
+                const correctLetter =
+                    String(
+                        question.answer
+                    )
+                    .trim()
+                    .toUpperCase();
+
+
+                /*
+                   Compare answer
+                */
+
+                if (
+                    correctLetter ===
+                    selectedLetter
+                ) {
+
+                    correct++;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /*
+       Calculate wrong answers
+    */
+
+    const wrong =
+        attempted - correct;
+
+
+    /*
+       Calculate unanswered questions
+    */
+
+    const unanswered =
+        questions.length -
+        attempted;
+
+
+    /*
+       Calculate total test time
+
+       Current rule:
+       1 minute per question
+    */
+
+    const totalTime =
+    Number(durationMinutes) * 60;
+
+
+    /*
+       Calculate time taken
+    */
+
+    let timeTaken =
+        totalTime -
+        timeRemaining;
+
+
+    /*
+       Prevent negative values
+    */
+
+    if (
+        timeTaken < 0
+    ) {
+
+        timeTaken = 0;
+
+    }
+
+
+    /*
+       Prevent time greater than
+       total test time
+    */
+
+    if (
+        timeTaken > totalTime
+    ) {
+
+        timeTaken =
+            totalTime;
+
+    }
+
+
+    /*
+       Send result to Django
+    */
+
+    fetch(
+        "{% url 'submit_test' mock_test.id %}",
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json",
+
+                "X-CSRFToken":
+                    getCookie(
+                        "csrftoken"
+                    )
+
+            },
+
+            body:
+                JSON.stringify({
+
+                    answers:
+                        answers,
+
+                    question_times:
+                        questionTimes,
+
+                    time_taken:
+                        timeTaken
+
+                })
+
+        }
+    )
+
+
+    /*
+       Check server response
+    */
+
+    .then(
+        function(response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to save test results"
+                );
+
+            }
+
+            return response.json();
+
+        }
+    )
+
+
+    /*
+       Process Django response
+    */
+
+    .then(
+        function(data) {
+
+            console.log(
+                "Submission response:",
+                data
+            );
+
+
+            /*
+               Make sure Django
+               successfully saved result
+            */
+
+            if (
+                !data.success
+            ) {
+
+                throw new Error(
+                    "Could not save test results"
+                );
+
+            }
+
+
+            /*
+               Hide test area
+            */
+
+            document.getElementById(
+                "test-area"
+            ).style.display =
+                "none";
+
+
+            /*
+               Show result
+            */
+
+            document.getElementById(
+                "result"
+            ).style.display =
+                "block";
+
+
+            /*
+               Total questions
+            */
+
+            document.getElementById(
+                "result-total"
+            ).textContent =
+                data.total_questions;
+
+
+            /*
+               Attempted
+            */
+
+            document.getElementById(
+                "result-attempted"
+            ).textContent =
+                data.correct +
+                data.wrong;
+
+
+            /*
+               Correct
+            */
+
+            document.getElementById(
+                "result-correct"
+            ).textContent =
+                data.correct;
+
+
+            /*
+               Wrong
+            */
+
+            document.getElementById(
+                "result-wrong"
+            ).textContent =
+                data.wrong;
+
+
+            /*
+               Score
+            */
+
+            document.getElementById(
+                "result-score"
+            ).textContent =
+                data.score;
+
+
+            /*
+               Debug information
+               - useful while testing
+            */
+
+            console.log(
+                "Total:",
+                questions.length
+            );
+
+            console.log(
+                "Attempted:",
+                attempted
+            );
+
+            console.log(
+                "Correct:",
+                correct
+            );
+
+            console.log(
+                "Wrong:",
+                wrong
+            );
+
+            console.log(
+                "Unanswered:",
+                unanswered
+            );
+
+            console.log(
+                "Time Taken:",
+                timeTaken
+            );
+
+        }
+    )
+
+
+    /*
+       Handle submission error
+    */
+
+    .catch(
+        function(error) {
+
+            console.error(
+                "Error submitting test:",
+                error
+            );
+
+
+            alert(
+                "An error occurred while submitting the test."
+            );
+
+
+            /*
+               Allow user to try again
+            */
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Submit Test";
+
+            }
+
+        }
+    );
+
+}
+/*
+    START INITIALIZATION
+*/
+window.addEventListener("DOMContentLoaded", function () {
+
+    initializeTest();
+
+    enableQuestionNumberDragging();
+
+});
+</script>
+
+</body>
+</html>
+{% endblock %}

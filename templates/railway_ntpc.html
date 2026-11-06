@@ -1,0 +1,1829 @@
+{% extends "base.html" %}
+
+{% block title %}RRB NTPC Mock Tests{% endblock %}
+
+{% block page_class %}page-rrb-ntpc{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   RRB NTPC — UNIQUE COLOURFUL DESIGN
+   ========================================================= */
+
+.page-rrb-ntpc {
+    min-height: 100vh;
+    padding-bottom: 55px;
+
+    background:
+        radial-gradient(
+            circle at 8% 10%,
+            rgba(255, 152, 0, .20),
+            transparent 26%
+        ),
+        radial-gradient(
+            circle at 92% 25%,
+            rgba(3, 169, 244, .20),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #071d35,
+            #103b5c 50%,
+            #14233b
+        );
+}
+
+.ntpc-container {
+    width: min(1200px, 94%);
+    margin: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.ntpc-hero {
+    position: relative;
+    overflow: hidden;
+
+    margin: 25px auto 30px;
+    padding: 38px 30px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #0d47a1,
+            #1976d2 48%,
+            #ff8f00
+        );
+
+    color: white;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.36);
+}
+
+.ntpc-hero::before {
+    content: "🚆";
+
+    position: absolute;
+    right: 25px;
+    top: -12px;
+
+    font-size: 135px;
+
+    opacity: .14;
+
+    transform: rotate(-4deg);
+}
+
+.ntpc-hero::after {
+    content: "🎫";
+
+    position: absolute;
+    right: 150px;
+    bottom: -25px;
+
+    font-size: 100px;
+
+    opacity: .12;
+
+    transform: rotate(8deg);
+}
+
+.ntpc-badge {
+    display: inline-block;
+
+    padding: 7px 16px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(0,0,0,.23);
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.ntpc-hero h1 {
+    margin: 14px 0 5px;
+
+    font-size: clamp(31px, 5vw, 49px);
+
+    font-weight: 900;
+}
+
+.ntpc-hero p {
+    max-width: 760px;
+
+    margin: 10px 0 0;
+
+    font-size: 15px;
+
+    line-height: 1.65;
+
+    font-weight: 600;
+}
+
+/* =========================================================
+   QUICK STATS
+   ========================================================= */
+
+.ntpc-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 32px;
+}
+
+.ntpc-stat {
+    padding: 20px 12px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    backdrop-filter: blur(10px);
+}
+
+.ntpc-stat-icon {
+    font-size: 30px;
+
+    margin-bottom: 7px;
+}
+
+.ntpc-stat strong {
+    display: block;
+
+    font-size: 17px;
+}
+
+.ntpc-stat span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #d7e8f5;
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.ntpc-section {
+    margin: 34px 0;
+}
+
+.ntpc-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+    color: white;
+}
+
+.ntpc-number {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffca28,
+            #ff7043
+        );
+
+    color: #263238;
+
+    font-weight: 900;
+}
+
+.ntpc-heading h2 {
+    margin: 0;
+
+    font-size: 24px;
+}
+
+.ntpc-heading p {
+    margin: 4px 0 0;
+
+    color: #c7ddea;
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   POST CATEGORY CARDS
+   ========================================================= */
+
+.ntpc-post-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+.ntpc-post {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 28px;
+
+    min-height: 210px;
+
+    border-radius: 24px;
+
+    color: white;
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.25);
+}
+
+.ntpc-post.graduate {
+    background:
+        linear-gradient(
+            135deg,
+            #1565c0,
+            #00838f
+        );
+}
+
+.ntpc-post.undergraduate {
+    background:
+        linear-gradient(
+            135deg,
+            #ef6c00,
+            #d84315
+        );
+}
+
+.ntpc-post::after {
+    position: absolute;
+
+    right: 15px;
+    bottom: -35px;
+
+    font-size: 100px;
+
+    opacity: .11;
+}
+
+.ntpc-post.graduate::after {
+    content: "🎓";
+}
+
+.ntpc-post.undergraduate::after {
+    content: "🎫";
+}
+
+.ntpc-post-icon {
+    font-size: 38px;
+}
+
+.ntpc-post h3 {
+    margin: 10px 0 7px;
+
+    font-size: 22px;
+}
+
+.ntpc-post p {
+    max-width: 470px;
+
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    opacity: .92;
+}
+
+.ntpc-post ul {
+    margin: 13px 0 0;
+
+    padding-left: 20px;
+
+    line-height: 1.8;
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   CBT STAGES
+   ========================================================= */
+
+.ntpc-stage-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.ntpc-stage {
+    padding: 24px 20px;
+
+    border-radius: 21px;
+
+    color: white;
+
+    min-height: 180px;
+
+    box-shadow:
+        0 11px 27px rgba(0,0,0,.23);
+}
+
+.ntpc-stage:nth-child(1) {
+    background:
+        linear-gradient(
+            135deg,
+            #0277bd,
+            #039be5
+        );
+}
+
+.ntpc-stage:nth-child(2) {
+    background:
+        linear-gradient(
+            135deg,
+            #6a1b9a,
+            #8e24aa
+        );
+}
+
+.ntpc-stage:nth-child(3) {
+    background:
+        linear-gradient(
+            135deg,
+            #00897b,
+            #43a047
+        );
+}
+
+.ntpc-stage-icon {
+    font-size: 35px;
+}
+
+.ntpc-stage h3 {
+    margin: 10px 0 7px;
+
+    font-size: 18px;
+}
+
+.ntpc-stage p {
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+
+    opacity: .92;
+}
+
+.ntpc-stage ul {
+    padding-left: 19px;
+
+    margin: 11px 0 0;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+/* =========================================================
+   CORE SUBJECTS
+   ========================================================= */
+
+.ntpc-subject-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+.ntpc-subject {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 160px;
+
+    padding: 22px;
+
+    border-radius: 21px;
+
+    background: white;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.ntpc-subject:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 15px 32px rgba(0,0,0,.28);
+}
+
+.ntpc-subject::after {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: -25px;
+    bottom: -32px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(3,169,244,.11);
+}
+
+.ntpc-subject .icon {
+    font-size: 35px;
+}
+
+.ntpc-subject h3 {
+    margin: 11px 0 6px;
+
+    color: #17364e;
+
+    font-size: 17px;
+}
+
+.ntpc-subject p {
+    margin: 0;
+
+    color: #657984;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+/* =========================================================
+   SPECIAL SKILL TESTS
+   ========================================================= */
+
+.ntpc-skills {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    padding: 25px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #37474f,
+            #263238
+        );
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.26);
+}
+
+.ntpc-skill {
+    padding: 20px 14px;
+
+    border-radius: 17px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+}
+
+.ntpc-skill span {
+    display: block;
+
+    font-size: 34px;
+
+    margin-bottom: 8px;
+}
+
+.ntpc-skill strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.ntpc-skill small {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 10px;
+
+    opacity: .75;
+}
+
+/* =========================================================
+   MOCK TESTS
+   ========================================================= */
+
+.ntpc-tests-box {
+    padding: 25px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.28);
+}
+
+.ntpc-test {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    margin-bottom: 13px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #e3f2fd,
+            #fff8e1
+        );
+
+    border-left:
+        6px solid #1976d2;
+}
+
+.ntpc-test:last-child {
+    margin-bottom: 0;
+}
+
+.ntpc-test-info {
+    flex: 1;
+}
+
+.ntpc-test-info h3 {
+    margin: 0 0 6px;
+
+    color: #17364e;
+
+    font-size: 17px;
+}
+
+.ntpc-test-info p {
+    margin: 0;
+
+    color: #6b7c86;
+
+    font-size: 12px;
+}
+
+.ntpc-test-button {
+    display: inline-block;
+
+    padding: 10px 17px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1976d2,
+            #0288d1
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.ntpc-test-button:hover {
+    opacity: .9;
+}
+
+.ntpc-test-button.attempted {
+    background:
+        linear-gradient(
+            135deg,
+            #6a1b9a,
+            #8e24aa
+        );
+}
+
+/* =========================================================
+   RESOURCES
+   ========================================================= */
+
+.ntpc-resources {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.ntpc-resource {
+    min-height: 140px;
+
+    padding: 22px 18px;
+
+    border-radius: 21px;
+
+    color: white;
+
+    text-decoration: none;
+
+    transition:
+        transform .2s ease;
+}
+
+.ntpc-resource:hover {
+    transform: translateY(-5px);
+}
+
+.ntpc-resource:nth-child(1) {
+    background:
+        linear-gradient(
+            135deg,
+            #00897b,
+            #26a69a
+        );
+}
+
+.ntpc-resource:nth-child(2) {
+    background:
+        linear-gradient(
+            135deg,
+            #3949ab,
+            #5e35b1
+        );
+}
+
+.ntpc-resource:nth-child(3) {
+    background:
+        linear-gradient(
+            135deg,
+            #ef6c00,
+            #fb8c00
+        );
+}
+
+.ntpc-resource:nth-child(4) {
+    background:
+        linear-gradient(
+            135deg,
+            #c62828,
+            #e53935
+        );
+}
+
+.ntpc-resource-icon {
+    font-size: 35px;
+}
+
+.ntpc-resource h3 {
+    margin: 9px 0 4px;
+
+    font-size: 16px;
+}
+
+.ntpc-resource p {
+    margin: 0;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    opacity: .9;
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.ntpc-empty {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8e1,
+            #fff3e0
+        );
+
+    border:
+        2px dashed #ffb300;
+}
+
+.ntpc-empty-icon {
+    font-size: 52px;
+}
+
+.ntpc-empty h3 {
+    margin: 12px 0 6px;
+
+    color: #795548;
+}
+
+.ntpc-empty p {
+    margin: 0;
+
+    color: #856404;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   PERFORMANCE
+   ========================================================= */
+
+.ntpc-performance {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.ntpc-performance-card {
+    padding: 22px 18px;
+
+    min-height: 125px;
+
+    border-radius: 20px;
+
+    color: white;
+
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #455a64,
+            #263238
+        );
+
+    transition:
+        transform .2s ease;
+}
+
+.ntpc-performance-card:hover {
+    transform: translateY(-5px);
+}
+
+.ntpc-performance-card .icon {
+    font-size: 32px;
+}
+
+.ntpc-performance-card h3 {
+    margin: 8px 0 4px;
+
+    font-size: 15px;
+}
+
+.ntpc-performance-card p {
+    margin: 0;
+
+    font-size: 11px;
+
+    opacity: .85;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.ntpc-footer {
+    margin-top: 35px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+}
+
+.ntpc-footer strong {
+    color: #ffca28;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .ntpc-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .ntpc-subject-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .ntpc-stage-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .ntpc-resources,
+    .ntpc-performance {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .ntpc-container {
+        width: 92%;
+    }
+
+    .ntpc-hero {
+        padding: 28px 20px;
+    }
+
+    .ntpc-hero::before {
+        font-size: 75px;
+    }
+
+    .ntpc-post-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ntpc-stage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ntpc-subject-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ntpc-skills {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .ntpc-resources,
+    .ntpc-performance {
+        grid-template-columns: 1fr;
+    }
+
+    .ntpc-test {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .ntpc-test-button {
+        width: 100%;
+
+        text-align: center;
+    }
+}
+
+</style>
+
+
+<div class="ntpc-container">
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="ntpc-hero">
+
+        <div class="ntpc-badge">
+            🚆 RAILWAY RECRUITMENT BOARD
+        </div>
+
+        <h1>
+            RRB NTPC
+        </h1>
+
+        <p>
+            Non-Technical Popular Categories
+            <br>
+            Prepare for Graduate and Undergraduate posts with
+            CBT practice, subject-wise tests, skill-test preparation
+            and full mock examinations.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         QUICK STATS
+         ===================================================== -->
+
+    <section class="ntpc-stats">
+
+        <div class="ntpc-stat">
+
+            <div class="ntpc-stat-icon">
+                🧮
+            </div>
+
+            <strong>
+                Mathematics
+            </strong>
+
+            <span>
+                Numerical Ability
+            </span>
+
+        </div>
+
+
+        <div class="ntpc-stat">
+
+            <div class="ntpc-stat-icon">
+                🧠
+            </div>
+
+            <strong>
+                Reasoning
+            </strong>
+
+            <span>
+                General Intelligence
+            </span>
+
+        </div>
+
+
+        <div class="ntpc-stat">
+
+            <div class="ntpc-stat-icon">
+                🌍
+            </div>
+
+            <strong>
+                General Awareness
+            </strong>
+
+            <span>
+                Current Affairs
+            </span>
+
+        </div>
+
+
+        <div class="ntpc-stat">
+
+            <div class="ntpc-stat-icon">
+                🚆
+            </div>
+
+            <strong>
+                Railway Jobs
+            </strong>
+
+            <span>
+                NTPC Preparation
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         POSTS
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-heading">
+
+            <div class="ntpc-number">
+                01
+            </div>
+
+            <div>
+
+                <h2>
+                    🎓 NTPC Post Categories
+                </h2>
+
+                <p>
+                    Prepare according to your educational qualification and target post
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ntpc-post-grid">
+
+            <div class="ntpc-post graduate">
+
+                <div class="ntpc-post-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Graduate Level Posts
+                </h3>
+
+                <p>
+                    Preparation for NTPC graduate-level
+                    railway positions.
+                </p>
+
+                <ul>
+                    <li>Station Master</li>
+                    <li>Goods Train Manager</li>
+                    <li>Senior Clerk cum Typist</li>
+                    <li>Junior Account Assistant cum Typist</li>
+                </ul>
+
+            </div>
+
+
+            <div class="ntpc-post undergraduate">
+
+                <div class="ntpc-post-icon">
+                    📘
+                </div>
+
+                <h3>
+                    Undergraduate Level Posts
+                </h3>
+
+                <p>
+                    Preparation for NTPC undergraduate-level
+                    railway positions.
+                </p>
+
+                <ul>
+                    <li>Junior Clerk cum Typist</li>
+                    <li>Accounts Clerk cum Typist</li>
+                    <li>Trains Clerk</li>
+                    <li>Commercial cum Ticket Clerk</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- =====================================================
+         EXAM STAGES
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-heading">
+
+            <div class="ntpc-number">
+                02
+            </div>
+
+            <div>
+
+                <h2>
+                    💻 NTPC Examination Stages
+                </h2>
+
+                <p>
+                    Build your preparation stage by stage
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ntpc-stage-grid">
+
+            <div class="ntpc-stage">
+
+                <div class="ntpc-stage-icon">
+                    💻
+                </div>
+
+                <h3>
+                    CBT 1
+                </h3>
+
+                <p>
+                    Build speed and accuracy across
+                    the core NTPC subjects.
+                </p>
+
+                <ul>
+                    <li>Mathematics</li>
+                    <li>General Intelligence & Reasoning</li>
+                    <li>General Awareness</li>
+                </ul>
+
+            </div>
+
+
+            <div class="ntpc-stage">
+
+                <div class="ntpc-stage-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    CBT 2
+                </h3>
+
+                <p>
+                    Advanced preparation with
+                    intensive timed practice.
+                </p>
+
+                <ul>
+                    <li>Mathematics</li>
+                    <li>Reasoning</li>
+                    <li>General Awareness</li>
+                </ul>
+
+            </div>
+
+
+            <div class="ntpc-stage">
+
+                <div class="ntpc-stage-icon">
+                    ⌨️
+                </div>
+
+                <h3>
+                    Skill / Aptitude Tests
+                </h3>
+
+                <p>
+                    Additional preparation for posts
+                    requiring specific skill or aptitude stages.
+                </p>
+
+                <ul>
+                    <li>Typing Practice</li>
+                    <li>Computer Based Aptitude Practice</li>
+                    <li>Post-specific preparation</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SUBJECTS
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-heading">
+
+            <div class="ntpc-number">
+                03
+            </div>
+
+            <div>
+
+                <h2>
+                    📚 NTPC Core Subjects
+                </h2>
+
+                <p>
+                    Master the three major preparation areas
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ntpc-subject-grid">
+
+            <div class="ntpc-subject">
+
+                <div class="icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Mathematics
+                </h3>
+
+                <p>
+                    Number system, percentage, ratio,
+                    profit and loss, time and work,
+                    algebra, geometry and statistics.
+                </p>
+
+            </div>
+
+
+            <div class="ntpc-subject">
+
+                <div class="icon">
+                    🧠
+                </div>
+
+                <h3>
+                    General Intelligence & Reasoning
+                </h3>
+
+                <p>
+                    Analogy, coding-decoding, series,
+                    classification, puzzles and logical reasoning.
+                </p>
+
+            </div>
+
+
+            <div class="ntpc-subject">
+
+                <div class="icon">
+                    🌍
+                </div>
+
+                <h3>
+                    General Awareness
+                </h3>
+
+                <p>
+                    Current affairs, history, geography,
+                    polity, economy, science and railway awareness.
+                </p>
+
+            </div>
+
+
+            <div class="ntpc-subject">
+
+                <div class="icon">
+                    📰
+                </div>
+
+                <h3>
+                    Current Affairs
+                </h3>
+
+                <p>
+                    Important national and international
+                    developments and examination-oriented awareness.
+                </p>
+
+            </div>
+
+
+            <div class="ntpc-subject">
+
+                <div class="icon">
+                    🚆
+                </div>
+
+                <h3>
+                    Railway Awareness
+                </h3>
+
+                <p>
+                    Indian Railways, railway terminology,
+                    zones, operations and important facts.
+                </p>
+
+            </div>
+
+
+            <div class="ntpc-subject">
+
+                <div class="icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Speed & Accuracy
+                </h3>
+
+                <p>
+                    Timed practice to improve question selection,
+                    calculation speed and accuracy.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SKILL TESTS
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-skills">
+
+            <div style="grid-column:1/-1;color:white;">
+
+                <h2 style="margin:0 0 5px;font-size:24px;">
+                    ⌨️ Special Skill & Aptitude Preparation
+                </h2>
+
+                <p style="margin:0 0 18px;font-size:12px;color:#cbd9de;">
+                    Additional preparation for applicable NTPC posts
+                </p>
+
+            </div>
+
+
+            <div class="ntpc-skill">
+
+                <span>
+                    ⌨️
+                </span>
+
+                <strong>
+                    Typing Practice
+                </strong>
+
+                <small>
+                    Speed & accuracy
+                </small>
+
+            </div>
+
+
+            <div class="ntpc-skill">
+
+                <span>
+                    🧠
+                </span>
+
+                <strong>
+                    Aptitude Practice
+                </strong>
+
+                <small>
+                    Post-specific aptitude
+                </small>
+
+            </div>
+
+
+            <div class="ntpc-skill">
+
+                <span>
+                    💻
+                </span>
+
+                <strong>
+                    Computer Practice
+                </strong>
+
+                <small>
+                    Computer-based skills
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MOCK TESTS
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-heading">
+
+            <div class="ntpc-number">
+                04
+            </div>
+
+            <div>
+
+                <h2>
+                    🚆 RRB NTPC Mock Tests
+                </h2>
+
+                <p>
+                    Practice full-length and subject-based examinations
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ntpc-tests-box">
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="ntpc-test">
+
+                        <div class="ntpc-test-info">
+
+                            <h3>
+                                {{ test.name }}
+                            </h3>
+
+                            <p>
+
+                                {% with question_count=test.questions.all|length %}
+
+                                    {{ question_count }} Questions
+
+                                {% endwith %}
+
+                                &nbsp; • &nbsp;
+
+                                RRB NTPC Practice Test
+
+                            </p>
+
+                        </div>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="ntpc-test-button attempted"
+                            >
+                                🔄 Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="ntpc-test-button"
+                            >
+                                ▶ Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="ntpc-empty">
+
+                    <div class="ntpc-empty-icon">
+                        🚆
+                    </div>
+
+                    <h3>
+                        No Mock Test Uploaded
+                    </h3>
+
+                    <p>
+                        RRB NTPC mock tests will appear here
+                        once they are uploaded by the administrator.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESOURCES
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-heading">
+
+            <div class="ntpc-number">
+                05
+            </div>
+
+            <div>
+
+                <h2>
+                    📖 Preparation Resources
+                </h2>
+
+                <p>
+                    Improve your preparation through focused practice
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ntpc-resources">
+
+            <a
+                href="#"
+                class="ntpc-resource"
+            >
+
+                <div class="ntpc-resource-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Previous Year Papers
+                </h3>
+
+                <p>
+                    Practise questions from previous NTPC examinations.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="ntpc-resource"
+            >
+
+                <div class="ntpc-resource-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Quick Practice
+                </h3>
+
+                <p>
+                    Short daily practice sessions for speed improvement.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="ntpc-resource"
+            >
+
+                <div class="ntpc-resource-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Focus on important and frequently tested concepts.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="ntpc-resource"
+            >
+
+                <div class="ntpc-resource-icon">
+                    📰
+                </div>
+
+                <h3>
+                    Current Affairs
+                </h3>
+
+                <p>
+                    Prepare examination-oriented current affairs.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERFORMANCE
+         ===================================================== -->
+
+    <section class="ntpc-section">
+
+        <div class="ntpc-heading">
+
+            <div class="ntpc-number">
+                06
+            </div>
+
+            <div>
+
+                <h2>
+                    🏆 Your NTPC Preparation
+                </h2>
+
+                <p>
+                    Monitor your performance and previous attempts
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ntpc-performance">
+
+            <a
+                href="{% url 'performance_analysis' %}"
+                class="ntpc-performance-card"
+            >
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Analyse your mock-test performance.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="ntpc-performance-card"
+            >
+
+                <div class="icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Compare your performance with other candidates.
+                </p>
+
+            </a>
+
+
+            <a
+                href="{% url 'previous_tests' %}"
+                class="ntpc-performance-card"
+            >
+
+                <div class="icon">
+                    📋
+                </div>
+
+                <h3>
+                    Previous Attempts
+                </h3>
+
+                <p>
+                    Review tests you have already attempted.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="ntpc-performance-card"
+            >
+
+                <div class="icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Exam Target
+                </h3>
+
+                <p>
+                    Keep practising until you are exam ready.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="ntpc-footer">
+
+        🚆
+        <strong>
+            EduMind RRB NTPC Preparation
+        </strong>
+
+        <br>
+
+        Learn • Practice • Analyse • Succeed
+
+    </div>
+
+</div>
+
+{% endblock %}

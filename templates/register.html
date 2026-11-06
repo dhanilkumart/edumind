@@ -1,0 +1,558 @@
+{% extends "base.html" %}
+
+{% block title %}Register - EduMind{% endblock %}
+{% block page_class %}page-register{% endblock %}
+
+{% block content %}
+
+<style>
+.register-wrapper {
+    max-width: 540px;
+    margin: 30px auto;
+    padding: 24px;
+}
+
+.register-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
+
+.register-logo {
+    display: block;
+    width: 100px;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.register-heading {
+    text-align: center;
+    margin-bottom: 8px;
+    color: #166534;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.register-subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.exam-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.exam-badge {
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 7px;
+}
+
+.form-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 15px;
+    background: #ffffff;
+    color: #0f172a;
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-input {
+    padding-right: 76px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #15803d;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.password-rules {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #475569;
+}
+
+.password-rules p {
+    margin: 4px 0;
+}
+
+.rule-valid {
+    color: #15803d;
+}
+
+.rule-invalid {
+    color: #b91c1c;
+}
+
+.form-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.form-help {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.register-button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.register-button:hover {
+    background: linear-gradient(135deg, #15803d, #166534);
+}
+
+.register-footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.register-footer a {
+    color: #15803d;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.register-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .register-wrapper {
+        padding: 12px;
+        margin: 15px auto;
+    }
+
+    .register-card {
+        padding: 20px;
+    }
+
+    .register-heading {
+        font-size: 24px;
+    }
+}
+</style>
+
+<div class="register-wrapper">
+    <div class="register-card">
+
+        <img
+            src="/static/images/Logo.jpg"
+            alt="EduMind Logo"
+            class="register-logo"
+        >
+
+        <h1 class="register-heading">Create Your Account</h1>
+
+        <p class="register-subtitle">
+            Join EduMind — Turn Face 2 Success
+        </p>
+
+        <div class="exam-badges">
+            <span class="exam-badge">CAT</span>
+            <span class="exam-badge">BANK</span>
+            <span class="exam-badge">SSC</span>
+            <span class="exam-badge">RRB</span>
+            <span class="exam-badge">RAILWAY</span>
+        </div>
+
+        <form
+            method="post"
+            action=""
+            id="registerForm"
+            autocomplete="on"
+        >
+            {% csrf_token %}
+
+            {% if error %}
+                <div class="form-error" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if errors %}
+                {% for message in errors %}
+                    <div class="form-error" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="form-error" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    class="form-input"
+                    placeholder="Enter your first name"
+                    autocomplete="given-name"
+                    value="{{ request.POST.first_name|default:'' }}"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    class="form-input"
+                    placeholder="Enter your last name"
+                    autocomplete="family-name"
+                    value="{{ request.POST.last_name|default:'' }}"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number</label>
+                <input
+                    type="tel"
+                    id="mobile_number"
+                    name="mobile_number"
+                    class="form-input"
+                    placeholder="Enter your 10-digit mobile number"
+                    inputmode="numeric"
+                    pattern="[6-9][0-9]{9}"
+                    minlength="10"
+                    maxlength="10"
+                    autocomplete="tel-national"
+                    value="{{ request.POST.mobile_number|default:'' }}"
+                    required
+                >
+                <p class="form-help">
+                    Enter a valid Indian mobile number.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username / User ID</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="form-input"
+                    placeholder="Create a username"
+                    minlength="8"
+                    maxlength="150"
+                    autocomplete="username"
+                    value="{{ request.POST.username|default:'' }}"
+                    required
+                >
+                <p class="form-help">
+                    Your username must contain at least 8 characters.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="Enter your email address"
+                    autocomplete="email"
+                    value="{{ request.POST.email|default:'' }}"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-input"
+                        placeholder="Create a strong password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('password', this)"
+                        aria-label="Show or hide password"
+                    >
+                        Show
+                    </button>
+                </div>
+
+                <div class="password-rules">
+                    <p id="ruleLength" class="rule-invalid">
+                        ✗ At least 8 characters
+                    </p>
+                    <p id="ruleLetter" class="rule-invalid">
+                        ✗ At least one letter
+                    </p>
+                    <p id="ruleNumber" class="rule-invalid">
+                        ✗ At least one number
+                    </p>
+                    <p id="ruleSpecial" class="rule-invalid">
+                        ✗ At least one special character
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        class="form-input"
+                        placeholder="Re-enter your password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('password2', this)"
+                        aria-label="Show or hide confirm password"
+                    >
+                        Show
+                    </button>
+                </div>
+
+                <p class="form-help" id="passwordMatchMessage">
+                    Enter the same password in both fields.
+                </p>
+            </div>
+
+            <button
+                type="submit"
+                class="register-button"
+                id="registerButton"
+            >
+                Register &amp; Verify OTP
+            </button>
+
+        </form>
+
+        <div class="register-footer">
+            Already have an account?
+            <a href="{% url 'login' %}">Login here</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId, button) {
+    const field = document.getElementById(fieldId);
+
+    if (field.type === "password") {
+        field.type = "text";
+        button.textContent = "Hide";
+    } else {
+        field.type = "password";
+        button.textContent = "Show";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("registerForm");
+    const password = document.getElementById("password");
+    const password2 = document.getElementById("password2");
+    const username = document.getElementById("username");
+    const mobile = document.getElementById("mobile_number");
+    const matchMessage = document.getElementById("passwordMatchMessage");
+
+    function updateRule(elementId, valid, label) {
+        const element = document.getElementById(elementId);
+        element.className = valid ? "rule-valid" : "rule-invalid";
+        element.textContent = (valid ? "✓ " : "✗ ") + label;
+    }
+
+    function validatePasswordRules() {
+        const value = password.value;
+
+        updateRule(
+            "ruleLength",
+            value.length >= 8,
+            "At least 8 characters"
+        );
+
+        updateRule(
+            "ruleLetter",
+            /[A-Za-z]/.test(value),
+            "At least one letter"
+        );
+
+        updateRule(
+            "ruleNumber",
+            /[0-9]/.test(value),
+            "At least one number"
+        );
+
+        updateRule(
+            "ruleSpecial",
+            /[^A-Za-z0-9]/.test(value),
+            "At least one special character"
+        );
+    }
+
+    function validatePasswordMatch() {
+        if (password2.value === "") {
+            matchMessage.textContent =
+                "Enter the same password in both fields.";
+            matchMessage.style.color = "#64748b";
+            return false;
+        }
+
+        if (password.value === password2.value) {
+            matchMessage.textContent = "Passwords match.";
+            matchMessage.style.color = "#15803d";
+            return true;
+        }
+
+        matchMessage.textContent = "Passwords do not match.";
+        matchMessage.style.color = "#b91c1c";
+        return false;
+    }
+
+    password.addEventListener("input", function () {
+        validatePasswordRules();
+
+        if (password2.value !== "") {
+            validatePasswordMatch();
+        }
+    });
+
+    password2.addEventListener("input", validatePasswordMatch);
+
+    form.addEventListener("submit", function (event) {
+        const passwordValue = password.value;
+        const password2Value = password2.value;
+        const usernameValue = username.value.trim();
+        const mobileValue = mobile.value.trim();
+
+        const validPassword =
+            passwordValue.length >= 8 &&
+            /[A-Za-z]/.test(passwordValue) &&
+            /[0-9]/.test(passwordValue) &&
+            /[^A-Za-z0-9]/.test(passwordValue);
+
+        if (usernameValue.length < 8) {
+            event.preventDefault();
+            alert("Username must contain at least 8 characters.");
+            username.focus();
+            return;
+        }
+
+        if (!/^[6-9][0-9]{9}$/.test(mobileValue)) {
+            event.preventDefault();
+            alert("Enter a valid 10-digit Indian mobile number.");
+            mobile.focus();
+            return;
+        }
+
+        if (!validPassword) {
+            event.preventDefault();
+            alert(
+                "Password must have at least 8 characters, " +
+                "one letter, one number and one special character."
+            );
+            password.focus();
+            return;
+        }
+
+        if (passwordValue !== password2Value) {
+            event.preventDefault();
+            alert("Passwords do not match.");
+            password2.focus();
+            return;
+        }
+    });
+
+    validatePasswordRules();
+});
+</script>
+
+{% endblock %}

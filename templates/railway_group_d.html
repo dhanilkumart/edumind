@@ -1,0 +1,1622 @@
+{% extends "base.html" %}
+
+{% block title %}RRB Group D Mock Tests{% endblock %}
+
+{% block page_class %}page-rrb-group-d{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   RRB GROUP D — UNIQUE COLOURFUL DESIGN
+   ========================================================= */
+
+.page-rrb-group-d {
+    min-height: 100vh;
+    padding-bottom: 50px;
+
+    background:
+        radial-gradient(
+            circle at 5% 15%,
+            rgba(255, 193, 7, 0.20),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 95% 30%,
+            rgba(76, 175, 80, 0.20),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #102027,
+            #173f3b 48%,
+            #102d38
+        );
+}
+
+.groupd-container {
+    width: min(1200px, 94%);
+    margin: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.groupd-hero {
+    position: relative;
+    overflow: hidden;
+
+    margin: 25px auto 28px;
+    padding: 36px 30px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #1b5e20,
+            #43a047 42%,
+            #f9a825 100%
+        );
+
+    color: white;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.35);
+}
+
+.groupd-hero::before {
+    content: "🚆";
+
+    position: absolute;
+    right: 28px;
+    top: -10px;
+
+    font-size: 125px;
+
+    opacity: .15;
+
+    transform: rotate(-4deg);
+}
+
+.groupd-hero::after {
+    content: "🛤️";
+
+    position: absolute;
+    right: 145px;
+    bottom: -25px;
+
+    font-size: 95px;
+
+    opacity: .12;
+}
+
+.groupd-badge {
+    display: inline-block;
+
+    padding: 7px 15px;
+
+    border-radius: 30px;
+
+    background: rgba(0,0,0,.22);
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.groupd-hero h1 {
+    margin: 14px 0 5px;
+
+    font-size: clamp(30px, 5vw, 48px);
+
+    font-weight: 900;
+}
+
+.groupd-hero p {
+    max-width: 720px;
+
+    margin: 10px 0 0;
+
+    font-size: 15px;
+
+    line-height: 1.65;
+
+    font-weight: 600;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.groupd-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 32px;
+}
+
+.groupd-stat {
+    padding: 20px 12px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    backdrop-filter: blur(10px);
+}
+
+.groupd-stat-icon {
+    font-size: 30px;
+
+    margin-bottom: 7px;
+}
+
+.groupd-stat strong {
+    display: block;
+
+    font-size: 17px;
+}
+
+.groupd-stat span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #d7efea;
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.groupd-section {
+    margin: 32px 0;
+}
+
+.groupd-section-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
+
+    color: white;
+}
+
+.groupd-number {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffca28,
+            #ff7043
+        );
+
+    color: #243238;
+
+    font-weight: 900;
+}
+
+.groupd-section-heading h2 {
+    margin: 0;
+
+    font-size: 24px;
+}
+
+.groupd-section-heading p {
+    margin: 4px 0 0;
+
+    font-size: 12px;
+
+    color: #c7dedb;
+}
+
+/* =========================================================
+   SUBJECT CARDS
+   ========================================================= */
+
+.groupd-subject-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+}
+
+.groupd-subject {
+    position: relative;
+
+    min-height: 150px;
+
+    padding: 20px;
+
+    overflow: hidden;
+
+    border-radius: 21px;
+
+    background: white;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.groupd-subject:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 15px 32px rgba(0,0,0,.28);
+}
+
+.groupd-subject::after {
+    content: "";
+
+    position: absolute;
+
+    width: 95px;
+    height: 95px;
+
+    right: -28px;
+    bottom: -35px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(76,175,80,.12);
+}
+
+.groupd-subject .icon {
+    font-size: 35px;
+}
+
+.groupd-subject h3 {
+    margin: 11px 0 6px;
+
+    color: #173a35;
+
+    font-size: 17px;
+}
+
+.groupd-subject p {
+    margin: 0;
+
+    color: #667873;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+/* =========================================================
+   EXAM STRUCTURE
+   ========================================================= */
+
+.groupd-structure {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+.structure-card {
+    padding: 25px;
+
+    min-height: 205px;
+
+    border-radius: 23px;
+
+    color: white;
+
+    box-shadow:
+        0 13px 30px rgba(0,0,0,.24);
+}
+
+.structure-card.cbt {
+    background:
+        linear-gradient(
+            135deg,
+            #1565c0,
+            #00838f
+        );
+}
+
+.structure-card.pet {
+    background:
+        linear-gradient(
+            135deg,
+            #ef6c00,
+            #d84315
+        );
+}
+
+.structure-card h3 {
+    margin: 0 0 12px;
+
+    font-size: 22px;
+}
+
+.structure-card ul {
+    margin: 0;
+
+    padding-left: 20px;
+
+    line-height: 1.9;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   TOPIC STRIP
+   ========================================================= */
+
+.groupd-topic-strip {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    padding: 22px;
+
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #263238,
+            #37474f
+        );
+}
+
+.topic-item {
+    padding: 17px 12px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.08);
+
+    color: white;
+
+    text-align: center;
+}
+
+.topic-item .topic-icon {
+    font-size: 29px;
+
+    display: block;
+
+    margin-bottom: 7px;
+}
+
+.topic-item strong {
+    font-size: 12px;
+}
+
+/* =========================================================
+   MOCK TESTS
+   ========================================================= */
+
+.groupd-tests-box {
+    padding: 25px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.27);
+}
+
+.groupd-test {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    margin-bottom: 13px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f1f8e9,
+            #eef7f5
+        );
+
+    border-left:
+        6px solid #43a047;
+}
+
+.groupd-test:last-child {
+    margin-bottom: 0;
+}
+
+.groupd-test-info {
+    flex: 1;
+}
+
+.groupd-test-info h3 {
+    margin: 0 0 6px;
+
+    color: #183c35;
+
+    font-size: 17px;
+}
+
+.groupd-test-info p {
+    margin: 0;
+
+    color: #6b7d77;
+
+    font-size: 12px;
+}
+
+.groupd-test-button {
+    display: inline-block;
+
+    padding: 10px 17px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #43a047,
+            #00897b
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.groupd-test-button:hover {
+    opacity: .9;
+}
+
+.groupd-test-button.attempted {
+    background:
+        linear-gradient(
+            135deg,
+            #1565c0,
+            #3949ab
+        );
+}
+
+/* =========================================================
+   PET PREPARATION
+   ========================================================= */
+
+.pet-wrapper {
+    padding: 27px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6a1b9a,
+            #8e24aa,
+            #ec407a
+        );
+
+    color: white;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.25);
+}
+
+.pet-wrapper h2 {
+    margin: 0;
+
+    font-size: 25px;
+}
+
+.pet-wrapper > p {
+    margin: 7px 0 20px;
+
+    font-size: 13px;
+
+    opacity: .9;
+}
+
+.pet-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 13px;
+}
+
+.pet-card {
+    padding: 18px 12px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.14);
+
+    text-align: center;
+
+    border:
+        1px solid rgba(255,255,255,.16);
+}
+
+.pet-card span {
+    display: block;
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+.pet-card strong {
+    font-size: 12px;
+}
+
+/* =========================================================
+   RESOURCES
+   ========================================================= */
+
+.groupd-resources {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.groupd-resource {
+    min-height: 130px;
+
+    padding: 22px 18px;
+
+    border-radius: 20px;
+
+    text-decoration: none;
+
+    color: white;
+
+    transition:
+        transform .2s ease;
+}
+
+.groupd-resource:hover {
+    transform: translateY(-5px);
+}
+
+.groupd-resource:nth-child(1) {
+    background:
+        linear-gradient(
+            135deg,
+            #00897b,
+            #00695c
+        );
+}
+
+.groupd-resource:nth-child(2) {
+    background:
+        linear-gradient(
+            135deg,
+            #3949ab,
+            #5e35b1
+        );
+}
+
+.groupd-resource:nth-child(3) {
+    background:
+        linear-gradient(
+            135deg,
+            #fb8c00,
+            #ef6c00
+        );
+}
+
+.groupd-resource:nth-child(4) {
+    background:
+        linear-gradient(
+            135deg,
+            #039be5,
+            #0277bd
+        );
+}
+
+.resource-icon {
+    font-size: 34px;
+}
+
+.groupd-resource h3 {
+    margin: 9px 0 4px;
+
+    font-size: 16px;
+}
+
+.groupd-resource p {
+    margin: 0;
+
+    font-size: 11px;
+
+    opacity: .9;
+
+    line-height: 1.45;
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.groupd-empty {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffde7,
+            #fff8e1
+        );
+
+    border:
+        2px dashed #f9a825;
+}
+
+.groupd-empty-icon {
+    font-size: 52px;
+}
+
+.groupd-empty h3 {
+    margin: 12px 0 6px;
+
+    color: #765600;
+}
+
+.groupd-empty p {
+    margin: 0;
+
+    color: #856404;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.groupd-footer {
+    margin-top: 35px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+}
+
+.groupd-footer strong {
+    color: #ffca28;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .groupd-subject-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .groupd-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .groupd-topic-strip {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .pet-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .groupd-resources {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .groupd-container {
+        width: 92%;
+    }
+
+    .groupd-hero {
+        padding: 28px 20px;
+    }
+
+    .groupd-hero::before {
+        font-size: 75px;
+    }
+
+    .groupd-subject-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .groupd-structure {
+        grid-template-columns: 1fr;
+    }
+
+    .groupd-topic-strip {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .pet-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .groupd-resources {
+        grid-template-columns: 1fr;
+    }
+
+    .groupd-test {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .groupd-test-button {
+        width: 100%;
+
+        text-align: center;
+    }
+}
+
+</style>
+
+
+<div class="groupd-container">
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="groupd-hero">
+
+        <div class="groupd-badge">
+            🚆 RAILWAY RECRUITMENT BOARD
+        </div>
+
+        <h1>
+            RRB GROUP D
+        </h1>
+
+        <p>
+            Prepare for the RRB Group D examination with
+            subject-wise practice, full mock tests,
+            previous-paper practice and physical preparation.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         QUICK STATS
+         ===================================================== -->
+
+    <section class="groupd-stats">
+
+        <div class="groupd-stat">
+
+            <div class="groupd-stat-icon">
+                🧮
+            </div>
+
+            <strong>Mathematics</strong>
+
+            <span>
+                Numerical Practice
+            </span>
+
+        </div>
+
+
+        <div class="groupd-stat">
+
+            <div class="groupd-stat-icon">
+                🧠
+            </div>
+
+            <strong>Reasoning</strong>
+
+            <span>
+                Mental Ability
+            </span>
+
+        </div>
+
+
+        <div class="groupd-stat">
+
+            <div class="groupd-stat-icon">
+                🔬
+            </div>
+
+            <strong>Science</strong>
+
+            <span>
+                General Science
+            </span>
+
+        </div>
+
+
+        <div class="groupd-stat">
+
+            <div class="groupd-stat-icon">
+                🏃
+            </div>
+
+            <strong>PET</strong>
+
+            <span>
+                Physical Preparation
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CBT SUBJECTS
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="groupd-section-heading">
+
+            <div class="groupd-number">
+                01
+            </div>
+
+            <div>
+
+                <h2>
+                    CBT Preparation
+                </h2>
+
+                <p>
+                    Build strong fundamentals in all major examination areas
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="groupd-subject-grid">
+
+            <div class="groupd-subject">
+
+                <div class="icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Mathematics
+                </h3>
+
+                <p>
+                    Number system, percentage, ratio,
+                    profit & loss, time, work, algebra,
+                    geometry and mensuration.
+                </p>
+
+            </div>
+
+
+            <div class="groupd-subject">
+
+                <div class="icon">
+                    🧠
+                </div>
+
+                <h3>
+                    General Intelligence & Reasoning
+                </h3>
+
+                <p>
+                    Analogy, series, coding-decoding,
+                    classification, relationships and logical reasoning.
+                </p>
+
+            </div>
+
+
+            <div class="groupd-subject">
+
+                <div class="icon">
+                    🔬
+                </div>
+
+                <h3>
+                    General Science
+                </h3>
+
+                <p>
+                    Physics, Chemistry and Life Science
+                    based on school-level fundamentals.
+                </p>
+
+            </div>
+
+
+            <div class="groupd-subject">
+
+                <div class="icon">
+                    🌍
+                </div>
+
+                <h3>
+                    General Awareness
+                </h3>
+
+                <p>
+                    Current affairs, Indian history,
+                    geography, polity, economy and railway awareness.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         EXAM STRUCTURE
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="groupd-section-heading">
+
+            <div class="groupd-number">
+                02
+            </div>
+
+            <div>
+
+                <h2>
+                    Examination Preparation
+                </h2>
+
+                <p>
+                    Prepare for both the computer-based examination and physical stage
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="groupd-structure">
+
+            <div class="structure-card cbt">
+
+                <h3>
+                    💻 Computer Based Test
+                </h3>
+
+                <ul>
+                    <li>Mathematics</li>
+                    <li>General Intelligence & Reasoning</li>
+                    <li>General Science</li>
+                    <li>General Awareness & Current Affairs</li>
+                    <li>Timed Mock-Test Practice</li>
+                </ul>
+
+            </div>
+
+
+            <div class="structure-card pet">
+
+                <h3>
+                    🏃 Physical Efficiency Test
+                </h3>
+
+                <ul>
+                    <li>Running preparation</li>
+                    <li>Strength and endurance</li>
+                    <li>Fitness preparation</li>
+                    <li>Physical-test awareness</li>
+                    <li>Regular fitness practice</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         IMPORTANT TOPICS
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="groupd-section-heading">
+
+            <div class="groupd-number">
+                03
+            </div>
+
+            <div>
+
+                <h2>
+                    🎯 Important Practice Areas
+                </h2>
+
+                <p>
+                    Strengthen the areas that require regular practice
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="groupd-topic-strip">
+
+            <div class="topic-item">
+
+                <span class="topic-icon">
+                    🔢
+                </span>
+
+                <strong>
+                    Arithmetic
+                </strong>
+
+            </div>
+
+
+            <div class="topic-item">
+
+                <span class="topic-icon">
+                    🧩
+                </span>
+
+                <strong>
+                    Logical Reasoning
+                </strong>
+
+            </div>
+
+
+            <div class="topic-item">
+
+                <span class="topic-icon">
+                    ⚛️
+                </span>
+
+                <strong>
+                    Science
+                </strong>
+
+            </div>
+
+
+            <div class="topic-item">
+
+                <span class="topic-icon">
+                    📰
+                </span>
+
+                <strong>
+                    Current Affairs
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MOCK TESTS
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="groupd-section-heading">
+
+            <div class="groupd-number">
+                04
+            </div>
+
+            <div>
+
+                <h2>
+                    🚆 RRB Group D Mock Tests
+                </h2>
+
+                <p>
+                    Test your speed, accuracy and exam readiness
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="groupd-tests-box">
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="groupd-test">
+
+                        <div class="groupd-test-info">
+
+                            <h3>
+                                {{ test.name }}
+                            </h3>
+
+                            <p>
+
+                                {% with question_count=test.questions.all|length %}
+
+                                    {{ question_count }} Questions
+
+                                {% endwith %}
+
+                                &nbsp; • &nbsp;
+
+                                RRB Group D Practice
+
+                            </p>
+
+                        </div>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="groupd-test-button attempted"
+                            >
+                                🔄 Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="groupd-test-button"
+                            >
+                                ▶ Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="groupd-empty">
+
+                    <div class="groupd-empty-icon">
+                        🚆
+                    </div>
+
+                    <h3>
+                        No Mock Test Uploaded
+                    </h3>
+
+                    <p>
+                        RRB Group D mock tests will appear here
+                        once they are uploaded by the administrator.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PET PREPARATION
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="pet-wrapper">
+
+            <h2>
+                🏃 Physical Efficiency Preparation
+            </h2>
+
+            <p>
+                Use this section to organise your physical-test preparation.
+            </p>
+
+
+            <div class="pet-grid">
+
+                <div class="pet-card">
+
+                    <span>
+                        🏃
+                    </span>
+
+                    <strong>
+                        Running Practice
+                    </strong>
+
+                </div>
+
+
+                <div class="pet-card">
+
+                    <span>
+                        💪
+                    </span>
+
+                    <strong>
+                        Strength Training
+                    </strong>
+
+                </div>
+
+
+                <div class="pet-card">
+
+                    <span>
+                        ❤️
+                    </span>
+
+                    <strong>
+                        Endurance
+                    </strong>
+
+                </div>
+
+
+                <div class="pet-card">
+
+                    <span>
+                        🎯
+                    </span>
+
+                    <strong>
+                        PET Preparation
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESOURCES
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="groupd-section-heading">
+
+            <div class="groupd-number">
+                05
+            </div>
+
+            <div>
+
+                <h2>
+                    📚 Preparation Resources
+                </h2>
+
+                <p>
+                    Additional practice tools for your Group D preparation
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="groupd-resources">
+
+            <a
+                href="#"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Previous Year Papers
+                </h3>
+
+                <p>
+                    Practice questions from previous examinations.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Quick Practice
+                </h3>
+
+                <p>
+                    Short practice sessions for daily preparation.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Practice important concepts and frequently tested areas.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Practice Sets
+                </h3>
+
+                <p>
+                    Solve focused question sets and improve accuracy.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERFORMANCE
+         ===================================================== -->
+
+    <section class="groupd-section">
+
+        <div class="groupd-section-heading">
+
+            <div class="groupd-number">
+                06
+            </div>
+
+            <div>
+
+                <h2>
+                    🏆 Your Group D Preparation
+                </h2>
+
+                <p>
+                    Track your progress and previous attempts
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="groupd-resources">
+
+            <a
+                href="{% url 'performance_analysis' %}"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Analyse your mock-test performance.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Compare your performance with other candidates.
+                </p>
+
+            </a>
+
+
+            <a
+                href="{% url 'previous_tests' %}"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Previous Attempts
+                </h3>
+
+                <p>
+                    Review tests you have already attempted.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="groupd-resource"
+            >
+
+                <div class="resource-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Exam Target
+                </h3>
+
+                <p>
+                    Continue practising until you are exam ready.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="groupd-footer">
+
+        🚆
+        <strong>
+            EduMind RRB Group D Preparation
+        </strong>
+
+        <br>
+
+        Practice • Improve • Analyse • Succeed
+
+    </div>
+
+</div>
+
+{% endblock %}

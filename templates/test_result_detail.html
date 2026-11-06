@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+
+{% block title %}Test Result Detail{% endblock %}
+
+{% block page_class %}page-test-result-detail{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .result-page {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    /* HEADER */
+
+    .result-header {
+        background: linear-gradient(135deg, #064e3b, #047857);
+        color: white;
+        padding: 35px 25px;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .result-header h1 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+    .result-header p {
+        margin: 8px 0 0;
+        opacity: 0.9;
+    }
+
+    /* SUMMARY */
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .summary-card {
+        background: white;
+        border: 1px solid #d1fae5;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .summary-card .icon {
+        font-size: 25px;
+        margin-bottom: 7px;
+    }
+
+    .summary-card h4 {
+        margin: 5px 0;
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    .summary-card strong {
+        color: #064e3b;
+        font-size: 24px;
+    }
+
+    /* ACTION BUTTONS */
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 35px;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        display: inline-block;
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 9px;
+        font-weight: 600;
+        background: #064e3b;
+        color: white;
+        transition: 0.2s;
+    }
+
+    .action-btn:hover {
+        background: #047857;
+        transform: translateY(-2px);
+    }
+
+    .secondary-btn {
+        background: white;
+        color: #064e3b;
+        border: 2px solid #064e3b;
+    }
+
+    .secondary-btn:hover {
+        background: #064e3b;
+        color: white;
+    }
+
+    /* REVIEW */
+
+    .section-title {
+        color: #064e3b;
+        font-size: 25px;
+        margin-bottom: 20px;
+        border-left: 5px solid #10b981;
+        padding-left: 12px;
+    }
+
+    .question-card {
+        background: white;
+        border: 1px solid #d1fae5;
+        border-radius: 17px;
+        padding: 22px;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    .question-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .question-number {
+        font-weight: 700;
+        color: #064e3b;
+    }
+
+    .question-time {
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    .question-text {
+        font-size: 17px;
+        line-height: 1.6;
+        color: #1e293b;
+        margin-bottom: 18px;
+    }
+
+    /* OPTIONS */
+
+    .answer-box {
+        padding: 14px;
+        border-radius: 10px;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .your-answer {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1e40af;
+    }
+
+    .correct-answer {
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #166534;
+    }
+
+    .wrong-answer {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+    }
+
+    .unanswered {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        color: #475569;
+    }
+
+    .explanation {
+        margin-top: 15px;
+        padding: 15px;
+        background: #f0fdf4;
+        border-left: 4px solid #10b981;
+        border-radius: 8px;
+        color: #334155;
+        line-height: 1.6;
+    }
+
+    .explanation strong {
+        color: #064e3b;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+        .summary-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .result-page {
+            padding: 12px;
+        }
+
+    }
+
+    @media (max-width: 500px) {
+
+        .summary-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .summary-card {
+            padding: 15px 8px;
+        }
+
+        .summary-card strong {
+            font-size: 20px;
+        }
+
+        .result-header h1 {
+            font-size: 24px;
+        }
+
+        .question-text {
+            font-size: 15px;
+        }
+
+        .question-top {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+    }
+
+</style>
+
+
+<div class="result-page">
+
+
+    <!-- HEADER -->
+
+    <div class="result-header">
+
+        <h1>
+            📊 {{ result.test_name }}
+        </h1>
+
+        <p>
+            {{ result.created_at|date:"d M Y, h:i A" }}
+        </p>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="icon">🏆</div>
+
+            <h4>Score</h4>
+
+            <strong>
+                {{ result.score }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="icon">📝</div>
+
+            <h4>Attempted</h4>
+
+            <strong>
+                {{ attempted }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="icon">✅</div>
+
+            <h4>Correct</h4>
+
+            <strong>
+                {{ result.correct }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="icon">❌</div>
+
+            <h4>Wrong</h4>
+
+            <strong>
+                {{ result.wrong }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="icon">⚪</div>
+
+            <h4>Unattended</h4>
+
+            <strong>
+                {{ result.unanswered }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="icon">🎯</div>
+
+            <h4>Accuracy</h4>
+
+            <strong>
+                {{ result.accuracy|floatformat:2 }}%
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="icon">⏱️</div>
+
+            <h4>Time Taken</h4>
+
+            <strong>
+                {{ result.time_taken }} sec
+            </strong

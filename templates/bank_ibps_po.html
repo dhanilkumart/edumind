@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}IBPS PO Mock Tests{% endblock %}
+
+{% block page_class %}page-ibps-po{% endblock %}
+
+{% block content %}
+
+<style>
+.bank-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+.bank-header {
+    background: linear-gradient(135deg, #064e3b, #059669, #2563eb);
+    color: white;
+    padding: 32px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 10px 28px rgba(0,0,0,.15);
+}
+
+.bank-header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.bank-header p {
+    margin: 8px 0;
+}
+
+.bank-section {
+    margin-top: 30px;
+}
+
+.bank-section h2 {
+    color: #064e3b;
+    margin-bottom: 16px;
+}
+
+.bank-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.bank-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid #d1fae5;
+    box-shadow: 0 7px 25px rgba(0,0,0,.10);
+    transition: .25s;
+}
+
+.bank-card:hover {
+    transform: translateY(-5px);
+}
+
+.bank-card h3 {
+    color: #065f46;
+}
+
+.bank-card p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.bank-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 20px;
+    border-radius: 11px;
+    background: linear-gradient(90deg, #059669, #2563eb);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.no-test {
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 16px;
+    text-align: center;
+    background: #fff7ed;
+    color: #9a3412;
+    font-weight: 700;
+}
+</style>
+
+<div class="bank-page">
+
+    <div class="bank-header">
+        <h1>🏦 IBPS PO</h1>
+        <p>Institute of Banking Personnel Selection</p>
+        <p>Probationary Officer / Management Trainee</p>
+    </div>
+
+    <!-- PRELIMS -->
+
+    <div class="bank-section">
+
+        <h2>📝 Preliminary Examination</h2>
+
+        <div class="bank-grid">
+
+            <div class="bank-card">
+                <h3>📖 English Language</h3>
+                <p>English language and comprehension.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🧮 Quantitative Aptitude</h3>
+                <p>Numerical ability and aptitude.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🧠 Reasoning Ability</h3>
+                <p>Logical and analytical reasoning.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🏆 Prelims Full Mock</h3>
+                <p>Complete IBPS PO Prelims simulation.</p>
+                <a href="#" class="bank-btn">Start Test</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAINS -->
+
+    <div class="bank-section">
+
+        <h2>📚 Main Examination</h2>
+
+        <div class="bank-grid">
+
+            <div class="bank-card">
+                <h3>🧠 Reasoning & Computer</h3>
+                <p>Reasoning and computer aptitude.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🧮 Data Analysis</h3>
+                <p>Advanced quantitative aptitude.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🌍 General Economy & Banking</h3>
+                <p>Banking awareness and economy.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>📰 General Awareness</h3>
+                <p>Current affairs and banking awareness.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>✍️ English Language</h3>
+                <p>Advanced English preparation.</p>
+                <a href="#" class="bank-btn">Practice</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🏆 Mains Full Mock</h3>
+                <p>Complete IBPS PO Mains simulation.</p>
+                <a href="#" class="bank-btn">Start Test</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- OTHER -->
+
+    <div class="bank-section">
+
+        <h2>🎯 Additional Preparation</h2>
+
+        <div class="bank-grid">
+
+            <div class="bank-card">
+                <h3>📄 Previous Papers</h3>
+                <p>Practice previous IBPS PO papers.</p>
+                <a href="#" class="bank-btn">View Papers</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>🏆 Full Mock Tests</h3>
+                <p>Complete examination simulation.</p>
+                <a href="#" class="bank-btn">View Tests</a>
+            </div>
+
+            <div class="bank-card">
+                <h3>📊 Performance</h3>
+                <p>Track your preparation and scores.</p>
+                <a href="{% url 'performance_analysis' %}"
+                   class="bank-btn">
+                    View Performance
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if not mock_tests %}
+        <div class="no-test">
+            ⚠️ No Mock Test Uploaded
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

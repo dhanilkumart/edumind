@@ -1,0 +1,656 @@
+{% extends "base.html" %}
+
+{% block title %}Test Ranking{% endblock %}
+
+{% block page_class %}page-test-ranking{% endblock %}
+
+{% block content %}
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f8f5;
+        margin: 0;
+        padding: 20px;
+        color: #26352c;
+    }
+
+    .container {
+        max-width: 1150px;
+        margin: auto;
+    }
+
+    /* HEADER */
+
+    .header {
+        background: linear-gradient(
+            135deg,
+            #168a45,
+            #42b96d
+        );
+
+        color: white;
+        padding: 30px;
+        border-radius: 18px;
+        margin-bottom: 25px;
+
+        box-shadow:
+            0 8px 20px rgba(0,0,0,0.10);
+    }
+
+    .header h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+    }
+
+    .header p {
+        margin: 7px 0;
+        opacity: 0.95;
+    }
+
+    /* SUMMARY */
+
+    .summary {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .summary-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+
+        box-shadow:
+            0 4px 15px rgba(0,0,0,0.06);
+
+        border: 1px solid #d9eadf;
+    }
+
+    .summary-card .icon {
+        font-size: 28px;
+    }
+
+    .summary-card h3 {
+        margin: 8px 0 5px;
+        color: #555;
+        font-size: 14px;
+    }
+
+    .summary-card strong {
+        font-size: 25px;
+        color: #168a45;
+    }
+
+    /* MY RANKING */
+
+    .my-ranking-card {
+        background: white;
+
+        display: flex;
+        align-items: center;
+
+        gap: 20px;
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+        margin-bottom: 25px;
+
+        border-left: 6px solid #168a45;
+
+        box-shadow:
+            0 5px 18px rgba(0,0,0,0.07);
+    }
+
+    .my-ranking-icon {
+        font-size: 42px;
+    }
+
+    .my-ranking-info h3 {
+        margin: 0 0 5px;
+        color: #555;
+    }
+
+    .my-rank {
+        font-size: 32px;
+        font-weight: bold;
+        color: #168a45;
+    }
+
+    .my-ranking-info p {
+        margin: 5px 0 0;
+        color: #64748b;
+    }
+
+    /* TABLE */
+
+    .table-container {
+        background: white;
+        border-radius: 18px;
+        padding: 20px;
+        overflow-x: auto;
+
+        box-shadow:
+            0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .table-container h2 {
+        margin-top: 0;
+        color: #168a45;
+        font-size: 22px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 750px;
+    }
+
+    th {
+        background: #168a45;
+        color: white;
+        padding: 14px 10px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    td {
+        padding: 13px 10px;
+        text-align: center;
+
+        border-bottom:
+            1px solid #e1e7e3;
+
+        font-size: 14px;
+    }
+
+    tbody tr:hover {
+        background: #f1f8f3;
+    }
+
+    /* RANK */
+
+    .rank {
+        font-weight: bold;
+        font-size: 17px;
+        color: #168a45;
+    }
+
+    /* USER ROW */
+
+    .my-row {
+        background: #e3f5e8 !important;
+        font-weight: bold;
+
+        border-left:
+            5px solid #168a45;
+    }
+
+    .my-label {
+        display: inline-block;
+
+        margin-left: 6px;
+
+        padding: 3px 7px;
+
+        border-radius: 6px;
+
+        background: #168a45;
+
+        color: white;
+
+        font-size: 10px;
+    }
+
+    /* SCORE */
+
+    .score {
+        font-weight: bold;
+        color: #168a45;
+        font-size: 16px;
+    }
+
+    /* STATS */
+
+    .correct {
+        color: #168a45;
+        font-weight: 600;
+    }
+
+    .wrong {
+        color: #dc2626;
+        font-weight: 600;
+    }
+
+    .unattended {
+        color: #64748b;
+        font-weight: 600;
+    }
+
+    /* EMPTY */
+
+    .empty-message {
+        padding: 40px;
+        text-align: center;
+        color: #64748b;
+    }
+
+    .empty-message .emoji {
+        font-size: 45px;
+        margin-bottom: 10px;
+    }
+
+    /* BACK BUTTON */
+
+    .back-container {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .back-btn {
+        display: inline-block;
+
+        padding: 12px 22px;
+
+        background: #168a45;
+
+        color: white;
+
+        text-decoration: none;
+
+        border-radius: 9px;
+
+        font-weight: 600;
+
+        transition: 0.2s;
+    }
+
+    .back-btn:hover {
+        background: #0f6d35;
+        transform: translateY(-2px);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+
+        body {
+            padding: 10px;
+        }
+
+        .header {
+            padding: 22px 18px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .summary {
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+        .summary-card {
+            padding: 15px 8px;
+        }
+
+        .summary-card strong {
+            font-size: 21px;
+        }
+
+        .table-container {
+            padding: 12px;
+        }
+
+        .table-container h2 {
+            font-size: 19px;
+        }
+
+        .my-ranking-card {
+            padding: 15px;
+        }
+
+        .my-rank {
+            font-size: 27px;
+        }
+
+    }
+
+</style>
+
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            🏆 {{ mock_test.name }}
+        </h1>
+
+        <p>
+            <strong>Subject:</strong>
+            {{ mock_test.subject.name }}
+        </p>
+
+        <p>
+            Ranking based on candidates who attempted
+            this specific mock test.
+        </p>
+
+    </div>
+
+
+    {% if ranking %}
+
+        <!-- SUMMARY -->
+
+        <div class="summary">
+
+            <div class="summary-card">
+
+                <div class="icon">
+                    👥
+                </div>
+
+                <h3>
+                    Candidates
+                </h3>
+
+                <strong>
+                    {{ total_candidates }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Your Rank
+                </h3>
+
+                <strong>
+
+                    {% if current_candidate %}
+                        #{{ current_candidate.rank }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Top Score
+                </h3>
+
+                <strong>
+                    {{ ranking.0.score }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- CURRENT USER -->
+
+        {% if current_candidate %}
+
+        <div class="my-ranking-card">
+
+            <div class="my-ranking-icon">
+                🏆
+            </div>
+
+            <div class="my-ranking-info">
+
+                <h3>
+                    Your Ranking
+                </h3>
+
+                <div class="my-rank">
+                    #{{ current_candidate.rank }}
+                </div>
+
+                <p>
+                    Score:
+                    <strong>
+                        {{ current_candidate.score }}
+                    </strong>
+                    marks
+                </p>
+
+                <p>
+                    You are ranked
+                    <strong>
+                        {{ current_candidate.rank }}
+                    </strong>
+                    among
+                    <strong>
+                        {{ total_candidates }}
+                    </strong>
+                    candidates.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- RANKING TABLE -->
+
+        <div class="table-container">
+
+            <h2>
+                🏆 Candidate Ranking
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Rank
+                        </th>
+
+                        <th>
+                            Candidate
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Correct
+                        </th>
+
+                        <th>
+                            Wrong
+                        </th>
+
+                        <th>
+                            Unattended
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for result in ranking %}
+
+                    <tr
+                        {% if result.is_current_user %}
+                            class="my-row"
+                        {% endif %}
+                    >
+
+                        <!-- RANK -->
+
+                        <td class="rank">
+
+                            {% if result.rank == 1 %}
+
+                                🥇
+
+                            {% elif result.rank == 2 %}
+
+                                🥈
+
+                            {% elif result.rank == 3 %}
+
+                                🥉
+
+                            {% else %}
+
+                                {{ result.rank }}
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- USER -->
+
+                        <td>
+
+                            {{ result.username }}
+
+                            {% if result.is_current_user %}
+
+                                <span class="my-label">
+                                    YOU
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- SCORE -->
+
+                        <td class="score">
+
+                            {{ result.score }}
+
+                        </td>
+
+
+                        <!-- CORRECT -->
+
+                        <td class="correct">
+
+                            {{ result.correct }}
+
+                        </td>
+
+
+                        <!-- WRONG -->
+
+                        <td class="wrong">
+
+                            {{ result.wrong }}
+
+                        </td>
+
+
+                        <!-- UNANSWERED -->
+
+                        <td class="unattended">
+
+                            {{ result.unanswered }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    {% else %}
+
+        <!-- NO RESULTS -->
+
+        <div class="table-container">
+
+            <div class="empty-message">
+
+                <div class="emoji">
+                    📚
+                </div>
+
+                <h2>
+                    No Candidates Yet
+                </h2>
+
+                <p>
+                    No candidates have attempted
+                    this mock test yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK -->
+
+    <div class="back-container">
+
+        <a
+            href="{% url 'performance_analysis' %}"
+            class="back-btn"
+        >
+            ← Back to Performance Center
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

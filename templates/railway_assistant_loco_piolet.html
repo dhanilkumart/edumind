@@ -1,0 +1,1078 @@
+{% extends "base.html" %}
+
+{% block title %}RRB ALP - Assistant Loco Pilot Mock Tests{% endblock %}
+
+{% block page_class %}page-rrb-alp{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   RRB ALP - UNIQUE PAGE DESIGN
+   ========================================================= */
+
+.page-rrb-alp {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255, 193, 7, 0.18), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(0, 188, 212, 0.18), transparent 30%),
+        linear-gradient(135deg, #071b2d, #123b52 45%, #08243a);
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.alp-container {
+    width: min(1200px, 94%);
+    margin: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.alp-hero {
+    margin: 25px auto 30px;
+    padding: 34px 28px;
+    border-radius: 26px;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255, 193, 7, 0.95),
+            rgba(255, 112, 67, 0.95) 45%,
+            rgba(0, 188, 212, 0.95)
+        );
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.35);
+
+    color: white;
+}
+
+.alp-hero::before {
+    content: "🚆";
+    position: absolute;
+    right: 25px;
+    top: 5px;
+    font-size: 120px;
+    opacity: 0.16;
+    transform: rotate(-5deg);
+}
+
+.alp-hero::after {
+    content: "⚙️";
+    position: absolute;
+    right: 130px;
+    bottom: -25px;
+    font-size: 100px;
+    opacity: 0.12;
+}
+
+.alp-badge {
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.22);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.alp-hero h1 {
+    margin: 0;
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.alp-hero p {
+    margin: 10px 0 0;
+    max-width: 720px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   QUICK STATS
+   ========================================================= */
+
+.alp-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.alp-stat {
+    padding: 20px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(10px);
+    color: white;
+    text-align: center;
+}
+
+.alp-stat-icon {
+    font-size: 30px;
+    margin-bottom: 7px;
+}
+
+.alp-stat strong {
+    display: block;
+    font-size: 18px;
+}
+
+.alp-stat span {
+    display: block;
+    margin-top: 5px;
+    color: #d6edf7;
+    font-size: 12px;
+}
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.alp-section {
+    margin: 30px 0;
+}
+
+.alp-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+    color: white;
+}
+
+.alp-section-title .number {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffca28, #ff7043);
+    color: #142536;
+    font-weight: 900;
+}
+
+.alp-section-title h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.alp-section-title p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: #c9e3ee;
+}
+
+/* =========================================================
+   SUBJECT CARDS
+   ========================================================= */
+
+.alp-subject-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.alp-subject {
+    min-height: 145px;
+    padding: 20px;
+    border-radius: 20px;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.alp-subject:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,.28);
+}
+
+.alp-subject::after {
+    content: "";
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    right: -25px;
+    bottom: -30px;
+    background: rgba(0,188,212,.13);
+}
+
+.alp-subject .icon {
+    font-size: 34px;
+}
+
+.alp-subject h3 {
+    margin: 12px 0 5px;
+    color: #123047;
+    font-size: 17px;
+}
+
+.alp-subject p {
+    margin: 0;
+    color: #637381;
+    font-size: 12px;
+}
+
+/* =========================================================
+   CBT 2 SPECIAL PANEL
+   ========================================================= */
+
+.alp-technical-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.alp-panel {
+    padding: 25px;
+    border-radius: 22px;
+    color: white;
+    min-height: 175px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.22);
+}
+
+.alp-panel.part-a {
+    background: linear-gradient(135deg, #1565c0, #26c6da);
+}
+
+.alp-panel.part-b {
+    background: linear-gradient(135deg, #6a1b9a, #ec407a);
+}
+
+.alp-panel h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+}
+
+.alp-panel ul {
+    margin: 0;
+    padding-left: 20px;
+    line-height: 1.9;
+    font-size: 14px;
+}
+
+/* =========================================================
+   CBAT
+   ========================================================= */
+
+.cbat-wrapper {
+    padding: 25px;
+    border-radius: 25px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 150, 136, .95),
+            rgba(38, 166, 154, .95)
+        );
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.25);
+}
+
+.cbat-header {
+    color: white;
+    margin-bottom: 18px;
+}
+
+.cbat-header h2 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.cbat-header p {
+    margin: 6px 0 0;
+    font-size: 13px;
+    opacity: .9;
+}
+
+.cbat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.cbat-card {
+    padding: 17px 10px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.94);
+    text-align: center;
+    color: #16413d;
+}
+
+.cbat-card span {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.cbat-card strong {
+    font-size: 12px;
+}
+
+/* =========================================================
+   MOCK TEST AREA
+   ========================================================= */
+
+.alp-tests-box {
+    padding: 25px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 15px 35px rgba(0,0,0,.25);
+}
+
+.alp-test-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 18px;
+    margin-bottom: 13px;
+
+    border-radius: 17px;
+    background: linear-gradient(90deg, #f5fbff, #eef8fb);
+    border-left: 6px solid #00a7c4;
+}
+
+.alp-test-card:last-child {
+    margin-bottom: 0;
+}
+
+.alp-test-info {
+    flex: 1;
+}
+
+.alp-test-info h3 {
+    margin: 0 0 6px;
+    color: #123047;
+    font-size: 17px;
+}
+
+.alp-test-info p {
+    margin: 0;
+    color: #6c7b86;
+    font-size: 12px;
+}
+
+.alp-test-button {
+    display: inline-block;
+    padding: 10px 17px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff9800, #f4511e);
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.alp-test-button:hover {
+    opacity: .9;
+}
+
+.alp-test-button.attempted {
+    background: linear-gradient(135deg, #00897b, #26a69a);
+}
+
+/* =========================================================
+   PREPARATION TOOLS
+   ========================================================= */
+
+.alp-tools {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.alp-tool {
+    text-decoration: none;
+    color: white;
+    padding: 23px 18px;
+    border-radius: 20px;
+    min-height: 130px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease;
+}
+
+.alp-tool:hover {
+    transform: translateY(-5px);
+}
+
+.alp-tool:nth-child(1) {
+    background: linear-gradient(135deg, #ef5350, #e53935);
+}
+
+.alp-tool:nth-child(2) {
+    background: linear-gradient(135deg, #5e35b1, #8e24aa);
+}
+
+.alp-tool:nth-child(3) {
+    background: linear-gradient(135deg, #00897b, #00acc1);
+}
+
+.alp-tool:nth-child(4) {
+    background: linear-gradient(135deg, #f9a825, #fb8c00);
+}
+
+.alp-tool .tool-icon {
+    font-size: 35px;
+}
+
+.alp-tool h3 {
+    margin: 10px 0 4px;
+    font-size: 16px;
+}
+
+.alp-tool p {
+    margin: 0;
+    font-size: 11px;
+    opacity: .9;
+}
+
+/* =========================================================
+   NO MOCK TEST
+   ========================================================= */
+
+.alp-empty {
+    text-align: center;
+    padding: 45px 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fff8e1, #fff3e0);
+    border: 2px dashed #ffb300;
+}
+
+.alp-empty .empty-icon {
+    font-size: 50px;
+}
+
+.alp-empty h3 {
+    margin: 12px 0 6px;
+    color: #8a5a00;
+}
+
+.alp-empty p {
+    margin: 0;
+    color: #856404;
+    font-size: 13px;
+}
+
+/* =========================================================
+   FOOTER MESSAGE
+   ========================================================= */
+
+.alp-footer {
+    margin-top: 35px;
+    padding: 22px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+.alp-footer strong {
+    color: #ffca28;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .alp-subject-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cbat-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .alp-tools {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .alp-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .alp-container {
+        width: 92%;
+    }
+
+    .alp-hero {
+        padding: 27px 20px;
+    }
+
+    .alp-hero::before {
+        font-size: 75px;
+    }
+
+    .alp-subject-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .alp-technical-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .cbat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .alp-tools {
+        grid-template-columns: 1fr;
+    }
+
+    .alp-test-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .alp-test-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+</style>
+
+
+<div class="alp-container">
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="alp-hero">
+
+        <div class="alp-badge">
+            🚆 RAILWAY RECRUITMENT BOARD
+        </div>
+
+        <h1>
+            RRB ALP
+        </h1>
+
+        <p>
+            Assistant Loco Pilot Examination
+            <br>
+            Prepare for CBT 1, CBT 2, CBAT and Technical Tests
+            with EduMind mock tests.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         QUICK STATS
+         ===================================================== -->
+
+    <section class="alp-stats">
+
+        <div class="alp-stat">
+            <div class="alp-stat-icon">🧮</div>
+            <strong>CBT 1</strong>
+            <span>Core Screening Test</span>
+        </div>
+
+        <div class="alp-stat">
+            <div class="alp-stat-icon">⚙️</div>
+            <strong>CBT 2</strong>
+            <span>Technical Preparation</span>
+        </div>
+
+        <div class="alp-stat">
+            <div class="alp-stat-icon">🧠</div>
+            <strong>CBAT</strong>
+            <span>Aptitude Preparation</span>
+        </div>
+
+        <div class="alp-stat">
+            <div class="alp-stat-icon">🏆</div>
+            <strong>Mock Tests</strong>
+            <span>Practice & Performance</span>
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CBT 1
+         ===================================================== -->
+
+    <section class="alp-section">
+
+        <div class="alp-section-title">
+
+            <div class="number">01</div>
+
+            <div>
+                <h2>CBT 1 Preparation</h2>
+                <p>Build your foundation for the Assistant Loco Pilot examination</p>
+            </div>
+
+        </div>
+
+
+        <div class="alp-subject-grid">
+
+            <div class="alp-subject">
+                <div class="icon">🧮</div>
+                <h3>Mathematics</h3>
+                <p>Arithmetic, algebra, geometry, mensuration and numerical problems.</p>
+            </div>
+
+            <div class="alp-subject">
+                <div class="icon">🧠</div>
+                <h3>Mental Ability</h3>
+                <p>Reasoning, analytical ability, series, coding and problem solving.</p>
+            </div>
+
+            <div class="alp-subject">
+                <div class="icon">🔬</div>
+                <h3>General Science</h3>
+                <p>Physics, Chemistry and basic science concepts.</p>
+            </div>
+
+            <div class="alp-subject">
+                <div class="icon">🌍</div>
+                <h3>General Awareness</h3>
+                <p>Current affairs, railway awareness, geography, history and more.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CBT 2
+         ===================================================== -->
+
+    <section class="alp-section">
+
+        <div class="alp-section-title">
+
+            <div class="number">02</div>
+
+            <div>
+                <h2>CBT 2 Preparation</h2>
+                <p>Advanced preparation for the second computer-based examination</p>
+            </div>
+
+        </div>
+
+
+        <div class="alp-technical-panel">
+
+            <div class="alp-panel part-a">
+
+                <h3>📘 CBT 2 — Part A</h3>
+
+                <ul>
+                    <li>Mathematics</li>
+                    <li>General Intelligence & Reasoning</li>
+                    <li>Basic Science & Engineering</li>
+                    <li>General Awareness</li>
+                </ul>
+
+            </div>
+
+
+            <div class="alp-panel part-b">
+
+                <h3>⚙️ CBT 2 — Part B</h3>
+
+                <ul>
+                    <li>Trade / Technical Questions</li>
+                    <li>Electrical</li>
+                    <li>Mechanical</li>
+                    <li>Electronics / Communication</li>
+                    <li>Automobile and related trades</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TECHNICAL AREAS
+         ===================================================== -->
+
+    <section class="alp-section">
+
+        <div class="alp-section-title">
+
+            <div class="number">03</div>
+
+            <div>
+                <h2>Technical & Engineering Practice</h2>
+                <p>Focus on the technical knowledge required for ALP preparation</p>
+            </div>
+
+        </div>
+
+
+        <div class="alp-subject-grid">
+
+            <div class="alp-subject">
+                <div class="icon">⚡</div>
+                <h3>Electrical</h3>
+                <p>Basic electricity, circuits, machines, wiring and electrical safety.</p>
+            </div>
+
+            <div class="alp-subject">
+                <div class="icon">🔧</div>
+                <h3>Mechanical</h3>
+                <p>Machines, tools, mechanics, workshop concepts and maintenance.</p>
+            </div>
+
+            <div class="alp-subject">
+                <div class="icon">📡</div>
+                <h3>Electronics</h3>
+                <p>Electronic components, communication and basic digital concepts.</p>
+            </div>
+
+            <div class="alp-subject">
+                <div class="icon">🚗</div>
+                <h3>Automobile</h3>
+                <p>Engine, transmission, vehicle systems and automobile fundamentals.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CBAT
+         ===================================================== -->
+
+    <section class="alp-section">
+
+        <div class="cbat-wrapper">
+
+            <div class="cbat-header">
+
+                <h2>🧠 CBAT — Computer Based Aptitude Test</h2>
+
+                <p>
+                    Develop the mental and cognitive abilities required for
+                    loco pilot aptitude testing.
+                </p>
+
+            </div>
+
+
+            <div class="cbat-grid">
+
+                <div class="cbat-card">
+                    <span>🎯</span>
+                    <strong>Concentration</strong>
+                </div>
+
+                <div class="cbat-card">
+                    <span>🧩</span>
+                    <strong>Problem Solving</strong>
+                </div>
+
+                <div class="cbat-card">
+                    <span>👀</span>
+                    <strong>Perception</strong>
+                </div>
+
+                <div class="cbat-card">
+                    <span>🧠</span>
+                    <strong>Memory</strong>
+                </div>
+
+                <div class="cbat-card">
+                    <span>⚡</span>
+                    <strong>Reaction Ability</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- =====================================================
+     MOCK TESTS
+     ===================================================== -->
+
+<section class="alp-section">
+
+    <div class="alp-section-title">
+        <div class="number">04</div>
+
+        <div>
+            <h2>🚆 RRB ALP Mock Tests</h2>
+            <p>Attempt full-length and practice tests</p>
+        </div>
+    </div>
+<div class="alp-tests-box">
+
+    {% for test in alp_tests %}
+
+        <div class="alp-test-card">
+
+            <div class="alp-test-info">
+
+                <h3>{{ test.name }}</h3>
+
+                <p>
+                    {% if test.available %}
+                        {{ test.question_count }} Questions
+                        | RRB ALP Practice Test
+                    {% else %}
+                        Questions will be uploaded soon
+                    {% endif %}
+                </p>
+
+            </div>
+
+            {% if test.available %}
+
+                {% if test.attempted %}
+
+                    <a href="{% url 'test' test.mock_test.id %}"
+                       class="alp-test-button attempted">
+                        Reattempt
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'test' test.mock_test.id %}"
+                       class="alp-test-button">
+                        Start Test
+                    </a>
+
+                {% endif %}
+
+            {% else %}
+
+                <button type="button"
+                        disabled
+                        style="
+                            background: #87968a;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 8px;
+                            cursor: not-allowed;
+                        ">
+                    Available Soon
+                </button>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+</section>
+
+
+   <!-- =====================================================
+         PREVIOUS PAPERS / PRACTICE
+         ===================================================== -->
+
+    <section class="alp-section">
+
+        <div class="alp-section-title">
+
+            <div class="number">05</div>
+
+            <div>
+                <h2>📚 Preparation Resources</h2>
+                <p>Improve your preparation with focused practice</p>
+            </div>
+
+        </div>
+
+
+        <div class="alp-tools">
+
+            <a href="#" class="alp-tool">
+
+                <div class="tool-icon">📄</div>
+
+                <h3>Previous Year Papers</h3>
+
+                <p>
+                    Practice questions from previous RRB ALP examinations.
+                </p>
+
+            </a>
+
+
+            <a href="#" class="alp-tool">
+
+                <div class="tool-icon">⚡</div>
+
+                <h3>Quick Practice</h3>
+
+                <p>
+                    Short practice sessions for daily preparation.
+                </p>
+
+            </a>
+
+
+            <a href="#" class="alp-tool">
+
+                <div class="tool-icon">🔧</div>
+
+                <h3>Technical Practice</h3>
+
+                <p>
+                    Strengthen trade and engineering fundamentals.
+                </p>
+
+            </a>
+
+
+            <a href="#" class="alp-tool">
+
+                <div class="tool-icon">⭐</div>
+
+                <h3>Important Questions</h3>
+
+                <p>
+                    Practice important concepts and frequently tested areas.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERFORMANCE
+         ===================================================== -->
+
+    <section class="alp-section">
+
+        <div class="alp-section-title">
+
+            <div class="number">06</div>
+
+            <div>
+                <h2>🏆 Your ALP Preparation</h2>
+                <p>Track your progress and previous attempts</p>
+            </div>
+
+        </div>
+
+
+        <div class="alp-tools">
+
+            <a
+                href="{% url 'performance_analysis' %}"
+                class="alp-tool"
+            >
+
+                <div class="tool-icon">📊</div>
+
+                <h3>Performance</h3>
+
+                <p>
+                    Analyse your mock-test performance.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="alp-tool"
+            >
+
+                <div class="tool-icon">🏆</div>
+
+                <h3>Ranking</h3>
+
+                <p>
+                    Compare your scores with other candidates.
+                </p>
+
+            </a>
+
+
+            <a
+                href="{% url 'previous_tests' %}"
+                class="alp-tool"
+            >
+
+                <div class="tool-icon">📝</div>
+
+                <h3>Previous Attempts</h3>
+
+                <p>
+                    Review the tests you have already attempted.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="alp-tool"
+            >
+
+                <div class="tool-icon">🎯</div>
+
+                <h3>Target ALP</h3>
+
+                <p>
+                    Keep practising until you are exam ready.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="alp-footer">
+
+        🚆 <strong>EduMind RRB ALP Preparation</strong>
+
+        <br>
+
+        Practice • Improve • Analyse • Succeed
+
+    </div>
+
+</div>
+
+{% endblock %}

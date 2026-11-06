@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block title %}Review{% endblock %}
+
+{% block page_class %}page-review{% endblock %}
+
+{% block content %}
+<html>
+
+<head>
+
+    <title>Review Answers</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f1f5f9;
+            margin: 0;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .question-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .selected {
+            background: #fee2e2;
+            border: 2px solid #dc2626;
+        }
+
+        .correct {
+            background: #dcfce7;
+            border: 2px solid #16a34a;
+        }
+
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+        .explanation {
+            background: #eff6ff;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 5px solid #2563eb;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            background: #2563eb;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>Review Your Answers</h1>
+
+</div>
+
+
+<div class="container">
+
+
+{% for item in review_questions %}
+
+
+<div class="question-box">
+
+
+    <h3>
+
+        Question
+        {{ forloop.counter }}
+        of
+        {{ review_questions|length }}
+
+    </h3>
+
+
+    <div class="question">
+
+        {{ item.question.question }}
+
+    </div>
+
+
+    <div class="
+        option
+        {% if item.selected_answer == 'A' %}
+        selected
+        {% endif %}
+        {% if item.correct_answer == 'A' %}
+        correct
+        {% endif %}
+    ">
+
+        A.
+        {{ item.question.option_a }}
+
+    </div>
+
+
+    <div class="
+        option
+        {% if item.selected_answer == 'B' %}
+        selected
+        {% endif %}
+        {% if item.correct_answer == 'B' %}
+        correct
+        {% endif %}
+    ">
+
+        B.
+        {{ item.question.option_b }}
+
+    </div>
+
+
+    <div class="
+        option
+        {% if item.selected_answer == 'C' %}
+        selected
+        {% endif %}
+        {% if item.correct_answer == 'C' %}
+        correct
+        {% endif %}
+    ">
+
+        C.
+        {{ item.question.option_c }}
+
+    </div>
+
+
+    <div class="
+        option
+        {% if item.selected_answer == 'D' %}
+        selected
+        {% endif %}
+        {% if item.correct_answer == 'D' %}
+        correct
+        {% endif %}
+    ">
+
+        D.
+        {{ item.question.option_d }}
+
+    </div>
+
+
+    {% if not item.selected_answer %}
+
+        <div class="status">
+
+            ⚪ Not Answered
+
+        </div>
+
+    {% elif item.selected_answer == item.correct_answer %}
+
+        <div class="status">
+
+            ✅ Correct Answer
+
+        </div>
+
+    {% else %}
+
+        <div class="status">
+
+            ❌ Wrong Answer
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="explanation">
+
+        <h3>
+
+            Explanation
+
+        </h3>
+
+
+        <p>
+
+            {{ item.question.explanation }}
+
+        </p>
+
+    </div>
+
+    <div class="dashboard-button">
+
+    <a href="{% url 'dashboard' %}">
+
+        <button>
+            Back to Dashboard
+        </button>
+
+    </a>
+
+    </div>
+
+</div>
+
+
+<br>
+
+
+{% endfor %}
+
+
+</div>
+
+
+</body>
+
+</html>
+
+{% endblock %}

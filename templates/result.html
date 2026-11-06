@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block title %}Result{% endblock %}
+
+{% block page_class %}page-result{% endblock %}
+
+{% block content %}
+
+<html>
+
+<head>
+
+    <title>Test Result</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f1f5f9;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result-box {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1e3a8a;
+        }
+
+        .score {
+            font-size: 35px;
+            font-weight: bold;
+            color: #16a34a;
+            margin: 25px;
+        }
+
+        .item {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 14px 25px;
+            margin: 20px 10px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .review {
+            background: #7c3aed;
+        }
+
+        .dashboard {
+            background: #2563eb;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="result-box">
+
+
+    <h1>
+        Test Submitted Successfully!
+    </h1>
+
+
+    <div class="score">
+
+        Score:
+        {{ score }}
+        /
+        {{ total_questions }}
+
+    </div>
+
+
+    <div class="item">
+
+        Total Questions:
+        {{ total_questions }}
+
+    </div>
+
+
+    <div class="item">
+
+        Correct Answers:
+        {{ correct }}
+
+    </div>
+
+
+    <div class="item">
+
+        Wrong Answers:
+        {{ wrong }}
+
+    </div>
+
+
+    <div class="item">
+
+        Unanswered:
+        {{ unanswered }}
+
+    </div>
+
+
+    <div class="item">
+
+        Negative Marks:
+        {{ negative_marks }}
+
+    </div>
+
+
+    <a href="{% url 'review' %}">
+
+        <button class="review">
+
+            Review Answers
+
+        </button>
+
+    </a>
+
+
+    <a href="{% url 'dashboard' %}">
+
+        <button class="dashboard">
+
+            Back to Dashboard
+
+        </button>
+
+    </a>
+
+    
+
+</div>
+
+
+</body>
+
+</html>
+
+{% endblock %}

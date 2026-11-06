@@ -1,0 +1,425 @@
+{% extends "base.html" %}
+
+{% block title %}Exams - EduMind{% endblock %}
+
+{% block page_class %}page-exams{% endblock %}
+
+{% block content %}
+
+<style>
+    
+    .exams-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 35px 20px;
+        border-radius: 25px;
+        background: linear-gradient(
+            120deg,
+            #b8f2c8,
+            #e8fff0,
+            #a9eebd,
+            #f0fff4
+        );
+        background-size: 300% 300%;
+        animation: flow 8s ease-in-out infinite;
+        box-shadow: 0 8px 25px rgba(0, 80, 30, 0.15);
+    }
+
+    @keyframes flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .hero h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #087f23, #16a34a, #065f46);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero h3 {
+        font-size: 22px;
+        margin-top: 5px;
+    }
+
+    .intro {
+        text-align: center;
+        font-size: 18px;
+        line-height: 1.7;
+        margin: 30px auto;
+        max-width: 900px;
+    }
+
+   /* =====================================================
+   EXAM CARDS - 2 COLUMN COLORFUL DESIGN
+   ===================================================== */
+
+.exam-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+    margin-top: 30px;
+}
+
+
+/* COMMON CARD */
+
+.exam-card {
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    color: white;
+
+    min-height: 150px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.exam-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 13px 28px rgba(0,0,0,0.18);
+}
+
+
+/* =====================================================
+   DIFFERENT COLORS
+   ===================================================== */
+
+.exam-card:nth-child(1) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+}
+
+
+.exam-card:nth-child(2) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #0d9488
+        );
+}
+
+
+.exam-card:nth-child(3) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #9333ea
+        );
+}
+
+
+.exam-card:nth-child(4) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ea580c,
+            #f59e0b
+        );
+}
+
+
+.exam-card:nth-child(5) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #db2777,
+            #e11d48
+        );
+}
+
+
+.exam-card:nth-child(6) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0891b2,
+            #06b6d4
+        );
+}
+
+
+/* =====================================================
+   CARD TEXT
+   ===================================================== */
+
+.exam-card h2 {
+
+    margin: 0 0 10px;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+
+.exam-card p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.95);
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+    .year-title {
+        text-align: center;
+        margin-top: 45px;
+        font-size: 28px;
+    }
+
+    .get-started {
+        text-align: center;
+        margin: 50px 0 20px;
+    }
+
+    .get-started a {
+        text-decoration: none;
+    }
+
+    .get-started button {
+        padding: 15px 45px;
+        border: none;
+        border-radius: 30px;
+        font-size: 19px;
+        font-weight: bold;
+        cursor: pointer;
+        color: white;
+        background: linear-gradient(90deg, #087f23, #16a34a, #065f46);
+        box-shadow: 0 6px 18px rgba(0, 100, 40, 0.25);
+        transition: transform 0.3s ease;
+    }
+
+    .get-started button:hover {
+        transform: scale(1.06);
+    }
+
+    @media (max-width: 700px) {
+
+    .exams-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .hero {
+        padding: 25px 15px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero h3 {
+        font-size: 18px;
+    }
+
+    .intro {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .exam-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .exam-card {
+        min-height: 130px;
+        padding: 18px;
+    }
+
+    .exam-card h2 {
+        font-size: 20px;
+    }
+
+    .exam-card p {
+        font-size: 12px;
+    }
+
+    .year-title {
+        font-size: 23px;
+        margin-top: 30px;
+    }
+}
+        .hero h1 {
+            font-size: 32px;
+        }
+
+        .intro {
+            font-size: 16px;
+        }
+    }
+</style><div class="exams-container"><div class="hero">
+    <h1>Competitive Exams</h1>
+    <h3>Prepare Today. Perform Better Tomorrow.</h3>
+</div>
+
+<div class="intro">
+    <p>
+        Competitive examinations such as CAT, Banking, SSC, Railway and
+        other entrance and recruitment examinations demand consistent
+        preparation, speed, accuracy and confidence. EduMind helps
+        candidates prepare through realistic mock tests designed to
+        simulate the pressure of the actual examination. Regular practice
+        helps you understand your strengths, identify weak areas and
+        improve your time-management skills. Attempting mock tests before
+        the final examination can make you more familiar with the question
+        pattern and difficulty level. It also helps you learn how to manage
+        difficult questions without wasting valuable time. With continuous
+        practice, you can track your progress and improve your performance
+        step by step. EduMind brings your preparation, practice and
+        performance analysis together in one place. Start preparing early
+        and give yourself the opportunity to perform with greater
+        confidence in the final examination.
+    </p>
+</div>
+
+<h2 class="year-title">Major Exams – 2026</h2>
+
+<div class="exam-grid">
+
+    <div class="exam-card">
+        <h2>CAT</h2>
+        <p>
+            Common Admission Test for admission to leading management
+            institutes. Practice Quantitative Aptitude, VARC and DILR.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>Banking</h2>
+        <p>
+            Prepare for major banking recruitment examinations with
+            practice in Quantitative Aptitude, Reasoning and English.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>SSC</h2>
+        <p>
+            Practice for SSC examinations with questions covering
+            Quantitative Aptitude, Reasoning, English and General Awareness.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>Railway</h2>
+        <p>
+            Build speed and accuracy for Railway recruitment examinations
+            through regular mock-test practice.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>Olympiad</h2>
+        <p>
+            Be a part of the Olympiad movement and prepare for national and
+            international Olympiad examinations in Mathematics, Science and
+            English.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>Other Exams</h2>
+        <p>
+            Explore preparation and mock tests for other competitive and
+            entrance examinations.
+        </p>
+    </div>
+
+</div>
+
+<h2 class="year-title">Upcoming Exams – 2027</h2>
+
+<div class="exam-grid">
+
+    <div class="exam-card">
+        <h2>{{ mock_test.name }} CAT 2026-2027</h2>
+        <p>
+            Start early and build a strong foundation for the next CAT
+            examination cycle.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>Banking 2027</h2>
+        <p>
+            Continue your preparation with regular practice and
+            performance improvement.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>SSC 2027</h2>
+        <p>
+            Prepare ahead of time and improve speed, accuracy and
+            examination confidence.
+        </p>
+    </div>
+
+    <div class="exam-card">
+        <h2>Railway 2027</h2>
+        <p>
+            Begin systematic preparation for upcoming Railway recruitment
+            opportunities.
+        </p>
+    </div>
+
+</div>
+
+<div class="get-started">
+    <a href="{% url 'dashboard' %}">
+        <button>Get Started</button>
+    </a>
+</div>
+
+</div>{% endblock %}

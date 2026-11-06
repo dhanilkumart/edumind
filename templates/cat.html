@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}CAT Mock Tests{% endblock %}
+
+{% block content %}
+
+<div class="mock-page">
+
+    <div class="mock-header">
+
+        <div class="header-content">
+
+            <h1>🎯 CAT Preparation</h1>
+
+            <p>
+                Choose the type of test you want to attempt
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="choice-grid">
+
+        <!-- FULL MOCK TESTS -->
+
+        <div class="choice-card">
+
+            <div class="choice-icon">
+                🏆
+            </div>
+
+            <h2>
+                Full Mock Tests
+            </h2>
+
+            <p>
+                Complete CAT-style mock examinations
+                covering all major sections.
+            </p>
+
+            <div class="choice-info">
+                10 Full Mock Tests
+            </div>
+
+            <a
+                href="{% url 'cat_full_mock_tests' %}"
+                class="choice-btn"
+            >
+                View Full Mock Tests →
+            </a>
+
+        </div>
+
+
+        <!-- SESSION TESTS -->
+
+        <div class="choice-card">
+
+            <div class="choice-icon">
+                📚
+            </div>
+
+            <h2>
+                Session Tests
+            </h2>
+
+            <p>
+                Practice individual CAT sections
+                separately.
+            </p>
+
+            <div class="choice-info">
+                QA • Reasoning • English
+            </div>
+
+            <a
+                href="{% url 'cat_session_tests' %}"
+                class="choice-btn"
+            >
+                View Session Tests →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

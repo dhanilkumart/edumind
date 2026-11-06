@@ -1,0 +1,793 @@
+{% extends "base.html" %}
+
+{% block title %}SSC GD Constable Mock Tests{% endblock %}
+
+{% block page_class %}page-ssc-gd{% endblock %}
+
+{% block content %}
+
+<style>
+
+.gd-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 20px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.gd-header {
+    background:
+        linear-gradient(
+            135deg,
+            #14532d,
+            #16a34a,
+            #0f766e
+        );
+
+    color: white;
+
+    padding: 35px 25px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+}
+
+.gd-header h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 900;
+}
+
+.gd-header h2 {
+    margin: 8px 0;
+
+    font-size: 20px;
+}
+
+.gd-header p {
+    margin: 7px 0;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.gd-section {
+    margin-top: 30px;
+}
+
+.gd-section-title {
+    margin-bottom: 18px;
+
+    color: #14532d;
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.gd-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px, 1fr)
+        );
+
+    gap: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.gd-card {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    border:
+        1px solid #bbf7d0;
+
+    box-shadow:
+        0 7px 24px rgba(0,0,0,.09);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+.gd-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 14px 32px rgba(0,0,0,.15);
+}
+
+.gd-icon {
+    font-size: 42px;
+
+    margin-bottom: 8px;
+}
+
+.gd-card h3 {
+    margin: 8px 0;
+
+    color: #166534;
+
+    font-size: 19px;
+}
+
+.gd-card p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.gd-btn {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding: 11px 20px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #16a34a,
+            #0f766e
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+.gd-btn:hover {
+    transform: scale(1.04);
+}
+
+
+/* =========================
+   FULL MOCK
+========================= */
+
+.gd-full-card {
+    background:
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #ccfbf1
+        );
+
+    border:
+        2px solid #22c55e;
+}
+
+
+/* =========================
+   PHYSICAL TEST
+========================= */
+
+.gd-physical {
+    background:
+        linear-gradient(
+            135deg,
+            #fef3c7,
+            #ffedd5
+        );
+
+    border:
+        2px solid #f59e0b;
+}
+
+
+/* =========================
+   NO TEST
+========================= */
+
+.gd-no-test {
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background: #fff7ed;
+
+    border:
+        1px solid #fed7aa;
+
+    color: #9a3412;
+
+    font-weight: 800;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .gd-page {
+        padding: 12px;
+    }
+
+    .gd-header {
+        padding: 28px 18px;
+    }
+
+    .gd-header h1 {
+        font-size: 30px;
+    }
+
+    .gd-header h2 {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+
+<div class="gd-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="gd-header">
+
+        <h1>🛡️ SSC GD Constable</h1>
+
+        <h2>
+            Staff Selection Commission
+            General Duty Constable
+        </h2>
+
+        <p>
+            Complete SSC GD preparation,
+            mock tests and practice
+        </p>
+
+        <p>
+            🚀 Prepare Smarter with EduMind
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================================
+         COMPUTER BASED EXAM
+    ========================================== -->
+
+    <div class="gd-section">
+
+        <div class="gd-section-title">
+            📝 Computer Based Examination
+        </div>
+
+
+        <div class="gd-grid">
+
+
+            <!-- GENERAL INTELLIGENCE -->
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    General Intelligence
+                </h3>
+
+                <p>
+                    Reasoning, analytical ability,
+                    patterns and logical problems.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- GENERAL KNOWLEDGE -->
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    🌍
+                </div>
+
+                <h3>
+                    General Knowledge
+                </h3>
+
+                <p>
+                    General awareness,
+                    current affairs and
+                    important GK topics.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- MATHEMATICS -->
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Elementary Mathematics
+                </h3>
+
+                <p>
+                    Arithmetic and
+                    elementary mathematics.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <!-- ENGLISH/HINDI -->
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    📖
+                </div>
+
+                <h3>
+                    English / Hindi
+                </h3>
+
+                <p>
+                    Language comprehension,
+                    vocabulary and usage.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         FULL MOCK TESTS
+    ========================================== -->
+
+    <div class="gd-section">
+
+        <div class="gd-section-title">
+            🏆 SSC GD Full Mock Tests
+        </div>
+
+
+        <div class="gd-grid">
+
+
+            {% if mock_tests %}
+
+                {% for test in mock_tests %}
+
+                    <div class="gd-card gd-full-card">
+
+                        <div class="gd-icon">
+                            📝
+                        </div>
+
+                        <h3>
+                            {{ test.name }}
+                        </h3>
+
+                        <p>
+                            {{ test.questions.all|length }}
+                            Questions
+                        </p>
+
+
+                        {% if test.id in attempted_test_ids %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="gd-btn"
+                            >
+                                🔄 Reattempt
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'test' test.id %}"
+                                class="gd-btn"
+                            >
+                                ▶ Start Test
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="gd-no-test">
+                    ⚠️ No Mock Test Uploaded
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PHYSICAL PREPARATION
+    ========================================== -->
+
+    <div class="gd-section">
+
+        <div class="gd-section-title">
+            🏃 Physical Preparation
+        </div>
+
+
+        <div class="gd-grid">
+
+
+            <div class="gd-card gd-physical">
+
+                <div class="gd-icon">
+                    🏃
+                </div>
+
+                <h3>
+                    Running Practice
+                </h3>
+
+                <p>
+                    Build endurance and improve
+                    running performance.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    View Preparation
+                </a>
+
+            </div>
+
+
+
+            <div class="gd-card gd-physical">
+
+                <div class="gd-icon">
+                    💪
+                </div>
+
+                <h3>
+                    Physical Fitness
+                </h3>
+
+                <p>
+                    Fitness preparation for
+                    physical tests.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    View Preparation
+                </a>
+
+            </div>
+
+
+
+            <div class="gd-card gd-physical">
+
+                <div class="gd-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Physical Test Guide
+                </h3>
+
+                <p>
+                    Preparation information for
+                    PET and PST stages.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    View Guide
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PREVIOUS PAPERS
+    ========================================== -->
+
+    <div class="gd-section">
+
+        <div class="gd-section-title">
+            📚 Additional Preparation
+        </div>
+
+
+        <div class="gd-grid">
+
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Previous Papers
+                </h3>
+
+                <p>
+                    Practice previous SSC GD
+                    examination questions.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    View Papers
+                </a>
+
+            </div>
+
+
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Quick Practice
+                </h3>
+
+                <p>
+                    Short tests for
+                    quick revision.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Important SSC GD questions
+                    for examination preparation.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    Practice
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PERFORMANCE
+    ========================================== -->
+
+    <div class="gd-section">
+
+        <div class="gd-section-title">
+            📊 Your SSC GD Preparation
+        </div>
+
+
+        <div class="gd-grid">
+
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Performance
+                </h3>
+
+                <p>
+                    Analyse scores, accuracy
+                    and preparation progress.
+                </p>
+
+                <a
+                    href="{% url 'performance_analysis' %}"
+                    class="gd-btn"
+                >
+                    View Performance
+                </a>
+
+            </div>
+
+
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    🏆
+                </div>
+
+                <h3>
+                    Ranking
+                </h3>
+
+                <p>
+                    Compare your performance
+                    with other candidates.
+                </p>
+
+                <a
+                    href="#"
+                    class="gd-btn"
+                >
+                    View Ranking
+                </a>
+
+            </div>
+
+
+
+            <div class="gd-card">
+
+                <div class="gd-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Previous Attempts
+                </h3>
+
+                <p>
+                    Review your previous
+                    mock-test attempts.
+                </p>
+
+                <a
+                    href="{% url 'previous_tests' %}"
+                    class="gd-btn"
+                >
+                    View Attempts
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

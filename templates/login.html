@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Login - EduMind{% endblock %}
+{% block page_class %}page-login{% endblock %}
+
+{% block content %}
+<style>
+.auth-wrapper {
+    max-width: 440px;
+    margin: 40px auto;
+    padding: 16px;
+}
+.auth-card {
+    background: #fff;
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.07);
+}
+.auth-card h1 {
+    text-align: center;
+    color: #166534;
+    margin-bottom: 8px;
+}
+.auth-subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+.auth-group { margin-bottom: 18px; }
+.auth-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 700;
+    color: #334155;
+}
+.auth-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 15px;
+}
+.auth-input:focus {
+    outline: 2px solid #86efac;
+    border-color: #16a34a;
+}
+.auth-button {
+    width: 100%;
+    padding: 13px;
+    background: #15803d;
+    color: white;
+    border: 0;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.auth-button:hover { background: #166534; }
+.auth-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    padding: 11px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.auth-links {
+    text-align: center;
+    margin-top: 18px;
+    line-height: 2;
+}
+.auth-links a {
+    color: #15803d;
+    text-decoration: none;
+    font-weight: 700;
+}
+</style>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Welcome Back</h1>
+        <p class="auth-subtitle">Login to your EduMind account</p>
+
+        {% if error %}
+            <div class="auth-error" role="alert">{{ error }}</div>
+        {% endif %}
+
+        {% if errors %}
+            {% for message in errors %}
+                <div class="auth-error" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="auth-error" role="status">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="" autocomplete="on">
+            {% csrf_token %}
+
+            <div class="auth-group">
+                <label for="username">User ID / Email / Mobile Number</label>
+                <input
+                    class="auth-input"
+                    type="text"
+                    id="username"
+                    name="username"
+                    value="{{ request.POST.username|default:'' }}"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="auth-group">
+                <label for="password">Password</label>
+                <input
+                    class="auth-input"
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button class="auth-button" type="submit">Login</button>
+        </form>
+
+        <div class="auth-links">
+            <a href="{% url 'forgot_password' %}">Forgot password?</a>
+            <br>
+            Don't have an account?
+            <a href="{% url 'register' %}">Register</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
